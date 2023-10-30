@@ -1,0 +1,9 @@
+diff a/Assets/Master/MasterScene.unity b/Assets/Master/MasterScene.unity	(rejected hunks)
+@@ -592,6 +592,7 @@
+   HPcount: 0
+   EffectLimit: 0.2
+   ShotLimit: 3.5
++  ShotLange: 0
+   SwordDamage: 2
+   SyurikenDamage: 1.5
+   leftLimit: 1
