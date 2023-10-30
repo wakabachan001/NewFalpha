@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.SceneManagement;
+
 public class BossManager : MonoBehaviour
 {
     public float enemyHP;       //敵オブジェクトHP
@@ -39,7 +41,7 @@ public class BossManager : MonoBehaviour
         //敵HPが0以下なら、このオブジェクトを消す
         if (enemyHP <= 0.0f)
         {
-            ClearText.SetActive(true);
+            SceneManager.LoadScene("Clear");
             Destroy(gameObject);
             Debug.Log("敵が倒れた");
         }

@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/shiratori/shiratoriScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Master/Master.unity
+    guid: b684c40b821c862499079cf36deab951
+  - enabled: 1
+    path: Assets/Master/Clear.unity
+    guid: 9b6f39343c46f6248b18102656dc868d
   m_configObjects: {}
