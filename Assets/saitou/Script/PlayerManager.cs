@@ -8,32 +8,33 @@ using UnityEngine;
     public float speed = 1.0f;      //移動距離
     public float shotSpeed = 0.2f;  //手裏剣の速度
     public float playerHP = 4.0f;   //プレイヤーの体力
+    public float barrierCur = 2.0f;  //現在のバリア値
+    public float takesDamage = 2.0f;  //被ダメージ
     
-    public float EffectLimit;       //近距離攻撃の判定が残る時間
-    public float ShotLimit = 3.5f;  //遠距離攻撃の飛距離の上限
-    public float ShotLange;        //遠距離攻撃の飛距離
-    public float SwordDamage = 2.0f;     //近距離攻撃ダメージ
-    public float SyurikenDamage = 1.5f;  //遠距離攻撃ダメージ
+    public float effectLimit;       //近距離攻撃の判定が残る時間
+    public float shotLimit = 3.5f;  //遠距離攻撃の飛距離の上限
+    public float shotLange;        //遠距離攻撃の飛距離
+    public float swordDamage = 2.0f;     //近距離攻撃ダメージ
+    public float syurikenDamage = 1.5f;  //遠距離攻撃ダメージ
 
     public float leftLimit = 1.0f;  //侵入できる左の限界
     public float rightLimit = 5.0f; //侵入できる右の限界
     public float upLimit = 20.0f;   //侵入できる上の限界
-    public float HPposX = 1.0f;
-    public float HPposY = 1.0f;
 
     bool onAttack = false;      //近距離攻撃フラグ
     bool onShot = false;        //遠距離攻撃フラグ
     bool onBottomColumn = true; //下列にいるかどうか
     private float time; //時間計測用
 
-    public GameObject AttackEffect; //近距離攻撃
-    public GameObject ShotEffect;   //遠距離攻撃
-    public GameObject ghostPrefab;  //残像用のプレハブ
-    public HPBar hpbar; //HPBarスクリプト
+    public GameObject AttackEffect;  //近距離攻撃
+    public GameObject ShotEffect;    //遠距離攻撃
+    public GameObject ghostPrefab;   //残像用のプレハブ
+    public HPBar hpbar;              //HPBarスクリプト
+    public BarrierManager barrierbar;//BarrierManagerスクリプト
 
     void Start()
     {
-
+        barrierCur = 2.0f;
     }
 
     // Update is called once per frame
@@ -44,26 +45,30 @@ using UnityEngine;
         Vector2 position = transform.position;
 
         //移動(場外にいかないようにする)
-        if (Input.GetKeyDown("left") && 
+        if ((Input.GetKeyDown("left") ||
+            Input.GetKeyDown(KeyCode.A)) &&
             position.x > leftLimit)
         {
             CloneAfterimage();
             position.x -= speed;
         }
-        if (Input.GetKeyDown("right") && 
+        if ((Input.GetKeyDown("right") ||
+            Input.GetKeyDown(KeyCode.D)) &&
             position.x < rightLimit)
         {
             CloneAfterimage();
             position.x += speed;
         }
-        if (Input.GetKeyDown("up") && 
+        if ((Input.GetKeyDown("up") ||
+            Input.GetKeyDown(KeyCode.W)) &&
             position.y < upLimit)
         {
             CloneAfterimage();
             position.y += speed;
             onBottomColumn = false;
         }
-        if (Input.GetKeyDown("down") && 
+        if ((Input.GetKeyDown("down") ||
+            Input.GetKeyDown(KeyCode.S)) &&
             !onBottomColumn)
         {
             CloneAfterimage();
@@ -91,9 +96,9 @@ using UnityEngine;
         {
             //現在いる列によって飛距離を変更
             if (onBottomColumn)
-                ShotLange = ShotLimit;
+                shotLange = shotLimit;
             else
-                ShotLange = ShotLimit - 1.0f;
+                shotLange = shotLimit - 1.0f;
 
             //プレイヤーの位置に手裏剣のクローン生成
             Instantiate(ShotEffect, transform.position, Quaternion.identity);
@@ -113,7 +118,7 @@ using UnityEngine;
             time += 0.02f;
 
             //timeが指定した時間以上になると
-            if (time >= EffectLimit)
+            if (time >= effectLimit)
             {
                 //攻撃フラグを下げる
                 onAttack = false;
@@ -127,12 +132,13 @@ using UnityEngine;
             time += shotSpeed;
 
             //timeが指定した時間以上になると
-            if (time >= ShotLange)
+            if (time >= shotLange)
             {
                 //攻撃フラグを下げる
                 onShot = false;
             }
         }
+        barrierbar.UpdateBarrier();
         }
 
     //敵などとの接触時のダメージ判定
@@ -142,7 +148,7 @@ using UnityEngine;
         if(collision.gameObject.tag == "EnemyAttack"|| collision.gameObject.tag == "Enemy")
         {
             Debug.Log("ダメージを食らった");
-            playerHP -= 1.0f;   //プレイヤーの体力を減らす（後で右を変更）
+            playerHP -= ( takesDamage / barrierCur );   //プレイヤーの体力を減らす（後で右を変更）
 
             //HPBarの呼び出し
             hpbar.UpdateHP(playerHP);

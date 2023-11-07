@@ -21,13 +21,13 @@ public class EnemyManager : MonoBehaviour
         if(other.gameObject.tag == "Sword")
         {
             Debug.Log("剣のダメージ");
-            enemyHP -= playermanager.SwordDamage; //HPを剣ダメージ分減らす
+            enemyHP -= playermanager.swordDamage; //HPを剣ダメージ分減らす
         }
         //手裏剣との接触
         if (other.gameObject.tag == "Syuriken")
         {
             Debug.Log("手裏剣のダメージ");
-            enemyHP -= playermanager.SyurikenDamage; //HPを手裏剣ダメージ分減らす
+            enemyHP -= playermanager.syurikenDamage; //HPを手裏剣ダメージ分減らす
         }
         //倒れるか調べる
         EnemyDead();

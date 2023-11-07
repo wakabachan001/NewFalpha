@@ -21,7 +21,7 @@ public class SyurikenManager : MonoBehaviour
         playermanager = obj.GetComponent<PlayerManager>();
 
         //lange,speed‚ðplayer‚©‚çŽæ“¾
-        lange = playermanager.ShotLange;
+        lange = playermanager.shotLange;
         speed = playermanager.shotSpeed;
     }
 
