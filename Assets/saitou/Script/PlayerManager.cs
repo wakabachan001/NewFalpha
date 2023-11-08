@@ -32,6 +32,10 @@ using UnityEngine;
     public HPBar hpbar;              //HPBarスクリプト
     public BarrierManager barrierbar;//BarrierManagerスクリプト
 
+    [SerializeField] 
+    private List<ItemData> _itemDataList = new List<ItemData>();   //プレイヤーの所持アイテム
+
+
     void Start()
     {
         barrierCur = 2.0f;
@@ -173,6 +177,24 @@ using UnityEngine;
         //元のオブジェクトの位置に残像を生成
         GameObject ghost =
             Instantiate(ghostPrefab, transform.position, transform.rotation);
+    }
+
+    //アイテムを取得
+    public void CountItem(string itemId, int count)
+    {
+        for (int i = 0; i < _itemDataList.Count; i++)
+        {
+            //IDが一致していたらカウント
+            if (_itemDataList[i].id == itemId)
+            {
+                _itemDataList[i].CountUp(count);
+                break;
+            }
+        }
+
+        //IDが一致しなければアイテムを追加
+        ItemData itemData = new ItemData(itemId, count);
+        _itemDataList.Add(itemData);
     }
 }
 

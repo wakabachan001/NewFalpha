@@ -63,22 +63,4 @@ public class ItemManager : MonoBehaviour
         return null;
     }
 
-
-    //アイテムを取得
-    public void CountItem(string itemId, int count)
-    {
-        for (int i = 0; i < _playerItemDataList.Count; i++)
-        {
-            //IDが一致していたらカウント
-            if (_playerItemDataList[i].id == itemId)
-            {
-                _playerItemDataList[i].CountUp(count);
-                break;
-            }
-        }
-
-        //IDが一致しなければアイテムを追加
-        ItemData itemData = new ItemData(itemId, count);
-        _playerItemDataList.Add(itemData);
-    }
 }
