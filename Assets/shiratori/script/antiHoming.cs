@@ -24,7 +24,6 @@ public class EnemyAntiHoming : MonoBehaviour
     {
         Vector2 position = transform.position;
 
-
         if (position.y <= 20)// YŽ²@ˆÚ“®§ŒÀ
         {
             //  ‹——£‚ðˆê’è‚É•Û‚Â‚Æ“®‚©‚È‚¢
