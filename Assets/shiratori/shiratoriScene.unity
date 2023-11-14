@@ -252,9 +252,9 @@ MonoBehaviour:
   speed: 1
   shotSpeed: 0.2
   playerHP: 4
-  HPcount: 0
   EffectLimit: 0.2
   ShotLimit: 3.5
+  ShotLange: 0
   SwordDamage: 2
   SyurikenDamage: 1.5
   leftLimit: 1
@@ -264,6 +264,8 @@ MonoBehaviour:
   HPposY: 1
   AttackEffect: {fileID: 4204925967101372154, guid: 3cdbf3d1aab4c1a479c70961f9f74a6d, type: 3}
   ShotEffect: {fileID: 1982990320}
+  ghostPrefab: {fileID: 0}
+  hpbar: {fileID: 0}
 --- !u!212 &1786019017
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -316,6 +318,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1925100478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1925100479}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1925100479
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925100478}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.977308, y: 3.1997802, z: -2.0598478}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1982990320 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3445585870904498179, guid: a1a6d43f521c0b041a8ef284e817af41, type: 3}
