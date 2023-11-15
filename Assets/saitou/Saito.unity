@@ -123,6 +123,89 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &84508822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 84508823}
+  - component: {fileID: 84508826}
+  - component: {fileID: 84508825}
+  - component: {fileID: 84508824}
+  m_Layer: 5
+  m_Name: DataInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &84508823
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84508822}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1933200923}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &84508824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84508822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955d55733a32e8c42a2a3fe3c0f0424e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 200
+  maxBarrier: 0.5
+  attckDamage: 30
+  shotDamage: 15
+  initialMoney: 100
+  hpbar: {fileID: 0}
+--- !u!114 &84508825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84508822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b3ba279fc66b754f97eb8aa7494fb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconPosX: 0
+  iconPosY: 0
+--- !u!114 &84508826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84508822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8982640a449bb749b3427cccea22ad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &227916546
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +307,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a83c28501563544a89c2e66575ee81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHP: 8
+  maxHP: 100
+  money: 100
+  attackDamage1: 10
+  attackDamage2: 10
 --- !u!61 &708579085
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -396,11 +482,13 @@ MonoBehaviour:
   shotLange: 0
   swordDamage: 2
   syurikenDamage: 1.5
+  attackCooltime: 0.3
+  shotCooltime: 0.3
   leftLimit: 1
   rightLimit: 5
   upLimit: 20
   AttackEffect: {fileID: 8667471911016283574, guid: 98312e910f09e494c80e7a5c2268ed8a, type: 3}
-  ShotEffect: {fileID: 5007766752859079650, guid: 1757c0b88e0eab747acd89062fa79bdc, type: 3}
+  ShotEffect: {fileID: 5007766752859079650, guid: 6621ed8a2f822314392c7666bb9b5f8e, type: 3}
   ghostPrefab: {fileID: 1288840254261512012, guid: 4111e8414988def49a52c74bd2d50a6c, type: 3}
   hpbar: {fileID: 0}
   barrierbar: {fileID: 1384075985}
@@ -858,6 +946,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1384075982}
+  - {fileID: 84508823}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
