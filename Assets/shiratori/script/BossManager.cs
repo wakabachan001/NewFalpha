@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class BossManager : MonoBehaviour
 {
-    public float enemyHP;       //敵オブジェクトHP
+    public float BossHP;       //敵オブジェクトHP
+    public GameObject NextStageTiles;
 
     //public GameObject ClearText;//クリアテキスト
 
@@ -23,13 +24,13 @@ public class BossManager : MonoBehaviour
         if (other.gameObject.tag == "Sword")
         {
             Debug.Log("剣のダメージ");
-            enemyHP -= playermanager.swordDamage; //HPを剣ダメージ分減らす
+            BossHP -= playermanager.swordDamage; //HPを剣ダメージ分減らす
         }
         //手裏剣との接触
         if (other.gameObject.tag == "Syuriken")
         {
             Debug.Log("手裏剣のダメージ");
-            enemyHP -= playermanager.syurikenDamage; //HPを手裏剣ダメージ分減らす
+            BossHP -= playermanager.syurikenDamage; //HPを手裏剣ダメージ分減らす
         }
         //倒れるか調べる
         EnemyDead();
@@ -39,14 +40,20 @@ public class BossManager : MonoBehaviour
     void EnemyDead()
     {
         //敵HPが0以下なら、このオブジェクトを消す
-        if (enemyHP <= 0.0f)
+        if (BossHP <= 0.0f)
         {
-            GameObject obj = GameObject.Find("ClearText");
-            obj.SetActive(true);
+            //GameObject obj = GameObject.Find("ClearText");
+            //obj.SetActive(true);
 
-            gameObject.SetActive(true);
-            //Destroy(gameObject);
+            //gameObject.SetActive(true);
+            Destroy(gameObject);
             Debug.Log("ボスが倒れた");
+
+                //　ボスHPが０になると次のステージに行くためのマスが表示される
+                if (BossHP <= 0)
+                {
+                    Instantiate(NextStageTiles, new Vector2(5, 20), Quaternion.identity);
+                }
         }
     }
 }
