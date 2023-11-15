@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5007766752859079654}
   - component: {fileID: -5791032129836784235}
   m_Layer: 0
-  m_Name: SyurikenEffect 1
+  m_Name: PlayerSyurikenEffect
   m_TagString: Syuriken
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
