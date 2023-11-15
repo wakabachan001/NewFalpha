@@ -96,7 +96,6 @@ using UnityEngine;
 
             //フラグ管理用コルーチン呼び出し
             StartCoroutine(AttackFlag());
-
         }
 
         //遠距離攻撃
@@ -113,9 +112,24 @@ using UnityEngine;
 
             //プレイヤーの位置に手裏剣のクローン生成
             Instantiate(ShotEffect, transform.position, Quaternion.identity);
-
         }
 
+        //前方を調べる
+        if (Input.GetKeyDown(KeyCode.E) &&
+            !onAttack && !onShot)
+        {
+            Debug.Log("調べる");
+
+            //上方を調べる
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 1.0f);
+
+            //調べた物が宝箱なら
+            if (hit.collider.CompareTag("TreasureBox"))
+            {
+                Debug.Log("宝箱だ！");
+                //宝箱のスクリプトを実行
+            }
+        }
     }
 
     private void FixedUpdate()

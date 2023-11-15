@@ -13,7 +13,7 @@ public class EnemyManager : MonoBehaviour
     private float takeDamage;   //被ダメージ
 
     private StatusData enemyStatus = new StatusData();    //敵ステータスクラス
-    private StatusCalc statusCalc;     //ダメージ計算クラス
+    private StatusCalc statusCalc = new StatusCalc();     //ダメージ計算クラス
 
     void Start()
     {
