@@ -13,7 +13,17 @@ public class enemydrop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+
+        //if(“G‚ÌHP‚ª‚O‚É‚È‚ê‚Î)
+        {
+            // “G‚ğÁ‚·
+            //Destoroy(enemy)
+
+            //“G‚ª‚¢‚½ˆÊ’u‚É‚¨‹à‚ğ¶‚İo‚·
+
+
+        }
 
 
 
