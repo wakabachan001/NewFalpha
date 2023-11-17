@@ -51,7 +51,8 @@ public class PlayerStatusManager : MonoBehaviour
     //‚¨‹àŠl“¾ŠÖ”
     public void GettingMoney(int money)
     {
-        playerStatus.Money += money;
+        Debug.Log("‚¨‹àæ“¾");
+        playerStatus.Money += statusCalc.MoneyCalc(money);
     }
 
     //ƒ_ƒ[ƒW‚ğó‚¯‚éŠÖ”

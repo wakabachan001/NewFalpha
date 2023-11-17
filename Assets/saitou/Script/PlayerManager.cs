@@ -34,6 +34,7 @@ using UnityEngine;
     public BarrierManager barrierbar;//BarrierManagerスクリプト
     private GameObject dataInfo;     //DataInfoオブジェクト
     private PlayerStatusManager playerStatus;//PlayerStatusManagerスクリプト
+    private TresureBoxManager tresureBox;    //TresureBoxManagerスクリプト
 
     void Start()
     {
@@ -49,7 +50,6 @@ using UnityEngine;
 
     void Update()
     {
-        
 
         //移動(場外にいかないようにする)
         if ((Input.GetKeyDown("left") ||
@@ -118,16 +118,26 @@ using UnityEngine;
         if (Input.GetKeyDown(KeyCode.E) &&
             !onAttack && !onShot)
         {
+            Debug.DrawRay(transform.position + (transform.up * 0.5f),  transform.up * 0.8f, Color.green, 0.5f);
+
             Debug.Log("調べる");
 
-            //上方を調べる
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 1.0f);
+            //プレイヤーの上から、上方を調べる
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + (transform.up * 0.5f), Vector2.up, 0.8f);
+
+            if(hit.collider)
+            {
+                Debug.Log(hit.collider.gameObject.name);
+            }
 
             //調べた物が宝箱なら
             if (hit.collider.CompareTag("TreasureBox"))
             {
-                Debug.Log("宝箱だ！");
+                Debug.Log("宝箱だ");
                 //宝箱のスクリプトを実行
+                tresureBox = hit.collider.gameObject.GetComponent<TresureBoxManager>();
+
+                tresureBox.OpenBox();
             }
         }
     }

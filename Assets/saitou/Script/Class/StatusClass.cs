@@ -62,36 +62,106 @@ public class PlayerStatusData : StatusData
 //ステータス計算クラス
 public class StatusCalc
 {
-    private float addDamage;      //追加ダメージ(+)
-    private float increaseDamage; //増加ダメージ(*)
+    private float addAttack;      //追加ダメージ(+)
+    private float increaseAttack; //増加ダメージ(*)
+    private float addBlock;         //防御+
+    private float increaseBlock;    //防御（割合）＊
+
+    private float addCriticalDamage;    //会心ダメージ
+    private float addCriticalChance;    //会心率
+    private int addMoney;               //所持金追加
 
     //コンストラクタ
     public StatusCalc()
     {
         //初期化
-        addDamage = 0.0f;
-        increaseDamage = 1.0f;
+        addAttack = 0f;
+        increaseAttack = 1f;
+        addBlock = 0f;
+        increaseBlock = 1f;
+
+        addCriticalDamage = 0f;
+        addCriticalChance = 0f;
+        addMoney = 0;
     }
     //ダメージ計算関数
     public float DamageCalc(float damage)
     {
-        return (damage + addDamage) * increaseDamage;
+        //1~100のランダム
+        int dice = Random.RandomRange(1, 101);
+
+        //ランダムの値が、クリティカル率以下なら
+        if( dice <= 2 + addCriticalChance)
+        {
+            //クリティカルダメージを加える
+            return (damage + addAttack) * increaseAttack * addCriticalDamage;
+        }
+        else
+        {
+            //通常のダメージ
+            return (damage + addAttack) * increaseAttack;
+        }     
     }
     //体力計算関数
-    public float HPCalc(float HP, float damage, float barrier = 1.0f)
+    public float HPCalc(float hp, float damage, float barrier = 1.0f)
     {
-        return HP - (damage * barrier);
+        return hp - ((damage - addBlock)* increaseBlock * barrier);
     }
-    //AddDamageプロパティ
-    public float AddDamage
+    //体力回復関数
+    public float HealHP(float maxhp, float hp, float heal)
     {
-        get { return addDamage; }
-        set { addDamage = value; }
+        //回復して最大体力を超えるなら
+        if (hp + heal >= maxhp)
+        {
+            //現在の体力を最大体力と同じにする
+            return maxhp;
+        }
+        else
+        {
+            //現在の体力を回復する
+            return hp + heal;
+        }
     }
-    //IncreaseDamageプロパティ
-    public float IncreaseDamage
+    //取得金額計算関数
+    public int MoneyCalc(int money)
     {
-        get { return increaseDamage; }
-        set { increaseDamage = value; }
+        return money + addMoney;
+    }
+
+    //プロパティ
+    public float AddAttack
+    {
+        get { return addAttack; }
+        set { addAttack = value; }
+    }
+    public float IncreaseAttack
+    {
+        get { return increaseAttack; }
+        set { increaseAttack = value; }
+    }
+    public float AddBlock
+    {
+        get { return addBlock; }
+        set { addBlock = value; }
+    }
+    public float IncreaseBlock
+    {
+        get { return increaseBlock; }
+        set { increaseBlock = value; }
+    }
+    public float AddCriticalDamage
+    {
+        get { return addCriticalDamage; }
+        set { addCriticalDamage = value; }
+    }
+    public float AddCriticalChance
+    {
+        get { return addCriticalChance; }
+        set { addCriticalChance = value; }
+    }
+    public int AddMoney
+    {
+        get { return addMoney; }
+        set { addMoney = value; }
     }
 }
