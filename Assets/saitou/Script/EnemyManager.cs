@@ -13,7 +13,10 @@ public class EnemyManager : MonoBehaviour
     private float takeDamage;   //被ダメージ
 
     private StatusData enemyStatus = new StatusData();    //敵ステータスクラス
-    private StatusCalc statusCalc;     //ダメージ計算クラス
+    private StatusCalc statusCalc = new StatusCalc();     //ダメージ計算クラス
+
+    PlayerStatusManager playerStatusManager;//PlayerStatusManagerスクリプト
+    GameObject obj;//DataInfo用
 
     void Start()
     {
@@ -32,8 +35,8 @@ public class EnemyManager : MonoBehaviour
     //他collider接触時
     void OnTriggerEnter2D(Collider2D other)
     {
-        PlayerStatusManager playerStatusManager;
-        GameObject obj = GameObject.Find("DataInfo");
+        //DataInfoのPlayerStatusManagerを取得
+        obj = GameObject.Find("DataInfo");
         playerStatusManager = obj.GetComponent<PlayerStatusManager>();
 
         Debug.Log("OnTriggerEnter2D: " + other.gameObject.name);
@@ -70,6 +73,9 @@ public class EnemyManager : MonoBehaviour
         //敵HPが0以下なら、このオブジェクトを消す
         if (currentHP <= 0.0f)
         {
+            //プレイヤーの所持金を増やす
+            playerStatusManager.GettingMoney(enemyStatus.Money);
+
             Destroy(gameObject);
             Debug.Log("敵が倒れた");
         }
