@@ -24,7 +24,7 @@ using UnityEngine;
 
     bool onAttack = false;      //近距離攻撃フラグ
     bool onShot = false;        //遠距離攻撃フラグ
-    bool onBottomColumn = true; //下列にいるかどうか
+    bool onBottomColumn = false; //下列にいるかどうか
     private float time; //時間計測用
 
     Vector2 position; //プレイヤーの座標用
@@ -81,7 +81,7 @@ using UnityEngine;
             CloneAfterimage();
             position.y -= speed;
             //ボスエリアより手前なら
-            if(transform.position.y < 19.0f)
+            if(transform.position.y < 20.0f)
                 onBottomColumn = true;  //後退時に下列にいることにする
         }
         
@@ -200,6 +200,10 @@ using UnityEngine;
             Instantiate(ghostPrefab, transform.position, transform.rotation);
     }
 
+    public void ResetPos(Vector2 pos)
+    {
+        position = pos;
+    }
 }
 
 

@@ -24,12 +24,17 @@ public class CreateMap : MonoBehaviour
     public GameObject warpZone;  //ワープゾーンオブジェクト
     public GameObject shop;      //商人オブジェクト
     public GameObject[] enemyObj = new GameObject[2];//生成する敵オブジェクト
-    public int[] enemyCount = new int[2]; //生成する敵の数
+    public int[] enemyNum = new int[2];              //生成する敵の数
+    private int[] enemyCount = new int[2]; //カウント用
 
     //オブジェクトの位置情報を保存する変数
     private Transform boardHolder;
 
+    PlayerManager playerManager;
+
+    [SerializeField]
     private int start;
+    [SerializeField]
     private int end;
     Vector2 pos;
 
@@ -37,6 +42,8 @@ public class CreateMap : MonoBehaviour
     void Start()
     {
         shopRand = Random.RandomRange(1, 4);
+        GameObject obj = GameObject.Find("Player");
+        playerManager = obj.GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
@@ -45,7 +52,17 @@ public class CreateMap : MonoBehaviour
         if (onNext)
         {
             //onNextがオンになったとき、クローン全削除
+            DestroyClone();
+
             mapCount++;
+
+            //1マップ目だけ地面の生成
+            if(mapCount == 1)
+            {
+                //床生成
+                BoardSetup();
+            }
+
             if(mapCount < 5)
             {
                 //マップ生成
@@ -62,10 +79,12 @@ public class CreateMap : MonoBehaviour
     //マップ生成関数
     private void MapCreate()
     {
-        BoardSetup();
-
         start = mapEnemyMinY * mapWidth;
-        end = mapEnemyMaxY * (mapWidth + 1);
+        end = ((mapEnemyMaxY+1) * mapWidth)-1;
+
+        //カウント用の変数を初期化
+        for (int i = 0; i < enemyNum.Length; i++)
+            enemyCount[i] = enemyNum[i];
 
         List<int> mapNum = new List<int>();
 
@@ -93,10 +112,13 @@ public class CreateMap : MonoBehaviour
         Instantiate(tresureBox, new Vector2(2f, 21f), Quaternion.identity);
         Instantiate(warpZone, new Vector2(4f, 21f), Quaternion.identity);
         Instantiate(shop, new Vector2(1f, 21f), Quaternion.identity);//商人は後で制限する
-        Instantiate(player, new Vector2(2f, 1f), Quaternion.identity);
+        //Instantiate(player, new Vector2(2f, 1f), Quaternion.identity);
+        
 
         //カメラを移動
         transform.position = new Vector3(cameraPosX, cameraPosY, cameraPosZ);
+
+        playerManager.ResetPos(new Vector2(2f, 1f));
     }
 
     //床を配置
@@ -122,5 +144,25 @@ public class CreateMap : MonoBehaviour
                 instance.transform.SetParent(boardHolder);
             }
         }
+    }
+
+    void DestroyClone()
+    {
+        var enemyClones = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach(var enemyclone in enemyClones)
+        {
+            Destroy(enemyclone);
+        }
+
+        //動かない
+        var boxClones = GameObject.FindGameObjectsWithTag("TreasureBox");
+        foreach (var clone in enemyClones)
+        {
+            Destroy(clone);
+        }
+
+        //shop削除
+
+        //ワープゾーン削除
     }
 }
