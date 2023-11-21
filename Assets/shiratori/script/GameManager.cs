@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public BoardManager boardScript;
     //テストとしてレベルを３にしておく
-    private int level = 3;
+    //private int level = 3;
 
     //Awake:Sceneを移動した時即座に実行される
     private void Awake()
@@ -19,6 +19,6 @@ public class GameManager : MonoBehaviour
     void InitGame()
     {
         //BoardManagerのSetupSceneメソッドを実行
-        boardScript.SetupScene(level);
+        boardScript.SetupScene();
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6193566400078125223}
   - component: {fileID: 2422524143758440850}
   - component: {fileID: 1011104007388194767}
-  - component: {fileID: -3289449516354407712}
+  - component: {fileID: -6949321285967774927}
   m_Layer: 0
   m_Name: Boss01
   m_TagString: Boss
@@ -134,7 +134,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
---- !u!114 &-3289449516354407712
+--- !u!114 &-6949321285967774927
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,9 +143,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1266449635877620123}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a83c28501563544a89c2e66575ee81c, type: 3}
+  m_Script: {fileID: 11500000, guid: 39dd4e85e04eac649a57f1c5fa98bebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHP: 10
-  swordDamage: 2
-  syurikenDmage: 1
+  BossHP: 12
+  NextStageTiles: {fileID: 8983088803998686249, guid: 7466a142b4958784ea96b7b0bae64908, type: 3}

@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Master/Clear.unity
     guid: 9b6f39343c46f6248b18102656dc868d
+  - enabled: 0
+    path: Assets/shiratori/first_stage.unity
+    guid: 3c3b5e09ee8347a42af5cf28967515a7
+  - enabled: 1
+    path: Assets/shiratori/Second_Stage.unity
+    guid: d774489f38ed8f24e9f457c4f2941d52
   m_configObjects: {}

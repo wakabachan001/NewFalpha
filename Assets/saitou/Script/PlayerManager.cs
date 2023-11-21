@@ -5,17 +5,18 @@ using UnityEngine;
     // Start is called before the first frame update
     public class PlayerManager : MonoBehaviour
     {
+    public float swordDamage;
+    public float syurikenDamage;//後で削除（BossManagerをいじる）
+
     public float speed = 1.0f;      //移動距離
     public float shotSpeed = 0.2f;  //手裏剣の速度
-    public float playerHP = 4.0f;   //プレイヤーの体力
-    public float barrierCur = 2.0f;  //現在のバリア値
     public float takesDamage = 2.0f;  //被ダメージ
     
     public float effectLimit;       //近距離攻撃の判定が残る時間
     public float shotLimit = 3.5f;  //遠距離攻撃の飛距離の上限
     public float shotLange;        //遠距離攻撃の飛距離
-    public float swordDamage = 2.0f;     //近距離攻撃ダメージ
-    public float syurikenDamage = 1.5f;  //遠距離攻撃ダメージ
+    public float attackCooltime = 0.3f;//近距離攻撃クールタイム
+    public float shotCooltime = 0.3f;  //遠距離攻撃クールタイム
 
     public float leftLimit = 1.0f;  //侵入できる左の限界
     public float rightLimit = 5.0f; //侵入できる右の限界
@@ -26,27 +27,29 @@ using UnityEngine;
     bool onBottomColumn = true; //下列にいるかどうか
     private float time; //時間計測用
 
+    Vector2 position; //プレイヤーの座標用
     public GameObject AttackEffect;  //近距離攻撃
     public GameObject ShotEffect;    //遠距離攻撃
     public GameObject ghostPrefab;   //残像用のプレハブ
-    public HPBar hpbar;              //HPBarスクリプト
     public BarrierManager barrierbar;//BarrierManagerスクリプト
-
-    [SerializeField] 
-    private List<ItemData> _itemDataList = new List<ItemData>();   //プレイヤーの所持アイテム
-
+    private GameObject dataInfo;     //DataInfoオブジェクト
+    private PlayerStatusManager playerStatus;//PlayerStatusManagerスクリプト
+    private TresureBoxManager tresureBox;    //TresureBoxManagerスクリプト
 
     void Start()
     {
-        barrierCur = 2.0f;
+        //DataInfoオブジェクトのPlayerStatusManagerを取得
+        dataInfo = GameObject.Find("DataInfo");
+        playerStatus = dataInfo.GetComponent<PlayerStatusManager>();
+
+        //プレイヤー座標の取得
+        position = transform.position;
     }
 
     // Update is called once per frame
 
     void Update()
     {
-        //プレイヤー座標の取得
-        Vector2 position = transform.position;
 
         //移動(場外にいかないようにする)
         if ((Input.GetKeyDown("left") ||
@@ -83,7 +86,7 @@ using UnityEngine;
         }
         
 
-        transform.position = position;  //座標の更新
+        
 
         //近距離攻撃
         if (Input.GetKeyDown(KeyCode.Space) && !onAttack && !onShot)//攻撃開始時(Spaceキーを押すと攻撃開始)
@@ -91,8 +94,8 @@ using UnityEngine;
             //プレイヤーの前方に攻撃エフェクトのクローン生成
             Instantiate(AttackEffect, transform.position + transform.up, Quaternion.identity);
 
-            time = 0.0f;        //時間のリセット
-            onAttack = true;    //攻撃フラグオン
+            //フラグ管理用コルーチン呼び出し
+            StartCoroutine(AttackFlag());
         }
 
         //遠距離攻撃
@@ -104,46 +107,47 @@ using UnityEngine;
             else
                 shotLange = shotLimit - 1.0f;
 
+            //フラグ管理用コルーチン呼び出し
+            StartCoroutine(ShotFlag());
+
             //プレイヤーの位置に手裏剣のクローン生成
             Instantiate(ShotEffect, transform.position, Quaternion.identity);
-
-            time = 0.0f;        //時間のリセット
-            onShot = true;      //攻撃フラグオン
         }
 
+        //前方を調べる
+        if (Input.GetKeyDown(KeyCode.E) &&
+            !onAttack && !onShot)
+        {
+            Debug.DrawRay(transform.position + (transform.up * 0.5f),  transform.up * 0.8f, Color.green, 0.5f);
+
+            Debug.Log("調べる");
+
+            //プレイヤーの上から、上方を調べる
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + (transform.up * 0.5f), Vector2.up, 0.8f);
+
+            if(hit.collider)
+            {
+                Debug.Log(hit.collider.gameObject.name);
+            }
+
+            //調べた物が宝箱なら
+            if (hit.collider.CompareTag("TreasureBox"))
+            {
+                Debug.Log("宝箱だ");
+                //宝箱のスクリプトを実行
+                tresureBox = hit.collider.gameObject.GetComponent<TresureBoxManager>();
+
+                tresureBox.OpenBox();
+            }
+        }
     }
 
-        private void FixedUpdate()
-        {
-        //近距離攻撃処理
-        if (onAttack)
-        {
-            //１秒で1.0f増やす
-            time += 0.02f;
+    private void FixedUpdate()
+    {
+        transform.position = position;  //座標の更新
 
-            //timeが指定した時間以上になると
-            if (time >= effectLimit)
-            {
-                //攻撃フラグを下げる
-                onAttack = false;
-            }
-        }
-
-        //遠距離攻撃処理
-        if (onShot)
-        {
-            //timeを速度と同じだけ増やす
-            time += shotSpeed;
-
-            //timeが指定した時間以上になると
-            if (time >= shotLange)
-            {
-                //攻撃フラグを下げる
-                onShot = false;
-            }
-        }
         barrierbar.UpdateBarrier();
-        }
+    }
 
     //敵などとの接触時のダメージ判定
     private void OnTriggerEnter2D(Collider2D collision)
@@ -151,24 +155,41 @@ using UnityEngine;
         //接触タグが敵の攻撃か、敵本体ならHPを減らす
         if(collision.gameObject.tag == "EnemyAttack"|| collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("ダメージを食らった");
-            playerHP -= ( takesDamage / barrierCur );   //プレイヤーの体力を減らす（後で右を変更）
-
-            //HPBarの呼び出し
-            hpbar.UpdateHP(playerHP);
-
-            PlayerDead();       //プレイヤーが倒れるかチェック
+            //被ダメージ関数を呼び、falseが返ってきたなら ( HPが0以下でfalse )
+            if (playerStatus.TakeDamage(takesDamage) == false)
+            {
+                //プレイヤーが倒れる
+                PlayerDead();
+            }                
         }
+    }
+
+    //近距離攻撃フラグ管理
+    private IEnumerator AttackFlag()
+    {
+        onAttack = true;
+
+        //待機
+        yield return new WaitForSeconds(attackCooltime);
+
+        onAttack = false;
+    }
+    //遠距離攻撃フラグ管理
+    private IEnumerator ShotFlag()
+    {
+        onShot = true;
+
+        //待機
+        yield return new WaitForSeconds(shotCooltime);
+
+        onShot = false;
     }
 
     //プレイヤーがやられたとき関数
     void PlayerDead()
     {
-        if (playerHP <= 0)
-        {
-            Debug.Log("やられた");
-            Destroy(gameObject, 0.4f);
-        }
+        Debug.Log("やられた");
+        Destroy(gameObject, 0.4f);
     }
 
     //残像生成関数
@@ -179,23 +200,6 @@ using UnityEngine;
             Instantiate(ghostPrefab, transform.position, transform.rotation);
     }
 
-    //アイテムを取得
-    public void CountItem(string itemId, int count)
-    {
-        for (int i = 0; i < _itemDataList.Count; i++)
-        {
-            //IDが一致していたらカウント
-            if (_itemDataList[i].id == itemId)
-            {
-                _itemDataList[i].CountUp(count);
-                break;
-            }
-        }
-
-        //IDが一致しなければアイテムを追加
-        ItemData itemData = new ItemData(itemId, count);
-        _itemDataList.Add(itemData);
-    }
 }
 
 

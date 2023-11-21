@@ -11,12 +11,12 @@ public class HPBar : MonoBehaviour
     void Awake()
     {
         //PlayerManager‚Ì“Ç‚İ‚İ
-        PlayerManager playermanager;
-        GameObject obj = GameObject.Find("Player");
-        playermanager = obj.GetComponent<PlayerManager>();
+        PlayerStatusManager playerStatusManager;
+        GameObject obj = GameObject.Find("DataInfo");
+        playerStatusManager = obj.GetComponent<PlayerStatusManager>();
 
-        //Å‘å‘Ì—Í‚ğPlayermManager‚©‚çQÆ
-        maxHealth = playermanager.playerHP;
+        //Å‘å‘Ì—Í‚ğPlayermStatusManager‚©‚çQÆ
+        maxHealth = playerStatusManager.MaxHP;
 
         ////Œ»İ‚ÌHP‚ğ‰Šú‰»
         //currentHealth = maxHealth;

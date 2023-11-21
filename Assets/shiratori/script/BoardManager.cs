@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour
 {
+
     //カウント用のクラスを設定
     [Serializable]
     public class Count
@@ -28,13 +29,12 @@ public class BoardManager : MonoBehaviour
 
     public Count enemyCount = new Count(14, 20);
 
-    public GameObject floorTiles;
-
-    public GameObject BossTiles;
+    public GameObject   floorTiles;
+    public GameObject   BossTiles;
     public GameObject[] enemyTiles;
 
-        //オブジェクトの位置情報を保存する変数
-        private Transform boardHolder;
+    //オブジェクトの位置情報を保存する変数
+    private Transform boardHolder;
 
         //オブジェクトを配置できる範囲を表すリスト
         //Ｌｉｓｔは可変型の配列
@@ -115,22 +115,21 @@ public class BoardManager : MonoBehaviour
 
     //オブジェクトを配置していくメソッド
     //このクラス内唯一のpublicメソッド床を生成するタイミングでGameManagerから呼ばれる
-    public void SetupScene(int level)
+    public void SetupScene()
     {
+
         //床を配置し、
         BoardSetup();
         //敵キャラを配置できる位置を決定し、
         InitialiseList();
 
         //Instantiate(生成したいGameObject, 位置, );
-
         Instantiate(BossTiles, new Vector2(3, rows + adjustment), Quaternion.identity);
 
         //敵キャラをランダムで配置し、
         LayoutObjectAtRandom(enemyTiles, enemyCount.minimum, enemyCount.maximum);
-        //Mathf.Log：対数で計算。level＝２なら４、level＝３なら８
-            // enemyCount = (int)Mathf.Log(level, 2f);
-       // LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+
     }
-    
+
+
 }
