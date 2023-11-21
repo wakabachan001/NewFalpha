@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class DeleteAreaManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        
-    }
+        //Œ•‚Æ‚ÌÚG
+        if (other.gameObject.tag == "Enemy")
+        {
+            Debug.Log("“G‚Ìíœ");
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            Destroy(other);
+        }
     }
 }
