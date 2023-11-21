@@ -50,11 +50,11 @@ public class Enemy02AI : MonoBehaviour
             //@“G‚O‚Q‚ð¶‰E‚ÉˆÚ“®‚³‚¹‚é----------------------------------------------------------------
             transform.position = new Vector2(position.x += movelength, position.y);
 
-            if (transform.position.x > 5)
+            if (transform.position.x > 4)
             {
                 movelength *= hanpuku;
             }
-            if (transform.position.x < 1)
+            if (transform.position.x < 0)
             {
                 movelength *= hanpuku;
             }

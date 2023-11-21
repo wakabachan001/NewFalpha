@@ -59,6 +59,40 @@ public class ItemManager : MonoBehaviour
 
     }
 
+    //名前を返す関数
+    public string GetName(string id)
+    {
+        //アイテムデータを全て探す
+        for (int i = 0; i < ItemData.Count; i++)
+        {
+            //IDが一致したなら
+            if (ItemData[i].Id == id)
+            {
+                return ItemData[i].ItemName;
+            }
+        }
+        //引数のIDがアイテムデータに存在しないなら
+        Debug.Log("!指定したアイテムの名前が見つかりません");
+        return null;
+    }
+
+    //説明文を返す関数
+    public string GetDescription(string id)
+    {
+        //アイテムデータを全て探す
+        for (int i = 0; i < ItemData.Count; i++)
+        {
+            //IDが一致したなら
+            if (ItemData[i].Id == id)
+            {
+                return ItemData[i].Description;
+            }
+        }
+        //引数のIDがアイテムデータに存在しないなら
+        Debug.Log("!指定したアイテムの説明文が見つかりません");
+        return null;
+    }
+
     //購入価格を返す関数
     public int GetBuyingPrice(string id)
     {
