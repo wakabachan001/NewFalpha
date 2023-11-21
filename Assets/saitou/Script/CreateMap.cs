@@ -17,7 +17,12 @@ public class CreateMap : MonoBehaviour
     public int mapEnemyMinY = 4;  //敵が生成される範囲
     public int mapEnemyMaxY = 19;
 
-    public GameObject floorTiles;
+    public GameObject floorTiles;//床オブジェクト
+
+    public GameObject player;    //プレイヤーオブジェクト
+    public GameObject tresureBox;//宝箱オブジェクト
+    public GameObject warpZone;  //ワープゾーンオブジェクト
+    public GameObject shop;      //商人オブジェクト
     public GameObject[] enemyObj = new GameObject[2];//生成する敵オブジェクト
     public int[] enemyCount = new int[2]; //生成する敵の数
 
@@ -84,8 +89,11 @@ public class CreateMap : MonoBehaviour
             }
 
         }
-
         //諸々生成
+        Instantiate(tresureBox, new Vector2(2f, 21f), Quaternion.identity);
+        Instantiate(warpZone, new Vector2(4f, 21f), Quaternion.identity);
+        Instantiate(shop, new Vector2(1f, 21f), Quaternion.identity);//商人は後で制限する
+        Instantiate(player, new Vector2(2f, 1f), Quaternion.identity);
 
         //カメラを移動
         transform.position = new Vector3(cameraPosX, cameraPosY, cameraPosZ);

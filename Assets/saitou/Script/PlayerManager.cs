@@ -18,9 +18,9 @@ using UnityEngine;
     public float attackCooltime = 0.3f;//‹ß‹——£UŒ‚ƒN[ƒ‹ƒ^ƒCƒ€
     public float shotCooltime = 0.3f;  //‰“‹——£UŒ‚ƒN[ƒ‹ƒ^ƒCƒ€
 
-    public float leftLimit = 1.0f;  //N“ü‚Å‚«‚é¶‚ÌŒÀŠE
-    public float rightLimit = 5.0f; //N“ü‚Å‚«‚é‰E‚ÌŒÀŠE
-    public float upLimit = 20.0f;   //N“ü‚Å‚«‚éã‚ÌŒÀŠE
+    public float leftLimit = 0.0f;  //N“ü‚Å‚«‚é¶‚ÌŒÀŠE
+    public float rightLimit = 4.0f; //N“ü‚Å‚«‚é‰E‚ÌŒÀŠE
+    public float upLimit = 21.0f;   //N“ü‚Å‚«‚éã‚ÌŒÀŠE
 
     bool onAttack = false;      //‹ß‹——£UŒ‚ƒtƒ‰ƒO
     bool onShot = false;        //‰“‹——£UŒ‚ƒtƒ‰ƒO

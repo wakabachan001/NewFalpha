@@ -63,6 +63,10 @@ public class EnemyManager : MonoBehaviour
             //HPŒvŽZ
             currentHP = statusCalc.HPCalc(currentHP, takeDamage);
         }
+        if (other.gameObject.tag == "DeleteArea")
+        {
+            Destroy(gameObject);
+        }
         //“|‚ê‚é‚©’²‚×‚é
         EnemyDead();
     }
