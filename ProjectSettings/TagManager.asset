@@ -12,6 +12,7 @@ TagManager:
   - EnemyAttack
   - ActiveArea
   - Item
+  - TreasureBox
   layers:
   - Default
   - TransparentFX

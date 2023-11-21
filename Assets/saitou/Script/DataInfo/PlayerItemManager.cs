@@ -7,9 +7,16 @@ public class PlayerItemManager : MonoBehaviour
 {
     //プレイヤー所持アイテムリスト
     private List<string> havingItem = new List<string>();
-    private float addDamage;
-    private float increaseDamage;
-    private float addMaxHP;
+    private float addMaxHP;         //最大体力＋
+    private float addAttack;        //攻撃＋
+    private float increaseAttack;   //攻撃（割合）＊
+    private float addBlock;         //防御+
+    private float increaseBlock;    //防御（割合）＊
+
+    private float addCriticalDamage;    //会心ダメージ
+    private float addCriticalChance;    //会心率
+    private float takeDamage;           //自傷ダメージ
+    private int addMoney;             //所持金追加
 
     [SerializeField] private float iconPosX;//アイコンの初期位置X（左上）
     [SerializeField] private float iconPosY;//アイコンの初期位置Y（左上）
@@ -32,10 +39,15 @@ public class PlayerItemManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //変数のリセット　後で初期値を変数化
-        addDamage = 0;
+        //変数のリセット
         addMaxHP = 0;
-        increaseDamage = 1;
+        addAttack = 0;
+        increaseAttack = 1;
+        addBlock = 0;
+        increaseBlock = 1;
+        addCriticalDamage = 0;
+        addCriticalChance = 0;
+        addMoney = 0;
 
         //所持アイテムの効果を計算
         for (int i = 0; i < havingItem.Count; i++)
@@ -44,18 +56,23 @@ public class PlayerItemManager : MonoBehaviour
             switch (havingItem[i])
             {
                 case "str_up":
-                    addDamage += 2.0f;
+                    addAttack += 2.0f;
                     break;
                 case "maxhp_up":
                     addMaxHP += 100.0f;
                     break;
                 default:
-                    Debug.Log("!所持アイテムが見つかりません");
+                    Debug.Log("!アイテム効果が見つかりません");
                     break;
             }
             //プレイヤーステータスクラス内の計算クラスに代入
-            playerStatusManager.statusCalc.AddDamage = addDamage;
-            playerStatusManager.statusCalc.IncreaseDamage = increaseDamage;
+            playerStatusManager.statusCalc.AddAttack = addAttack;
+            playerStatusManager.statusCalc.IncreaseAttack = increaseAttack;
+            playerStatusManager.statusCalc.AddBlock = addBlock;
+            playerStatusManager.statusCalc.IncreaseBlock = increaseBlock;
+            playerStatusManager.statusCalc.AddCriticalChance = addCriticalChance;
+            playerStatusManager.statusCalc.AddCriticalDamage = addCriticalDamage;
+            playerStatusManager.statusCalc.AddMoney = addMoney;
         }
     }
 
