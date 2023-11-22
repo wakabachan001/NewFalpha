@@ -14,9 +14,9 @@ public class ItemSerect : MonoBehaviour
     [SerializeField] private EventSystem eventSystem;
     //[SerializeField] GameObject[] Item = new GameObject[12];
 
-    GameObject SelectButton ;
+    GameObject SelectButton;
     GameObject FindID;
-    GameObject datainfo; 
+    GameObject datainfo;
     ItemManager itemmanager = new ItemManager();
     PlayerItemManager PIM = new PlayerItemManager();
 
@@ -35,7 +35,7 @@ public class ItemSerect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             ActiveItemSelectUI();
         }
@@ -66,8 +66,9 @@ public class ItemSerect : MonoBehaviour
     public void ItemChoice(int objectname)
     {
 
-        PIM.AddItem(ItemId[objectname]); Debug.Log("ステータス上昇"+objectname);
-
+        PIM.AddItem(ItemId[objectname]);
+        Debug.Log("ステータス上昇" + objectname);
+        PIM.CheckHaveItem();
         //if (objectname == "Item0")
         //{
         //    PIM.AddItem(ItemId[0]); Debug.Log("ステータス上昇");
