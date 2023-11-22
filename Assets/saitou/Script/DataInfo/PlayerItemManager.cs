@@ -91,6 +91,7 @@ public class PlayerItemManager : MonoBehaviour
             {
                 //未所持なら
                 havingItem.Add(id);//所持アイテムにidを追加
+                Debug.Log(id + "を獲得しました");
             }
     }
     //アイテム廃棄関数
@@ -131,6 +132,15 @@ public class PlayerItemManager : MonoBehaviour
         {
             //子としてImageを持つPrefabをクローン
             //クローンしたオブジェクト
+        }
+    }
+
+    //所持アイテムデバッグ表示関数
+    public void CheckHaveItem()
+    {
+        for(int i = 0; i < havingItem.Count;i++)
+        {
+            Debug.Log(i + " : " + havingItem[i]);
         }
     }
 }
