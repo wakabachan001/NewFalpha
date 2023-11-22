@@ -18,13 +18,16 @@ using UnityEngine;
     public float attackCooltime = 0.3f;//近距離攻撃クールタイム
     public float shotCooltime = 0.3f;  //遠距離攻撃クールタイム
 
-    public float leftLimit = 1.0f;  //侵入できる左の限界
-    public float rightLimit = 5.0f; //侵入できる右の限界
-    public float upLimit = 20.0f;   //侵入できる上の限界
+    public float leftLimit = 0.0f;  //侵入できる左の限界
+    public float rightLimit = 4.0f; //侵入できる右の限界
+    public float upLimit = 21.0f;   //侵入できる上の限界
+    public float backLimitArea = 19.0f; //後退に制限をつける範囲(以下) CreateMapで適宜更新
 
     bool onAttack = false;      //近距離攻撃フラグ
     bool onShot = false;        //遠距離攻撃フラグ
-    bool onBottomColumn = true; //下列にいるかどうか
+    bool onBottomColumn = false; //下列にいるかどうか
+
+
     private float time; //時間計測用
 
     Vector2 position; //プレイヤーの座標用
@@ -33,6 +36,7 @@ using UnityEngine;
     public GameObject ghostPrefab;   //残像用のプレハブ
     public BarrierManager barrierbar;//BarrierManagerスクリプト
     private GameObject dataInfo;     //DataInfoオブジェクト
+    private GameObject camera;       //Main Cameraオブジェクト
     private PlayerStatusManager playerStatus;//PlayerStatusManagerスクリプト
     private TresureBoxManager tresureBox;    //TresureBoxManagerスクリプト
 
@@ -41,6 +45,8 @@ using UnityEngine;
         //DataInfoオブジェクトのPlayerStatusManagerを取得
         dataInfo = GameObject.Find("DataInfo");
         playerStatus = dataInfo.GetComponent<PlayerStatusManager>();
+
+        camera = GameObject.Find("Main Camera"); //カメラの取得
 
         //プレイヤー座標の取得
         position = transform.position;
@@ -72,6 +78,13 @@ using UnityEngine;
         {
             CloneAfterimage();
             position.y += speed;
+
+            //カメラの移動もこっちでする
+            if(onBottomColumn == false && transform.position.y < backLimitArea)
+            {
+                //カメラの座標Yを+1
+                camera.transform.position += transform.up;
+            }
             onBottomColumn = false;
         }
         if ((Input.GetKeyDown("down") ||
@@ -81,10 +94,11 @@ using UnityEngine;
             CloneAfterimage();
             position.y -= speed;
             //ボスエリアより手前なら
-            if(transform.position.y < 19.0f)
+            if(transform.position.y <= backLimitArea)
                 onBottomColumn = true;  //後退時に下列にいることにする
         }
         
+
 
         
 
@@ -200,6 +214,10 @@ using UnityEngine;
             Instantiate(ghostPrefab, transform.position, transform.rotation);
     }
 
+    public void ResetPos(Vector2 pos)
+    {
+        position = pos;
+    }
 }
 
 
