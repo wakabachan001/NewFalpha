@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using UnityEngine.EventSystems;
+//using TMPro;
 
 public class ItemSerect : MonoBehaviour
 {
@@ -10,18 +11,25 @@ public class ItemSerect : MonoBehaviour
     // ItemSelectUIを格納する変数
     // インスペクターからゲームオブジェクトを設定する
     [SerializeField] GameObject ItemSelectUI;
+    [SerializeField] private EventSystem eventSystem;
     //[SerializeField] GameObject[] Item = new GameObject[12];
 
-    GameObject datainfo;
+    GameObject SelectButton ;
+    GameObject FindID;
+    GameObject datainfo; 
     ItemManager itemmanager = new ItemManager();
+    PlayerItemManager PIM = new PlayerItemManager();
 
     public Text[] textname = new Text[3];
     public Text[] textdisc = new Text[3];
+    public string[] ItemId = new string[3];
     //　TextMeshProUGUI   メッシュプろを使う際はこっち
     private void Start()
     {
         datainfo = GameObject.Find("DataInfo");
         itemmanager = datainfo.GetComponent<ItemManager>();
+
+        PIM = datainfo.GetComponent<PlayerItemManager>();
     }
 
     // Update is called once per frame
@@ -33,17 +41,16 @@ public class ItemSerect : MonoBehaviour
         }
     }
 
+    private int RandSelect;
     public void ActiveItemSelectUI()
     {
         ItemSelectUI.SetActive(true);
 
-        textname[0].text = "asdjaisd";
-
-        for (int i = 0; i < 3; i++)
+        for (RandSelect = 0; RandSelect < 3; RandSelect++)
         {
-            string Id = itemmanager.GetRandomItem();
-            textname[i].text = itemmanager.GetName(Id);
-            textdisc[i].text = itemmanager.GetDescription(Id);
+            ItemId[RandSelect] = itemmanager.GetRandomItem();
+            textname[RandSelect].text = itemmanager.GetName(ItemId[RandSelect]);
+            textdisc[RandSelect].text = itemmanager.GetDescription(ItemId[RandSelect]);
         }
 
         //string Id =itemmanager.GetRandomItem();
@@ -53,6 +60,28 @@ public class ItemSerect : MonoBehaviour
         //itemname = name;
         // ランダムに3つのアイテムをアクティブにする
         //ActivateRandomItems(3);
+    }
+
+    // ActiveItemSelectUI で表示されているアイテムを選択
+    public void ItemChoice(int objectname)
+    {
+
+        PIM.AddItem(ItemId[objectname]); Debug.Log("ステータス上昇"+objectname);
+
+        //if (objectname == "Item0")
+        //{
+        //    PIM.AddItem(ItemId[0]); Debug.Log("ステータス上昇");
+        //}
+        //if (objectname == "Item1")
+        //{
+        //    PIM.AddItem(ItemId[1]); Debug.Log("ステータス上昇");
+        //}
+        //if (objectname == "Item2")
+        //{
+        //    PIM.AddItem(ItemId[2]); Debug.Log("ステータス上昇");
+        //}
+
+
     }
 
     //void ActivateRandomItems(int count)
