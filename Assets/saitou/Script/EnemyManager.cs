@@ -39,7 +39,6 @@ public class EnemyManager : MonoBehaviour
         obj = GameObject.Find("DataInfo");
         playerStatusManager = obj.GetComponent<PlayerStatusManager>();
 
-        Debug.Log("OnTriggerEnter2D: " + other.gameObject.name);
 
         //Œ•‚Æ‚ÌÚG
         if(other.gameObject.tag == "Sword")
@@ -62,6 +61,10 @@ public class EnemyManager : MonoBehaviour
 
             //HPŒvZ
             currentHP = statusCalc.HPCalc(currentHP, takeDamage);
+        }
+        if (other.gameObject.tag == "DeleteArea")
+        {
+            Destroy(gameObject);
         }
         //“|‚ê‚é‚©’²‚×‚é
         EnemyDead();

@@ -13,6 +13,9 @@ TagManager:
   - ActiveArea
   - Item
   - TreasureBox
+  - DeleteArea
+  - WarpZone
+  - Trader
   layers:
   - Default
   - TransparentFX

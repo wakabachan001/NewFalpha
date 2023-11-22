@@ -8,8 +8,7 @@ public class cameraMove : MonoBehaviour
     public float Movespeed = 0.5f;
 
     GameObject playerObj;
-    GameObject ClearText;
-    PlayerManager player;
+    //PlayerManager playerManager;
     Transform playerTransform;
 
     public float bottomLimit = 3.0f;//ÉJÉÅÉâÇÃYâ∫å¿
@@ -17,7 +16,7 @@ public class cameraMove : MonoBehaviour
     void Start()
     {
         playerObj = GameObject.FindGameObjectWithTag("Player");
-        player = playerObj.GetComponent<PlayerManager>();
+        //playerManager = playerObj.GetComponent<PlayerManager>();//Ç¢ÇÁÇ»ÇªÇ§
         playerTransform = playerObj.transform;
     }
     void LateUpdate()
@@ -26,7 +25,7 @@ public class cameraMove : MonoBehaviour
     }
     void MoveCamera()
     {
-        if (player.transform.position.y >= bottomLimit && player.transform.position.y <= upLimit)
+        if (playerTransform.position.y >= bottomLimit && playerTransform.position.y <= upLimit)
         {
             //ècï˚å¸ÇæÇØí«è]
             transform.position = new Vector3(transform.position.x, playerTransform.position.y + Movespeed, transform.position.z);
