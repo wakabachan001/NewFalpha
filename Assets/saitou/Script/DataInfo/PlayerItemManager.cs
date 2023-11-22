@@ -81,18 +81,17 @@ public class PlayerItemManager : MonoBehaviour
     {
         //取得アイテムが所持アイテム中にあるか調べる
         for (int i = 0; i < havingItem.Count; i++)
+        {
             if (havingItem[i] == id)
             {
                 //すでに所持していたなら何もしない
                 Debug.Log(id + "をすでに所持しています");
-                break;
+                return;
             }
-            else
-            {
-                //未所持なら
-                havingItem.Add(id);//所持アイテムにidを追加
-                Debug.Log(id + "を獲得しました");
-            }
+        }
+        //未所持なら
+        havingItem.Add(id);//所持アイテムにidを追加
+        Debug.Log(id + "を獲得しました");
     }
     //アイテム廃棄関数
     public void RemoveItem(string id)
@@ -138,9 +137,13 @@ public class PlayerItemManager : MonoBehaviour
     //所持アイテムデバッグ表示関数
     public void CheckHaveItem()
     {
+        if (havingItem.Count == 0)
+            Debug.Log("アイテムを所持していません");
+
         for(int i = 0; i < havingItem.Count;i++)
         {
             Debug.Log(i + " : " + havingItem[i]);
         }
+
     }
 }
