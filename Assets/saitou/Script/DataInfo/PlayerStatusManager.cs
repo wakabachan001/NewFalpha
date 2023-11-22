@@ -16,8 +16,6 @@ public class PlayerStatusManager : MonoBehaviour
     public PlayerStatusData playerStatus = new PlayerStatusData(); //プレイヤーのステータス格納用
     public StatusCalc statusCalc = new StatusCalc();               //ステータス計算用
 
-    public HPBar hpbar;              //HPBarスクリプト
-
     public float MaxHP
     {
         get { return maxHP; }
@@ -63,9 +61,6 @@ public class PlayerStatusManager : MonoBehaviour
         //HP計算関数を呼んで、現在体力を更新
         currentHP = statusCalc.HPCalc(currentHP, damage, currentBarrier);
 
-        //HPBarの呼び出し
-        hpbar.UpdateHP(currentHP);
-
         //HPが０以下だったらfalseを返す
         if (currentHP <= 0)
             return false;
@@ -85,6 +80,12 @@ public class PlayerStatusManager : MonoBehaviour
     {
         //AttackDamage[1]を引数として、ダメージ計算関数を呼ぶ
         return statusCalc.DamageCalc(playerStatus.GetAttackDamage(1));
+    }
+
+    //HPの割合(HPBar用)
+    public float GetHPper()
+    {
+        return currentHP / maxHP;
     }
 }
 

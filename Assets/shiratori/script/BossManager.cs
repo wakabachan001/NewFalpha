@@ -22,6 +22,9 @@ public class BossManager : MonoBehaviour
 
     void Start()
     {
+        //PlayerStatusManagerの取得
+        playerStatusManager = LoadManagerScene.GetPlayerStatusManager();
+
         Debug.Log("ボス初期化");
         //ステータスをクラスで管理
         enemyStatus.MaxHP = maxHP;
@@ -37,9 +40,7 @@ public class BossManager : MonoBehaviour
     //他collider接触時
     void OnTriggerEnter2D(Collider2D other)
     {
-        //DataInfoのPlayerStatusManagerを取得
-        obj = GameObject.Find("DataInfo");
-        playerStatusManager = obj.GetComponent<PlayerStatusManager>();
+
 
         Debug.Log("OnTriggerEnter2D: " + other.gameObject.name);
 

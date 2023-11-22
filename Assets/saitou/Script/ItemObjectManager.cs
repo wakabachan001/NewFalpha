@@ -11,12 +11,6 @@ public class ItemObjectManager : MonoBehaviour
     PlayerItemManager playerItemManager;
     ItemManager itemManager;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Playerタグとの接触時
@@ -24,10 +18,9 @@ public class ItemObjectManager : MonoBehaviour
         {
             Debug.Log("アイテム獲得");
 
-            //BordManagerを探し、アタッチされているスクリプトを取得
-            GameObject obj = GameObject.Find("DataInfo");
-            playerItemManager = obj.GetComponent<PlayerItemManager>();
-            itemManager = obj.GetComponent<ItemManager>();
+            //ManagerSceneのスクリプトを取得
+            playerItemManager = LoadManagerScene.GetPlayerItemManager();
+            itemManager = LoadManagerScene.GetItemManager();
 
             //ランダムなアイテムのIDを取得
             itemId = itemManager.GetRandomItem();

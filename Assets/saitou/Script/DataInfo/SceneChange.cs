@@ -12,10 +12,6 @@ public class SceneChange : MonoBehaviour
     private string nextStage;   //切り替えるシーンを入れる
     private int stageCount = 0; //何ステージ目か（最初は１ステージ目）
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
 
     public void NextStage()
     {

@@ -16,10 +16,12 @@ public class EnemyManager : MonoBehaviour
     private StatusCalc statusCalc = new StatusCalc();     //ダメージ計算クラス
 
     PlayerStatusManager playerStatusManager;//PlayerStatusManagerスクリプト
-    GameObject obj;//DataInfo用
 
     void Start()
     {
+        //DataInfoのPlayerStatusManagerを取得
+        playerStatusManager = LoadManagerScene.GetPlayerStatusManager();
+
         Debug.Log("敵初期化");
         //ステータスをクラスで管理
         enemyStatus.MaxHP = maxHP;
@@ -35,11 +37,6 @@ public class EnemyManager : MonoBehaviour
     //他collider接触時
     void OnTriggerEnter2D(Collider2D other)
     {
-        //DataInfoのPlayerStatusManagerを取得
-        obj = GameObject.Find("DataInfo");
-        playerStatusManager = obj.GetComponent<PlayerStatusManager>();
-
-
         //剣との接触
         if(other.gameObject.tag == "Sword")
         {

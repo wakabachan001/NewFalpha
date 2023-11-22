@@ -19,9 +19,8 @@ public class BarrierManager : MonoBehaviour
 
     private void Awake()
     {
-        //PlayerManager‚ğ’T‚·
-        dataInfo = GameObject.Find("DataInfo");
-        playerStatusManager = dataInfo.GetComponent<PlayerStatusManager>();
+        //PlayerStatusManager‚ğæ“¾
+        playerStatusManager = LoadManagerScene.GetPlayerStatusManager();
 
         //Œ»İ‚ÌƒoƒŠƒA‚Ì‰Šú‰»
         barrierCur = barrierMax;

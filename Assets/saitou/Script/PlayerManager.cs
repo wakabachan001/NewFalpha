@@ -42,9 +42,7 @@ using UnityEngine;
 
     void Start()
     {
-        //DataInfoオブジェクトのPlayerStatusManagerを取得
-        dataInfo = GameObject.Find("DataInfo");
-        playerStatus = dataInfo.GetComponent<PlayerStatusManager>();
+        playerStatus = LoadManagerScene.GetPlayerStatusManager();
 
         camera = GameObject.Find("Main Camera"); //カメラの取得
 

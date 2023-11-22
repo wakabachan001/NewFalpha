@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSorceData : MonoBehaviour
-{
-}
-
 //アイテムデータクラス
 //CSVファイルからの読み込み
 public class ItemDataC
