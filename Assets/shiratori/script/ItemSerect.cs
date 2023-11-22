@@ -68,20 +68,6 @@ public class ItemSerect : MonoBehaviour
 
         PIM.AddItem(ItemId[objectname]); Debug.Log("ステータス上昇"+objectname);
 
-        //if (objectname == "Item0")
-        //{
-        //    PIM.AddItem(ItemId[0]); Debug.Log("ステータス上昇");
-        //}
-        //if (objectname == "Item1")
-        //{
-        //    PIM.AddItem(ItemId[1]); Debug.Log("ステータス上昇");
-        //}
-        //if (objectname == "Item2")
-        //{
-        //    PIM.AddItem(ItemId[2]); Debug.Log("ステータス上昇");
-        //}
-
-
     }
 
     //void ActivateRandomItems(int count)
