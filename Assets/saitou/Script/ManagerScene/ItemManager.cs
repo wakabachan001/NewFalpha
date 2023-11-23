@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 
 //全アイテムの管理クラス
+//基本的に他オブジェクトからアクセス出来ないようにしたい
 public class ItemManager : MonoBehaviour
 {
     //全アイテムデータList
@@ -35,28 +36,10 @@ public class ItemManager : MonoBehaviour
             LoadItem.BuyingPrice = int.Parse(csvData[i][3]);
             LoadItem.SellingPrice = int.Parse(csvData[i][4]);
 
-            //アイテムデータに仮データを追加
-            //!現在ItemDataリストに何かを代入すると、他要素も更新されてしまうバグあり
-            //各要素の初期化を行わなければならないぽい    
-
+            //アイテムデータにデータを追加
             ItemData.Add(LoadItem);
-
-            //ItemData[i - 1] = new ItemDataC();
-
-
         }
-
-        for (int i = 0; i < ItemData.Count; i++)
-        {
-            Debug.Log(i);
-
-            Debug.Log(ItemData[i].Id);
-        }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
+        Debug.Log("アイテムデータを作成しました");
     }
 
     //名前を返す関数
@@ -127,7 +110,6 @@ public class ItemManager : MonoBehaviour
     }
 
     //ランダムアイテム指定関数
-    //後々オーバーロードでレアリティを指定できるようにしてもいい
     public string GetRandomItem()
     {
         //0～全アイテムの種類のランダムな数値を取得
@@ -135,6 +117,46 @@ public class ItemManager : MonoBehaviour
 
         //その数値から、IDを返す
         return ItemData[r].Id;
+    }
+    //引数のidと被らないオーバーロード numは個数
+    public string[] GetRandomItem(List<string> id, int num = 1)
+    {
+        string[] ans = new string[num];//返り値用配列
+
+        //アイテムID一覧の生成
+        List<string> itemId = new List<string>();
+        for(int i = 0; i<ItemData.Count; i++)
+        {
+            itemId.Add(ItemData[i].Id);
+        }
+
+        //引数のIDと被っている要素を削除
+        for (int i = 0; i < id.Count; i++) 
+        {
+            itemId.Remove(id[i]);
+        }
+
+        for (int i = 0; i < num; i++)
+        {
+            //itemIdの中身があるかチェック
+            if (itemId.Count != 0)
+            {
+                //0～全アイテムの種類のランダムな数値を取得
+                int r = Random.RandomRange(0, itemId.Count);
+
+                ans[i] = itemId[r];//返り値用配列にランダムなIDを代入
+
+                itemId.RemoveAt(r);//代入したIDを削除
+            }
+            else
+            {
+                //エラー
+                Debug.Log("!未所持のアイテムが見つかりません");
+                return null;
+            }
+        }
+        //その数値から、IDを返す
+        return ans;
     }
 }
 

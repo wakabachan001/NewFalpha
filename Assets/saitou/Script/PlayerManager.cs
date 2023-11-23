@@ -157,8 +157,6 @@ using UnityEngine;
     private void FixedUpdate()
     {
         transform.position = position;  //座標の更新
-
-        barrierbar.UpdateBarrier();
     }
 
     //敵などとの接触時のダメージ判定

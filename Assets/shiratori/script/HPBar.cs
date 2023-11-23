@@ -17,7 +17,7 @@ public class HPBar : MonoBehaviour
         playerStatusManager = LoadManagerScene.GetPlayerStatusManager();
 
         //Å‘å‘Ì—Í‚ğPlayermStatusManager‚©‚çQÆ
-        maxHP = playerStatusManager.MaxHP;
+        maxHP = playerStatusManager.status.MaxHP;
 
         ////Œ»İ‚ÌHP‚ğ‰Šú‰»
         //currentHealth = maxHealth;
@@ -26,6 +26,6 @@ public class HPBar : MonoBehaviour
     //‘Ì—ÍXVŠÖ”
     public void Update()
     {
-        hpBarcurrent.fillAmount = playerStatusManager.GetHPper();
+        hpBarcurrent.fillAmount = playerStatusManager.status.CurrentHP / playerStatusManager.status.MaxHP;
     }
 }
