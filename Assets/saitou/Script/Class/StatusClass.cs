@@ -99,6 +99,7 @@ public class StatusCalc
     public StatusCalc()
     {
         //‰Šú‰»
+        addMaxHP = 1f;
         increaseAttack = 1f;
         increaseBlock = 1f;
 

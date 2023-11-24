@@ -857,6 +857,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7102261210639578052, guid: 1f2305410cd66ea44b3be2fb8d92b313, type: 3}
+      propertyPath: onNext
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102261210639578055, guid: 1f2305410cd66ea44b3be2fb8d92b313, type: 3}
+      propertyPath: clearScene
+      value: GameClear
+      objectReference: {fileID: 0}
     - target: {fileID: 7102261210639578072, guid: 1f2305410cd66ea44b3be2fb8d92b313, type: 3}
       propertyPath: m_Name
       value: Main Camera

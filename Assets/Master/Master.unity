@@ -557,8 +557,8 @@ MonoBehaviour:
   mapEnemyMaxY: 19
   floorTiles:
   - {fileID: 7683791984083978444, guid: 31a623ae73ba783449e0292211e7d09c, type: 3}
-  - {fileID: 7683791984083978444, guid: 31a623ae73ba783449e0292211e7d09c, type: 3}
-  - {fileID: 7683791984083978444, guid: 31a623ae73ba783449e0292211e7d09c, type: 3}
+  - {fileID: 8926274115119625578, guid: 223d18ca9e0c8014d8471c7e9ed3e86a, type: 3}
+  - {fileID: 5377411840582511220, guid: c7072b113ec32f24093d0346a6376a30, type: 3}
   player: {fileID: 1244957864}
   tresureBox: {fileID: 6122632163320768963, guid: f32ce7a5d0170f249ad90848fbcc6b8a, type: 3}
   warpZone: {fileID: 15189243408202111, guid: 147e00324e31336459975e940128ab80, type: 3}
@@ -590,9 +590,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameScene: 
-  titleScene: 
-  clearScene: 
-  gameoverScene: 
+  titleScene: TitleScreen
+  clearScene: GameClear
+  gameoverScene: GameOver
 --- !u!114 &1070695145
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -100,5 +100,10 @@ public class PlayerStatusManager : MonoBehaviour
     {
         statusCalc.HealHPper(status.MaxHP, status.CurrentHP, 0.03f);
     }
+    //Å‘å‘Ì—ÍŠÖ”
+    public float MaxHP()
+    {
+        return statusCalc.MaxHPCalc(status.MaxHP);
+    }
 }
 
