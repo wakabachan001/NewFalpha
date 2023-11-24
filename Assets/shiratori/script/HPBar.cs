@@ -26,6 +26,7 @@ public class HPBar : MonoBehaviour
     //‘Ì—ÍXVŠÖ”
     public void Update()
     {
-        hpBarcurrent.fillAmount = playerStatusManager.status.CurrentHP / playerStatusManager.status.MaxHP;
+        //Œ»İ‚Ì‘Ì—Í‚ÌŠ„‡‚©‚çŒ©‚½–Ú‚ğ•Ï‚¦‚é
+        hpBarcurrent.fillAmount = playerStatusManager.HPper();
     }
 }

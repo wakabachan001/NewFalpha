@@ -71,6 +71,11 @@ public class EnemyManager : MonoBehaviour
             //ƒvƒŒƒCƒ„[‚ÌŠ‹à‚ğ‘‚â‚·
             playerStatusManager.GettingMoney(status.Money);
 
+            if(playerStatusManager.onHealthTreat == true)
+            {
+                playerStatusManager.HT();
+            }
+
             Destroy(gameObject);
             Debug.Log("“G‚ª“|‚ê‚½");
         }
