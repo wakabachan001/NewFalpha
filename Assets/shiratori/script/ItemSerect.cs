@@ -65,6 +65,7 @@ public class ItemSerect : MonoBehaviour
     // ActiveItemSelectUI で表示されているアイテムを選択
     public void ItemChoice(int objectname)
     {
+<<<<<<< HEAD
 
         PIM.AddItem(ItemId[objectname]);
         Debug.Log("ステータス上昇" + objectname);
@@ -83,6 +84,10 @@ public class ItemSerect : MonoBehaviour
         //}
 
 
+=======
+        PIM.AddItem(ItemId[objectname]); Debug.Log("ステータス上昇"+objectname);
+        ItemSelectUI.SetActive(false);
+>>>>>>> shiratori
     }
 
     //void ActivateRandomItems(int count)

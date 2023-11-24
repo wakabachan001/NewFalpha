@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonClick : MonoBehaviour
+public class TradeClick : MonoBehaviour
 {
-    GameObject selectOBJ;
-    ItemSerect itemselect = new ItemSerect();
+    GameObject traderOBJ;
+    Trader trader = new Trader();
 
     private string objname, objname2;
 
     private void Start()
     {
-        selectOBJ = GameObject.Find("UImanager");
-        itemselect = selectOBJ.GetComponent<ItemSerect>();
+        traderOBJ = GameObject.Find("BuyUImanager");
+        trader = traderOBJ.GetComponent<Trader>();
     }
 
     public void Onclick()
@@ -23,6 +23,6 @@ public class ButtonClick : MonoBehaviour
         objname2 = objname.Substring(objname.Length - 1);
 
         //@’Šo‚µ‚½•¶š—ñ‚ğ®”‚É•ÏŠ·‚µ‚Ä“n‚·
-        itemselect.ItemChoice(int.Parse(objname2));
+        trader.TradeChoice(int.Parse(objname2));
     }
 }
