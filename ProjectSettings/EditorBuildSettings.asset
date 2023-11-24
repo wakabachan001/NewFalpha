@@ -20,4 +20,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/shiratori/Second_Stage.unity
     guid: d774489f38ed8f24e9f457c4f2941d52
+  - enabled: 1
+    path: Assets/shiratori/TitleScreen.unity
+    guid: 581795a1d8fd3d44ea35fb6b816f4ba3
+  - enabled: 1
+    path: Assets/shiratori/GameClear.unity
+    guid: 7b4127675a62fc841a4372efbd2e05e4
+  - enabled: 1
+    path: Assets/shiratori/GameOver.unity
+    guid: 780803467452d0540a5d4c802ce5cb9d
   m_configObjects: {}
