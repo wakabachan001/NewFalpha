@@ -42,9 +42,7 @@ using UnityEngine;
 
     void Start()
     {
-        //DataInfoオブジェクトのPlayerStatusManagerを取得
-        dataInfo = GameObject.Find("DataInfo");
-        playerStatus = dataInfo.GetComponent<PlayerStatusManager>();
+        playerStatus = LoadManagerScene.GetPlayerStatusManager();
 
         camera = GameObject.Find("Main Camera"); //カメラの取得
 
@@ -159,8 +157,6 @@ using UnityEngine;
     private void FixedUpdate()
     {
         transform.position = position;  //座標の更新
-
-        barrierbar.UpdateBarrier();
     }
 
     //敵などとの接触時のダメージ判定

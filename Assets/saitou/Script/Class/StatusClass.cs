@@ -2,27 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatusClass : MonoBehaviour
-{
-}
 
 //ステータス管理クラス
 public class StatusData
 {
-    //コンストラクタ
-    public StatusData()
-    {
-
-    }
-    protected float maxHP;  //最大HP   
-    protected int money;    //所持金
+    protected float maxHP;      //最大HP   
+    protected float currentHP;  //現在のHP
+    protected int money;        //所持金
     protected List<float> attackDamage = new List<float>();//攻撃のダメージ
 
+    //コンストラクタ
+    public StatusData(float hp, int mon, float attack1, float attack2 = 10)
+    {
+        //引数からステータスを初期化
+        maxHP = hp;
+        currentHP = maxHP;
+        money = mon;
+        attackDamage.Insert(0, attack1);
+        attackDamage.Insert(1, attack2);
+    }
 
     public float MaxHP
     {
         get { return maxHP; }
         set { maxHP = value; }
+    }
+    public float CurrentHP
+    {
+        get { return currentHP; }
+        set { currentHP = value; }
     }
     public int Money
     {
@@ -44,17 +52,34 @@ public class StatusData
 //プレイヤーステータス管理クラス
 public class PlayerStatusData : StatusData
 {
+    float barrier;          //バリア値(被ダメージを減少する割合)
+    int criticalChance;   //クリティカル率
+    float criticalDamage;   //クリティカルダメージ
+    
     //コンストラクタ
-    public PlayerStatusData()
+    public PlayerStatusData(float hp,  int mon, float attack, float shot, float barri, int criC, float criD) : base(hp, mon, attack, shot)
     {
-
+        //引数からステータスを初期化
+        barrier = barri;
+        criticalChance = criC;
+        criticalDamage = criD;
     }
-    private float maxBarrier;//最大バリア値
 
-    public float MaxBarrier
+    //プロパティ
+    public float Barrier
     {
-        get { return maxBarrier; }
-        set { maxBarrier = value; }
+        get { return barrier; }
+        set { barrier = value; }
+    }
+    public int CriChance
+    {
+        get { return criticalChance; }
+        set { criticalChance = value; }
+    }
+    public float CriDamage
+    {
+        get { return criticalDamage; }
+        set { criticalDamage = value; }
     }
 }
 
@@ -68,33 +93,33 @@ public class StatusCalc
     private float increaseBlock;    //防御（割合）＊
 
     private float addCriticalDamage;    //会心ダメージ
-    private float addCriticalChance;    //会心率
+    private int addCriticalChance;    //会心率
     private int addMoney;               //所持金追加
 
     //コンストラクタ
     public StatusCalc()
     {
         //初期化
-        addAttack = 0f;
+        addAttack = 0f;//要らないかも
         increaseAttack = 1f;
-        addBlock = 0f;
+        addBlock = 0f;//要らないかも
         increaseBlock = 1f;
 
         addCriticalDamage = 0f;
-        addCriticalChance = 0f;
+        addCriticalChance = 0;
         addMoney = 0;
     }
-    //ダメージ計算関数
-    public float DamageCalc(float damage)
+    //ダメージ計算関数 引数が１つならクリティカルは起きない
+    public float DamageCalc(float damage, int criC = -100, float criD = 1f)
     {
         //1~100のランダム
         int dice = Random.RandomRange(1, 101);
 
         //ランダムの値が、クリティカル率以下なら
-        if( dice <= 2 + addCriticalChance)
+        if( dice <= criC + addCriticalChance)
         {
             //クリティカルダメージを加える
-            return (damage + addAttack) * increaseAttack * addCriticalDamage;
+            return (damage + addAttack) * increaseAttack * (criD + addCriticalDamage);
         }
         else
         {
@@ -154,7 +179,7 @@ public class StatusCalc
         get { return addCriticalDamage; }
         set { addCriticalDamage = value; }
     }
-    public float AddCriticalChance
+    public int AddCriticalChance
     {
         get { return addCriticalChance; }
         set { addCriticalChance = value; }

@@ -11,48 +11,81 @@ public class BarrierManager : MonoBehaviour
 
     [SerializeField]
     private float barrierCur; //現在のバリア
-    private bool halfOn = false;//バリアが半分以下になったか
-    private bool zeroOn = false;//バリアが0以下になったか
+    private bool on75 = false;//バリアが75%以下になったか
+    private bool on50 = false;//バリアが50%以下になったか
+    private bool on25 = false;//バリアが25%以下になったか
+    private bool on0 = false; //バリアが0以下になったか
 
-    GameObject dataInfo;
     PlayerStatusManager playerStatusManager;
 
-    private void Awake()
+    private void Start()
     {
-        //PlayerManagerを探す
-        dataInfo = GameObject.Find("DataInfo");
-        playerStatusManager = dataInfo.GetComponent<PlayerStatusManager>();
+        //PlayerStatusManagerを取得
+        playerStatusManager = LoadManagerScene.GetPlayerStatusManager();
 
         //現在のバリアの初期化
-        barrierCur = barrierMax;
-        
+        barrierCur = barrierMax;     
     }
-    public void UpdateBarrier()
+    private void FixedUpdate()
     {
         barrierCur -= barrierDec * 0.02f; //1秒でbarrierDec分更新
 
         //現在のバリアの割合分、ゲージを変える
         BarrierBarcurrent.fillAmount = barrierCur / barrierMax;
 
-        //バリアが半分以下になったとき一度だけ
-        if(barrierCur / barrierMax < 0.5f && !halfOn)
+        //バリアが75%以下になったとき一度だけ
+        if (barrierCur == 75.0f && !on75)
         {
-            halfOn = true;//フラグを立てて動かないようにする
+            on75 = true;//フラグを立てて動かないようにする
 
             //Playerのバリア値の変化
-            playerStatusManager.CurrentBarrier = 1.5f;
+            playerStatusManager.ChangeBarrier(2);
+
+            Debug.Log("バリアが半分以下");
+        }
+        //バリアが半分以下になったとき一度だけ
+        if (barrierCur == 50.0f && !on50)
+        {
+            on50 = true;//フラグを立てて動かないようにする
+
+            //Playerのバリア値の変化
+            playerStatusManager.ChangeBarrier(2);
+
+            Debug.Log("バリアが半分以下");
+        }
+        //バリアが25%以下になったとき一度だけ
+        if (barrierCur == 25.0f && !on25)
+        {
+            on25 = true;//フラグを立てて動かないようにする
+
+            //Playerのバリア値の変化
+            playerStatusManager.ChangeBarrier(2);
 
             Debug.Log("バリアが半分以下");
         }
         //バリアが0以下になったとき一度だけ
-        if (barrierCur / barrierMax < 0.0f && !zeroOn)
+        if (barrierCur == 0.0f && !on0)
         {
-            zeroOn = true;//フラグを立てて動かないようにする
+            on0 = true;//フラグを立てて動かないようにする
 
             //Playerのバリア値の変化
-            playerStatusManager.CurrentBarrier = 0.5f;
+            playerStatusManager.ChangeBarrier(4);
 
             Debug.Log("バリアが0以下");
+        }
+        //リセットフラグがオンになったとき
+        if(playerStatusManager.onResetHpBr == true)
+        {
+            //バリアゲージの初期化
+            barrierCur = barrierMax;
+            //フラグの初期化
+            on75 = false;
+            on50 = false;
+            on25 = false;
+            on0  = false;
+
+            //フラグを下げる
+            playerStatusManager.onResetHpBr = false;
         }
     }
 }

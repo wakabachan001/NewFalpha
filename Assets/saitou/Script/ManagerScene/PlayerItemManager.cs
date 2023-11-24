@@ -7,14 +7,15 @@ public class PlayerItemManager : MonoBehaviour
 {
     //プレイヤー所持アイテムリスト
     private List<string> havingItem = new List<string>();
+
+    //アイテム効果用
     private float addMaxHP;         //最大体力＋
     private float addAttack;        //攻撃＋
     private float increaseAttack;   //攻撃（割合）＊
     private float addBlock;         //防御+
     private float increaseBlock;    //防御（割合）＊
-
     private float addCriticalDamage;    //会心ダメージ
-    private float addCriticalChance;    //会心率
+    private int addCriticalChance;    //会心率
     private float takeDamage;           //自傷ダメージ
     private int addMoney;             //所持金追加
 
@@ -106,14 +107,16 @@ public class PlayerItemManager : MonoBehaviour
         int price = itemManager.GetSellingPrice(id);
 
         //所持金が足りているなら
-        if (playerStatusManager.playerStatus.Money >= price)
+        if (playerStatusManager.status.Money >= price)
         {
             //価格分、所持金を減らす
             playerStatusManager.GettingMoney(price * -1);
             AddItem(id);    //アイテムを獲得
+
+            Debug.Log(id + "を購入");
         }
     }
-    //アイテム売却関数
+    //アイテム売却関数 今のところ使う予定なし
     public void SellingItem(string id)
     {
         //購入価格を取得
@@ -122,6 +125,8 @@ public class PlayerItemManager : MonoBehaviour
         //価格分、所持金を増やす
         playerStatusManager.GettingMoney(price);
         RemoveItem(id);     //アイテムを獲得
+
+        Debug.Log(id + "を売却");
     }
 
     //所持アイテムのアイコンを表示する関数

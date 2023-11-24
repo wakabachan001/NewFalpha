@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 855887755035495215}
   - component: {fileID: 855887755035495216}
   - component: {fileID: 855887755035495217}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: DeleteArea
   m_TagString: DeleteArea
   m_Icon: {fileID: 0}

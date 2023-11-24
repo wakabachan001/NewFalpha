@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 333299118784434075}
   - component: {fileID: 333299118784434076}
   - component: {fileID: 333299118784434079}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player 1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -112,6 +112,7 @@ MonoBehaviour:
   leftLimit: 0
   rightLimit: 4
   upLimit: 21
+  backLimitArea: 19
   AttackEffect: {fileID: 8667471911016283574, guid: 98312e910f09e494c80e7a5c2268ed8a, type: 3}
   ShotEffect: {fileID: 5007766752859079650, guid: 6621ed8a2f822314392c7666bb9b5f8e, type: 3}
   ghostPrefab: {fileID: 1288840254261512012, guid: 4111e8414988def49a52c74bd2d50a6c, type: 3}

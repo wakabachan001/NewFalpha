@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+//現在使用していない
 //アイテムのソースデータ
 [CreateAssetMenu(menuName = "SaitoAssets/ItemSourceData")]
 public class ItemSourceData : ScriptableObject
