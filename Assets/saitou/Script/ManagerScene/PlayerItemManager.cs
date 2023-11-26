@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerItemManager : MonoBehaviour
 {
     //プレイヤー所持アイテムリスト
-    private List<string> havingItem = new List<string>();
+    public List<string> havingItem = new List<string>();
 
     //アイテム効果用
     private float addMaxHP;         //最大体力＋
