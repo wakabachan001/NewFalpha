@@ -33,6 +33,7 @@ public class TresureBoxManager : MonoBehaviour
         spriteRenderer.sprite = openImg;
 
         //ƒAƒCƒeƒ€‚È‚Ç‚ğæ“¾‚·‚é
-        Instantiate(itemObj, transform.position - transform.up, Quaternion.identity);
+        //Instantiate(itemObj, transform.position - transform.up, Quaternion.identity);
+
     }
 }
