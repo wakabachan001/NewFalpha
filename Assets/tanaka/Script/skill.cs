@@ -64,7 +64,7 @@ public class skill : MonoBehaviour
         colors.selectedColor = pressedlColor;
     
         button.colors     = colors;
-        EditorUtility.SetDirty(button);
+        //EditorUtility.SetDirty(button);
 
         //ボタンを再度元のカラーに戻すためのコルーチンを呼び出す例
         StartCoroutine(ResetColor());
@@ -78,7 +78,7 @@ public class skill : MonoBehaviour
         colors.selectedColor = normalColor;
         button.colors = colors;
 
-        EditorUtility.SetDirty(button);
+       // EditorUtility.SetDirty(button);
 
 
 

@@ -12,6 +12,8 @@ public static class LoadManagerScene
     //ItemManager取得関数
     public static ItemManager GetItemManager()
     {
+        scene = SceneManager.GetSceneByName("ManagerScene");
+
         //ヒエラルキーの最上位のオブジェクトが取得できる
         foreach (var rootGameObject in scene.GetRootGameObjects())
         {
@@ -22,6 +24,8 @@ public static class LoadManagerScene
     //PlayerItemManager取得関数
     public static PlayerItemManager GetPlayerItemManager()
     {
+        scene = SceneManager.GetSceneByName("ManagerScene");
+
         //ヒエラルキーの最上位のオブジェクトが取得できる
         foreach (var rootGameObject in scene.GetRootGameObjects())
         {
@@ -32,6 +36,8 @@ public static class LoadManagerScene
     //PlayerStatusManager取得関数
     public static PlayerStatusManager GetPlayerStatusManager()
     {
+        scene = SceneManager.GetSceneByName("ManagerScene");
+
         //ヒエラルキーの最上位のオブジェクトが取得できる
         foreach (var rootGameObject in scene.GetRootGameObjects())
         {
@@ -42,6 +48,8 @@ public static class LoadManagerScene
     //ItemIcon取得関数
     public static ItemIcon GetItemIcon()
     {
+        scene = SceneManager.GetSceneByName("ManagerScene");
+
         //ヒエラルキーの最上位のオブジェクトが取得できる
         foreach (var rootGameObject in scene.GetRootGameObjects())
         {
