@@ -15,7 +15,7 @@ public class skill : MonoBehaviour
     private Color pressedlColor = Color.gray; //プレスドカラー
 
 
-    public float right = 2.0f;
+    public float right = 1.0f;
     public float time = 5.0f;
     public float cooldownTime = 10.0f;
 
@@ -48,6 +48,7 @@ public class skill : MonoBehaviour
             //クローン作成
             b = Instantiate(OriginObjct, OriginObjct.transform.position + (transform.right * right * -1.0f), Quaternion.identity);
 
+            a.GetComponent<SpriteRenderer>().color -= new Color(0, 0, 0, 50);
 
             //5秒後に消す
             Destroy(a, time);
