@@ -6,18 +6,21 @@ using UnityEngine;
 public class PlayerItemManager : MonoBehaviour
 {
     //プレイヤー所持アイテムリスト
-    private List<string> havingItem = new List<string>();
+    public List<string> havingItem = new List<string>();
 
     //アイテム効果用
     private float addMaxHP;         //最大体力＋
-    private float addAttack;        //攻撃＋
+
     private float increaseAttack;   //攻撃（割合）＊
-    private float addBlock;         //防御+
+
     private float increaseBlock;    //防御（割合）＊
-    private float addCriticalDamage;    //会心ダメージ
+    private float addCriticalDamage;  //会心ダメージ
     private int addCriticalChance;    //会心率
-    private float takeDamage;           //自傷ダメージ
-    private int addMoney;             //所持金追加
+    private float takeDamage;         //自傷ダメージ
+    private float addMoney;           //獲得金額
+    private float addSword;           //近距離攻撃ダメージ*
+    private float addShot;            //遠距離攻撃ダメージ*
+    private float plusShot;
 
     [SerializeField] private float iconPosX;//アイコンの初期位置X（左上）
     [SerializeField] private float iconPosY;//アイコンの初期位置Y（左上）
@@ -41,14 +44,15 @@ public class PlayerItemManager : MonoBehaviour
     private void FixedUpdate()
     {
         //変数のリセット
-        addMaxHP = 0;
-        addAttack = 0;
+        addMaxHP = 1;
         increaseAttack = 1;
-        addBlock = 0;
         increaseBlock = 1;
-        addCriticalDamage = 0;
+        addCriticalDamage = 1;
         addCriticalChance = 0;
-        addMoney = 0;
+        addMoney = 1;
+        addShot = 1;
+        addSword = 1;
+        plusShot = 0;
 
         //所持アイテムの効果を計算
         for (int i = 0; i < havingItem.Count; i++)
@@ -56,24 +60,76 @@ public class PlayerItemManager : MonoBehaviour
             //アイテムの効果は今後ここに増やす それぞれ関数で分けてもいいかも
             switch (havingItem[i])
             {
-                case "str_up":
-                    addAttack += 2.0f;
+                case "Attack":
+                    increaseAttack += 0.12f;
                     break;
-                case "maxhp_up":
-                    addMaxHP += 100.0f;
+                case "Revenge":
+                    if(playerStatusManager.HPper() < 0.20f)
+                    {
+                        increaseAttack += 0.70f;
+                    }
+                    break;
+                case "SelfHarm":
+                    //持っている時に遠距離攻撃が自傷効果をもつ 捨てたときの動作未実装
+                    playerStatusManager.onSelfHarm = true;
+                    plusShot += playerStatusManager.statusCalc.MaxHPCalc(playerStatusManager.status.MaxHP) 
+                                 * 0.1f;
+                    break;
+                case "Health":
+                    //最大体力20%増加
+                    addMaxHP += 0.20f;
+                    break;
+                case "HealthTreat":
+                    //敵を倒すと最大体力の3%分回復
+                    playerStatusManager.onHealthTreat = true;
+                    break;
+                case "ArmorPlate":
+                    increaseBlock += -0.04f;
+                    break;
+                case "CRITRate":
+                    addCriticalChance += 10;
+                    break;
+                case "CRITDmg":
+                    addCriticalDamage += 0.30f;
+                    break;
+                case "Throwable2":
+                    addSword += -0.10f;
+                    addShot  += 0.20f;
+                    break;
+                case "Fencing2":
+                    addShot  += -0.10f;
+                    addSword += 0.20f;        
+                    break;
+                case "Fencing1":
+                    addSword += 0.10f;
+                    break;
+                case "Throwable1":
+                    addShot += 0.10f;
+                    break;
+                case "Collector":
+                    increaseAttack += (havingItem.Count * 0.02f);
+                    break;
+                case "FirstAttack":
+                    increaseAttack += 0.20f - (havingItem.Count * 0.01f);
+                    break;
+                case "MoneyTalent":
+                    addMaxHP += -0.50f;
+                    addMoney += 2.0f;
                     break;
                 default:
                     Debug.Log("!アイテム効果が見つかりません");
                     break;
             }
             //プレイヤーステータスクラス内の計算クラスに代入
-            playerStatusManager.statusCalc.AddAttack = addAttack;
+            playerStatusManager.statusCalc.AddMaxHP = addMaxHP;
             playerStatusManager.statusCalc.IncreaseAttack = increaseAttack;
-            playerStatusManager.statusCalc.AddBlock = addBlock;
             playerStatusManager.statusCalc.IncreaseBlock = increaseBlock;
             playerStatusManager.statusCalc.AddCriticalChance = addCriticalChance;
             playerStatusManager.statusCalc.AddCriticalDamage = addCriticalDamage;
-            playerStatusManager.statusCalc.AddMoney = addMoney;
+            playerStatusManager.addMoney = addMoney;
+            playerStatusManager.addAttackDamage = addSword;
+            playerStatusManager.addShotDamage = addShot;
+            playerStatusManager.plusShotDamage = plusShot;
         }
     }
 

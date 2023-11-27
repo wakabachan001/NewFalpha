@@ -87,27 +87,24 @@ public class PlayerStatusData : StatusData
 //ステータス計算クラス
 public class StatusCalc
 {
-    private float addAttack;      //追加ダメージ(+)
+    private float addMaxHP;       //追加最大体力
     private float increaseAttack; //増加ダメージ(*)
-    private float addBlock;         //防御+
-    private float increaseBlock;    //防御（割合）＊
+    private float increaseBlock;  //防御（割合）＊
 
     private float addCriticalDamage;    //会心ダメージ
     private int addCriticalChance;    //会心率
-    private int addMoney;               //所持金追加
+    
 
     //コンストラクタ
     public StatusCalc()
     {
         //初期化
-        addAttack = 0f;//要らないかも
+        addMaxHP = 1f;
         increaseAttack = 1f;
-        addBlock = 0f;//要らないかも
         increaseBlock = 1f;
 
         addCriticalDamage = 0f;
         addCriticalChance = 0;
-        addMoney = 0;
     }
     //ダメージ計算関数 引数が１つならクリティカルは起きない
     public float DamageCalc(float damage, int criC = -100, float criD = 1f)
@@ -119,27 +116,27 @@ public class StatusCalc
         if( dice <= criC + addCriticalChance)
         {
             //クリティカルダメージを加える
-            return (damage + addAttack) * increaseAttack * (criD + addCriticalDamage);
+            return damage * increaseAttack * (criD + addCriticalDamage);
         }
         else
         {
             //通常のダメージ
-            return (damage + addAttack) * increaseAttack;
+            return damage * increaseAttack;
         }     
     }
     //体力計算関数
     public float HPCalc(float hp, float damage, float barrier = 1.0f)
     {
-        return hp - ((damage - addBlock)* increaseBlock * barrier);
+        return hp - (damage* increaseBlock * barrier);
     }
-    //体力回復関数
+    //体力数値回復関数
     public float HealHP(float maxhp, float hp, float heal)
     {
         //回復して最大体力を超えるなら
-        if (hp + heal >= maxhp)
+        if (hp + heal >= MaxHPCalc(maxhp))
         {
             //現在の体力を最大体力と同じにする
-            return maxhp;
+            return MaxHPCalc(maxhp);
         }
         else
         {
@@ -147,27 +144,38 @@ public class StatusCalc
             return hp + heal;
         }
     }
-    //取得金額計算関数
-    public int MoneyCalc(int money)
+    //体力割合回復関数
+    public float HealHPper(float maxhp, float hp, float per)
     {
-        return money + addMoney;
+        float heal = MaxHPCalc(maxhp) * per;
+        //回復して最大体力を超えるなら
+        if (hp + heal >= MaxHPCalc(maxhp))
+        {
+            //現在の体力を最大体力と同じにする
+            return MaxHPCalc(maxhp);
+        }
+        else
+        {
+            //現在の体力を回復する
+            return hp + heal;
+        }
+    }
+    //最大体力計算
+    public float MaxHPCalc(float maxhp)
+    {
+        return maxhp *= addMaxHP;
     }
 
     //プロパティ
-    public float AddAttack
+    public float AddMaxHP
     {
-        get { return addAttack; }
-        set { addAttack = value; }
+        get { return addMaxHP; }
+        set { addMaxHP = value; }
     }
     public float IncreaseAttack
     {
         get { return increaseAttack; }
         set { increaseAttack = value; }
-    }
-    public float AddBlock
-    {
-        get { return addBlock; }
-        set { addBlock = value; }
     }
     public float IncreaseBlock
     {
@@ -183,10 +191,5 @@ public class StatusCalc
     {
         get { return addCriticalChance; }
         set { addCriticalChance = value; }
-    }
-    public int AddMoney
-    {
-        get { return addMoney; }
-        set { addMoney = value; }
     }
 }

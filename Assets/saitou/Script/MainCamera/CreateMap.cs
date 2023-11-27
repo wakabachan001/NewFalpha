@@ -41,6 +41,7 @@ public class CreateMap : MonoBehaviour
 
     PlayerManager playerManager;
     PlayerStatusManager playerStatusManager;
+    SceneChange sceneChange;
 
     private int start;
     private int end;
@@ -53,16 +54,30 @@ public class CreateMap : MonoBehaviour
         //スクリプトの取得
         playerStatusManager = LoadManagerScene.GetPlayerStatusManager();
 
+        sceneChange = GetComponent<SceneChange>();
+
         GameObject obj = GameObject.Find("Player");
         playerManager = obj.GetComponent<PlayerManager>();
+
+        mapCount = 1;
+        stageCount = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
         //onNextを受け取ったとき、ステージが3以下なら
-        if (onNext && stageCount <= 3)
+        if (onNext)
         {
+            //3より先のステージに進もうとすると
+            if(stageCount > 3 )
+            {
+                //クリアシーンを呼びだす
+                sceneChange.StageClear();
+
+                mapCount = 1;
+                stageCount = 1;
+            }
 
             //onNextがオンになったとき、クローン全削除
             DestroyClone();
@@ -104,10 +119,7 @@ public class CreateMap : MonoBehaviour
             onNext = false;
             mapCount++;
         }
-        else
-        {
-            //クリア
-        }
+
     }
 
     //マップ生成関数
@@ -175,7 +187,7 @@ public class CreateMap : MonoBehaviour
         BoardSetup();
 
         //オブジェクトを生成
-        Instantiate(boss[stageCount], new Vector2(2f, 7f), Quaternion.identity);
+        Instantiate(boss[stageCount-1], new Vector2(2f, 7f), Quaternion.identity);
         Instantiate(shop, new Vector2(1f, 3f), Quaternion.identity);   
 
         //カメラを移動
@@ -216,7 +228,7 @@ public class CreateMap : MonoBehaviour
             //　ｙ＝１～２０をループ
             for (int y = 0; y < mapHeight; y++)
             {
-                GameObject toInstantiate = floorTiles[stageCount];
+                GameObject toInstantiate = floorTiles[stageCount-1];
 
 
                 //床を生成し、instance変数に格納

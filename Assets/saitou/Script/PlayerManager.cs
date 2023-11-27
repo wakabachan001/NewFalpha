@@ -137,19 +137,22 @@ using UnityEngine;
             //プレイヤーの上から、上方を調べる
             RaycastHit2D hit = Physics2D.Raycast(transform.position + (transform.up * 0.5f), Vector2.up, 0.8f);
 
-            if(hit.collider)
+            if (hit.collider != null)
             {
-                Debug.Log(hit.collider.gameObject.name);
-            }
+                if (hit.collider)
+                {
+                    Debug.Log(hit.collider.gameObject.name);
+                }
 
-            //調べた物が宝箱なら
-            if (hit.collider.CompareTag("TreasureBox"))
-            {
-                Debug.Log("宝箱だ");
-                //宝箱のスクリプトを実行
-                tresureBox = hit.collider.gameObject.GetComponent<TresureBoxManager>();
+                //調べた物が宝箱なら
+                if (hit.collider.CompareTag("TreasureBox"))
+                {
+                    Debug.Log("宝箱だ");
+                    //宝箱のスクリプトを実行
+                    tresureBox = hit.collider.gameObject.GetComponent<TresureBoxManager>();
 
-                tresureBox.OpenBox();
+                    tresureBox.OpenBox();
+                }
             }
         }
     }

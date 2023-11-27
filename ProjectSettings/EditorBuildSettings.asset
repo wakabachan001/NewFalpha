@@ -5,28 +5,31 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/shiratori/shiratoriScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/shiratori/TitleScreen.unity
+    guid: 581795a1d8fd3d44ea35fb6b816f4ba3
+  - enabled: 1
     path: Assets/Master/Master.unity
     guid: b684c40b821c862499079cf36deab951
-  - enabled: 1
+  - enabled: 0
     path: Assets/Master/Clear.unity
     guid: 9b6f39343c46f6248b18102656dc868d
   - enabled: 0
     path: Assets/shiratori/first_stage.unity
     guid: 3c3b5e09ee8347a42af5cf28967515a7
-  - enabled: 1
+  - enabled: 0
     path: Assets/shiratori/Second_Stage.unity
     guid: d774489f38ed8f24e9f457c4f2941d52
-  - enabled: 1
-    path: Assets/shiratori/TitleScreen.unity
-    guid: 581795a1d8fd3d44ea35fb6b816f4ba3
   - enabled: 1
     path: Assets/shiratori/GameClear.unity
     guid: 7b4127675a62fc841a4372efbd2e05e4
   - enabled: 1
     path: Assets/shiratori/GameOver.unity
     guid: 780803467452d0540a5d4c802ce5cb9d
+  - enabled: 1
+    path: Assets/Master/ManagerScene.unity
+    guid: 7c13ff89779890a4e81ebbebcffa93c0
   m_configObjects: {}

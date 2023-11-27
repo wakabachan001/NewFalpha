@@ -39,13 +39,13 @@ public static class LoadManagerScene
         }
         return null;
     }
-    //SceneManager取得関数
-    public static SceneManager GetSceneManager()
+    //ItemIcon取得関数
+    public static ItemIcon GetItemIcon()
     {
         //ヒエラルキーの最上位のオブジェクトが取得できる
         foreach (var rootGameObject in scene.GetRootGameObjects())
         {
-            return rootGameObject.GetComponent<SceneManager>();
+            return rootGameObject.GetComponent<ItemIcon>();
         }
         return null;
     }

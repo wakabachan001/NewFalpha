@@ -105,7 +105,7 @@ MonoBehaviour:
   shotSpeed: 0.2
   takesDamage: 2
   effectLimit: 0
-  shotLimit: 3.5
+  shotLimit: 3.2
   shotLange: 0
   attackCooltime: 0.3
   shotCooltime: 0.3

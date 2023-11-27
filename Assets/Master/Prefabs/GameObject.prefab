@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 291973583837440247}
   - component: {fileID: 291973583837440246}
   - component: {fileID: 291973583837440245}
+  - component: {fileID: -7297964718180618723}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -84,4 +85,43 @@ MonoBehaviour:
   - 1
   - 1.5
   - 2
+  addAttackDamage: 0
+  addShotDamage: 0
+  plusShotDamage: 0
+  addMoney: 0
+  onSelfHarm: 0
+  onHealthTreat: 0
   onResetHpBr: 0
+--- !u!114 &-7297964718180618723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291973583837440251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e2af1fcd96e24e4d8acfffa51fc6d25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
