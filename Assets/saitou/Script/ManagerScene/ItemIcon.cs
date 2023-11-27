@@ -7,6 +7,7 @@ public class ItemIcon : MonoBehaviour
 {
     //アイテムアイコン画像を入れる配列
     [SerializeField] private Sprite[] iconImage = new Sprite[20];
+    [SerializeField] private Sprite emptyIconImage;
     
     //アイコン探索関数
     public Sprite SearchImage(string id)
@@ -61,7 +62,7 @@ public class ItemIcon : MonoBehaviour
                 break;
             default:
                 Debug.Log("!アイテム画像が見つかりません");
-                return null;    
+                return emptyIconImage;    
         }
     }
 }
