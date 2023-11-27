@@ -35,22 +35,15 @@ public class ItemSerect : MonoBehaviour
         itemicon = LoadManagerScene.GetItemIcon();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            ActiveItemSelectUI();
-        }
-    }
-
     public void ActiveItemSelectUI()
     {
         ItemSelectUI.SetActive(true);
 
+        ItemId = itemmanager.GetRandomItem(3) ;
+
         for (int i = 0; i < 3; i++)
         {
-            ItemId[i] = itemmanager.GetRandomItem(); 
+             
             Item[i].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[i]);
             textname[i].text = itemmanager.GetName(ItemId[i]);
             textdisc[i].text = itemmanager.GetDescription(ItemId[i]);

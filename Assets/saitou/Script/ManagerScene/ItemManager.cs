@@ -13,8 +13,12 @@ public class ItemManager : MonoBehaviour
     private TextAsset csvFile; // CSVファイル
     private List<string[]> csvData = new List<string[]>(); // CSVファイルの中身を入れるリスト
 
+    private PlayerItemManager playerItemManager;
+
     void Start()
     {
+        playerItemManager = GetComponent<PlayerItemManager>();
+
         csvFile = Resources.Load("ItemData") as TextAsset; // ResourcesにあるCSVファイルを格納
         StringReader reader = new StringReader(csvFile.text); // TextAssetをStringReaderに変換
 
@@ -119,7 +123,7 @@ public class ItemManager : MonoBehaviour
         return ItemData[r].Id;
     }
     //引数のidと被らないオーバーロード numは個数
-    public string[] GetRandomItem(string[] id, int num = 1)
+    public string[] GetRandomItem(int num = 1)
     {
         string[] ans = new string[num];//返り値用配列
 
@@ -131,9 +135,9 @@ public class ItemManager : MonoBehaviour
         }
 
         //引数のIDと被っている要素を削除
-        for (int i = 0; i < id.Length; i++) 
+        for (int i = 0; i < playerItemManager.havingItem.Count; i++) 
         {
-            itemId.Remove(id[i]);
+            itemId.Remove(playerItemManager.havingItem[i]);
         }
 
         for (int i = 0; i < num; i++)

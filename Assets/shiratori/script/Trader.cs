@@ -34,27 +34,19 @@ public class Trader : MonoBehaviour
         itemicon = LoadManagerScene.GetItemIcon();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ActiveTradeUI();
-        }
-    }
-
-    private int RandSelect;
     public void ActiveTradeUI()
     {
         TradeUI.SetActive(true);
 
-        for ( RandSelect = 0; RandSelect < 6; RandSelect++)
+        ItemId = itemmanager.GetRandomItem(6);
+
+        for ( int i = 0; i < 6; i++)
         {
-            ItemId[RandSelect] = itemmanager.GetRandomItem();
-            TradeItem[RandSelect].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[RandSelect]);
-            textname[RandSelect].text = itemmanager.GetName(ItemId[RandSelect]);
-            textdisc[RandSelect].text = itemmanager.GetDescription(ItemId[RandSelect]);
-            textamount[RandSelect].text = itemmanager.GetBuyingPrice(ItemId[RandSelect]).ToString();
+           
+            TradeItem[i].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[i]);
+            textname[i].text = itemmanager.GetName(ItemId[i]);
+            textdisc[i].text = itemmanager.GetDescription(ItemId[i]);
+            textamount[i].text = itemmanager.GetBuyingPrice(ItemId[i]).ToString();
 
         }
 
@@ -65,6 +57,11 @@ public class Trader : MonoBehaviour
         //itemname = name;
         // ランダムに3つのアイテムをアクティブにする
         //ActivateRandomItems(3);
+    }
+
+    public void CloseUI()
+    {
+        TradeUI.SetActive(false);
     }
 
     // ActiveItemSelectUI で表示されているアイテムを選択
