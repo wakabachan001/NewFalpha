@@ -119,7 +119,7 @@ public class ItemManager : MonoBehaviour
         return ItemData[r].Id;
     }
     //引数のidと被らないオーバーロード numは個数
-    public string[] GetRandomItem(List<string> id, int num = 1)
+    public string[] GetRandomItem(string[] id, int num = 1)
     {
         string[] ans = new string[num];//返り値用配列
 
@@ -131,7 +131,7 @@ public class ItemManager : MonoBehaviour
         }
 
         //引数のIDと被っている要素を削除
-        for (int i = 0; i < id.Count; i++) 
+        for (int i = 0; i < id.Length; i++) 
         {
             itemId.Remove(id[i]);
         }
