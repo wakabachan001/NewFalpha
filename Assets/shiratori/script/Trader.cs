@@ -13,10 +13,13 @@ public class Trader : MonoBehaviour
 
     GameObject SelectButton;
     GameObject FindID;
-    GameObject datainfo;
+
+    //GameObject datainfo;
     ItemManager itemmanager = new ItemManager();
     PlayerItemManager PIM = new PlayerItemManager();
+    ItemIcon itemicon = new ItemIcon();
 
+    public GameObject[] TradeItem = new GameObject[6];
     public Text[] textamount = new Text[6];
     public Text[] textname = new Text[6];
     public Text[] textdisc = new Text[6];
@@ -24,10 +27,11 @@ public class Trader : MonoBehaviour
     //　TextMeshProUGUI   メッシュプろを使う際はこっち
     private void Start()
     {
-        datainfo = GameObject.Find("DataInfo");
-        itemmanager = datainfo.GetComponent<ItemManager>();
+       // datainfo = GameObject.Find("DataInfo");
+        itemmanager = LoadManagerScene.GetItemManager();
 
-        PIM = datainfo.GetComponent<PlayerItemManager>();
+        PIM = LoadManagerScene.GetPlayerItemManager();
+        itemicon = LoadManagerScene.GetItemIcon();
     }
 
     // Update is called once per frame
@@ -47,9 +51,11 @@ public class Trader : MonoBehaviour
         for ( RandSelect = 0; RandSelect < 6; RandSelect++)
         {
             ItemId[RandSelect] = itemmanager.GetRandomItem();
+            TradeItem[RandSelect].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[RandSelect]);
             textname[RandSelect].text = itemmanager.GetName(ItemId[RandSelect]);
             textdisc[RandSelect].text = itemmanager.GetDescription(ItemId[RandSelect]);
             textamount[RandSelect].text = itemmanager.GetBuyingPrice(ItemId[RandSelect]).ToString();
+
         }
 
         //string Id =itemmanager.GetRandomItem();

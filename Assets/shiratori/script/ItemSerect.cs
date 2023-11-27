@@ -16,20 +16,23 @@ public class ItemSerect : MonoBehaviour
 
     GameObject SelectButton;
     GameObject FindID;
-    GameObject datainfo;
+    //GameObject datainfo;
     ItemManager itemmanager = new ItemManager();
     PlayerItemManager PIM = new PlayerItemManager();
+    ItemIcon itemicon = new ItemIcon();
 
+    public GameObject[] Item = new GameObject[3];
     public Text[] textname = new Text[3];
     public Text[] textdisc = new Text[3];
     public string[] ItemId = new string[3];
     //　TextMeshProUGUI   メッシュプろを使う際はこっち
     private void Start()
     {
-        datainfo = GameObject.Find("DataInfo");
-        itemmanager = datainfo.GetComponent<ItemManager>();
+        //datainfo = GameObject.Find("DataInfo");
+        itemmanager = LoadManagerScene.GetItemManager();
 
-        PIM = datainfo.GetComponent<PlayerItemManager>();
+        PIM = LoadManagerScene.GetPlayerItemManager();
+        itemicon = LoadManagerScene.GetItemIcon();
     }
 
     // Update is called once per frame
@@ -41,16 +44,17 @@ public class ItemSerect : MonoBehaviour
         }
     }
 
-    private int RandSelect;
     public void ActiveItemSelectUI()
     {
         ItemSelectUI.SetActive(true);
 
-        for (RandSelect = 0; RandSelect < 3; RandSelect++)
+        for (int i = 0; i < 3; i++)
         {
-            ItemId[RandSelect] = itemmanager.GetRandomItem();
-            textname[RandSelect].text = itemmanager.GetName(ItemId[RandSelect]);
-            textdisc[RandSelect].text = itemmanager.GetDescription(ItemId[RandSelect]);
+            ItemId[i] = itemmanager.GetRandomItem(); 
+            Item[i].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[i]);
+            textname[i].text = itemmanager.GetName(ItemId[i]);
+            textdisc[i].text = itemmanager.GetDescription(ItemId[i]);
+
         }
 
         //string Id =itemmanager.GetRandomItem();

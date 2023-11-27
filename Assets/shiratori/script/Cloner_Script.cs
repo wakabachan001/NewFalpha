@@ -22,8 +22,6 @@ public class Cloner_Script : MonoBehaviour
         SpawnClones();
         ClonerforClone= GameObject.FindGameObjectWithTag("Cloner for clone");
         attack=ClonerforClone.GetComponent<EnemyAttack>();
-
-        attack.moveOn = true;
     }
 
     private void FixedUpdate()
