@@ -13,10 +13,13 @@ public class Trader : MonoBehaviour
 
     GameObject SelectButton;
     GameObject FindID;
-    GameObject datainfo;
+
+    //GameObject datainfo;
     ItemManager itemmanager = new ItemManager();
     PlayerItemManager PIM = new PlayerItemManager();
+    ItemIcon itemicon = new ItemIcon();
 
+    public GameObject[] TradeItem = new GameObject[6];
     public Text[] textamount = new Text[6];
     public Text[] textname = new Text[6];
     public Text[] textdisc = new Text[6];
@@ -24,32 +27,27 @@ public class Trader : MonoBehaviour
     //　TextMeshProUGUI   メッシュプろを使う際はこっち
     private void Start()
     {
-        datainfo = GameObject.Find("DataInfo");
-        itemmanager = datainfo.GetComponent<ItemManager>();
+       // datainfo = GameObject.Find("DataInfo");
+        itemmanager = LoadManagerScene.GetItemManager();
 
-        PIM = datainfo.GetComponent<PlayerItemManager>();
+        PIM = LoadManagerScene.GetPlayerItemManager();
+        itemicon = LoadManagerScene.GetItemIcon();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ActiveTradeUI();
-        }
-    }
-
-    private int RandSelect;
     public void ActiveTradeUI()
     {
         TradeUI.SetActive(true);
 
-        for ( RandSelect = 0; RandSelect < 6; RandSelect++)
+        ItemId = itemmanager.GetRandomItem(6);
+
+        for ( int i = 0; i < 6; i++)
         {
-            ItemId[RandSelect] = itemmanager.GetRandomItem();
-            textname[RandSelect].text = itemmanager.GetName(ItemId[RandSelect]);
-            textdisc[RandSelect].text = itemmanager.GetDescription(ItemId[RandSelect]);
-            textamount[RandSelect].text = itemmanager.GetBuyingPrice(ItemId[RandSelect]).ToString();
+           
+            TradeItem[i].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[i]);
+            textname[i].text = itemmanager.GetName(ItemId[i]);
+            textdisc[i].text = itemmanager.GetDescription(ItemId[i]);
+            textamount[i].text = itemmanager.GetBuyingPrice(ItemId[i]).ToString();
+
         }
 
         //string Id =itemmanager.GetRandomItem();
@@ -59,6 +57,11 @@ public class Trader : MonoBehaviour
         //itemname = name;
         // ランダムに3つのアイテムをアクティブにする
         //ActivateRandomItems(3);
+    }
+
+    public void CloseUI()
+    {
+        TradeUI.SetActive(false);
     }
 
     // ActiveItemSelectUI で表示されているアイテムを選択

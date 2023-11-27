@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class antiHoming : MonoBehaviour
+public class EnemyAntiHoming : MonoBehaviour
 {
     GameObject playerObj;
     PlayerManager player;
