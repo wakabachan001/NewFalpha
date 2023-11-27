@@ -19,6 +19,9 @@ public class Trader : MonoBehaviour
     PlayerItemManager PIM = new PlayerItemManager();
     ItemIcon itemicon = new ItemIcon();
 
+    PlayerManager playerManager;
+    ItemUIManager itemUI;
+
     public GameObject[] TradeItem = new GameObject[6];
     public Text[] textamount = new Text[6];
     public Text[] textname = new Text[6];
@@ -32,11 +35,18 @@ public class Trader : MonoBehaviour
 
         PIM = LoadManagerScene.GetPlayerItemManager();
         itemicon = LoadManagerScene.GetItemIcon();
+
+        GameObject obj = GameObject.Find("Player");
+        playerManager = obj.GetComponent<PlayerManager>();
+
+        GameObject canv = GameObject.Find("Canvas");
+        itemUI = canv.GetComponent<ItemUIManager>();
     }
 
     public void ActiveTradeUI()
     {
         TradeUI.SetActive(true);
+        playerManager.dontMove = true;
 
         ItemId = itemmanager.GetRandomItem(6);
 
@@ -62,13 +72,20 @@ public class Trader : MonoBehaviour
     public void CloseUI()
     {
         TradeUI.SetActive(false);
+        playerManager.dontMove = false;
+    }
+
+    public void OpenUI()
+    {
+        TradeUI.SetActive(true);
+        playerManager.dontMove = true;
     }
 
     // ActiveItemSelectUI で表示されているアイテムを選択
     public void TradeChoice(int objectname)
     {
         PIM.BuyingItem(ItemId[objectname]); Debug.Log("ステータス上昇" + objectname);
-        TradeUI.SetActive(false);
+        itemUI.ChangeIcon();//所持アイテムアイコン更新
     }
 
     //void ActivateRandomItems(int count)

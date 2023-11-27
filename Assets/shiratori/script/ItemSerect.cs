@@ -21,6 +21,9 @@ public class ItemSerect : MonoBehaviour
     PlayerItemManager PIM = new PlayerItemManager();
     ItemIcon itemicon = new ItemIcon();
 
+    PlayerManager playerManager;
+    ItemUIManager itemUI;
+
     public GameObject[] Item = new GameObject[3];
     public Text[] textname = new Text[3];
     public Text[] textdisc = new Text[3];
@@ -33,11 +36,18 @@ public class ItemSerect : MonoBehaviour
 
         PIM = LoadManagerScene.GetPlayerItemManager();
         itemicon = LoadManagerScene.GetItemIcon();
+
+        GameObject obj = GameObject.Find("Player");
+        playerManager = obj.GetComponent<PlayerManager>();
+
+        GameObject canv = GameObject.Find("Canvas");
+        itemUI = canv.GetComponent<ItemUIManager>();
     }
 
     public void ActiveItemSelectUI()
     {
         ItemSelectUI.SetActive(true);
+        playerManager.dontMove = true;
 
         ItemId = itemmanager.GetRandomItem(3) ;
 
@@ -64,7 +74,10 @@ public class ItemSerect : MonoBehaviour
     {
 
         PIM.AddItem(ItemId[objectname]); Debug.Log("ステータス上昇"+objectname);
+        itemUI.ChangeIcon();//所持アイテムアイコン更新
+
         ItemSelectUI.SetActive(false);
+        playerManager.dontMove = false;
     }
 
     //void ActivateRandomItems(int count)

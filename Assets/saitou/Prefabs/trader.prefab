@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1091248866885730766}
   - component: {fileID: 6115223577063741932}
+  - component: {fileID: 8182502727924219784}
   - component: {fileID: 2332338516906319794}
   m_Layer: 0
   m_Name: trader
@@ -85,6 +86,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8182502727924219784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3602497397326045965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12081927425931a40af27f2d30ffd4d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopCount: 0
 --- !u!61 &2332338516906319794
 BoxCollider2D:
   m_ObjectHideFlags: 0

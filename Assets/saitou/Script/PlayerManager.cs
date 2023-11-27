@@ -23,9 +23,10 @@ using UnityEngine;
     public float upLimit = 21.0f;   //侵入できる上の限界
     public float backLimitArea = 19.0f; //後退に制限をつける範囲(以下) CreateMapで適宜更新
 
-    bool onAttack = false;      //近距離攻撃フラグ
-    bool onShot = false;        //遠距離攻撃フラグ
-    bool onBottomColumn = false; //下列にいるかどうか
+    public bool dontMove = false;   //移動できなくするフラグ
+    bool onAttack = false;          //近距離攻撃フラグ
+    bool onShot = false;            //遠距離攻撃フラグ
+    bool onBottomColumn = false;    //下列にいるかどうか
 
 
     private float time; //時間計測用
@@ -34,11 +35,13 @@ using UnityEngine;
     public GameObject AttackEffect;  //近距離攻撃
     public GameObject ShotEffect;    //遠距離攻撃
     public GameObject ghostPrefab;   //残像用のプレハブ
-    public BarrierManager barrierbar;//BarrierManagerスクリプト
-    private GameObject dataInfo;     //DataInfoオブジェクト
     private GameObject camera;       //Main Cameraオブジェクト
+    //private GameObject traderUI;     //UIオブジェクト
+    //private GameObject boxUI;
+
     private PlayerStatusManager playerStatus;//PlayerStatusManagerスクリプト
     private TresureBoxManager tresureBox;    //TresureBoxManagerスクリプト
+    private TraderManager traderManager;     //TraderManagerスクリプト
     private SceneChange sceneChange;         //SceneChangeスクリプト
 
     void Start()
@@ -46,6 +49,10 @@ using UnityEngine;
         playerStatus = LoadManagerScene.GetPlayerStatusManager();
 
         camera = GameObject.Find("Main Camera"); //カメラの取得
+
+        //UIのオブジェクトを取得
+        //boxUI = GameObject.Find("UImanager");
+        //traderUI = GameObject.Find("TradeUImanager");
 
         //プレイヤー座標の取得
         position = transform.position;
@@ -55,50 +62,50 @@ using UnityEngine;
 
     void Update()
     {
-
-        //移動(場外にいかないようにする)
-        if ((Input.GetKeyDown("left") ||
-            Input.GetKeyDown(KeyCode.A)) &&
-            position.x > leftLimit)
+        //移動不可フラグを調べる
+        if (dontMove == false)
         {
-            CloneAfterimage();
-            position.x -= speed;
-        }
-        if ((Input.GetKeyDown("right") ||
-            Input.GetKeyDown(KeyCode.D)) &&
-            position.x < rightLimit)
-        {
-            CloneAfterimage();
-            position.x += speed;
-        }
-        if ((Input.GetKeyDown("up") ||
-            Input.GetKeyDown(KeyCode.W)) &&
-            position.y < upLimit)
-        {
-            CloneAfterimage();
-            position.y += speed;
-
-            //カメラの移動もこっちでする
-            if(onBottomColumn == false && transform.position.y < backLimitArea)
+            //移動(場外にいかないようにする)
+            if ((Input.GetKeyDown("left") ||
+                Input.GetKeyDown(KeyCode.A)) &&
+                position.x > leftLimit)
             {
-                //カメラの座標Yを+1
-                camera.transform.position += transform.up;
+                CloneAfterimage();
+                position.x -= speed;
             }
-            onBottomColumn = false;
-        }
-        if ((Input.GetKeyDown("down") ||
-            Input.GetKeyDown(KeyCode.S)) &&
-            !onBottomColumn)
-        {
-            CloneAfterimage();
-            position.y -= speed;
-            //ボスエリアより手前なら
-            if(transform.position.y <= backLimitArea)
-                onBottomColumn = true;  //後退時に下列にいることにする
-        }
-        
+            if ((Input.GetKeyDown("right") ||
+                Input.GetKeyDown(KeyCode.D)) &&
+                position.x < rightLimit)
+            {
+                CloneAfterimage();
+                position.x += speed;
+            }
+            if ((Input.GetKeyDown("up") ||
+                Input.GetKeyDown(KeyCode.W)) &&
+                position.y < upLimit)
+            {
+                CloneAfterimage();
+                position.y += speed;
 
-
+                //カメラの移動もこっちでする
+                if (onBottomColumn == false && transform.position.y < backLimitArea)
+                {
+                    //カメラの座標Yを+1
+                    camera.transform.position += transform.up;
+                }
+                onBottomColumn = false;
+            }
+            if ((Input.GetKeyDown("down") ||
+                Input.GetKeyDown(KeyCode.S)) &&
+                !onBottomColumn)
+            {
+                CloneAfterimage();
+                position.y -= speed;
+                //ボスエリアより手前なら
+                if (transform.position.y <= backLimitArea)
+                    onBottomColumn = true;  //後退時に下列にいることにする
+            }
+        }
         
 
         //近距離攻撃
@@ -149,10 +156,21 @@ using UnityEngine;
                 if (hit.collider.CompareTag("TreasureBox"))
                 {
                     Debug.Log("宝箱だ");
-                    //宝箱のスクリプトを実行
+                    
+                    //スクリプトを取得
                     tresureBox = hit.collider.gameObject.GetComponent<TresureBoxManager>();
 
-                    tresureBox.OpenBox();
+                    tresureBox.OpenBox();//宝箱のスクリプトを実行
+                }
+                //調べた物が商人なら
+                else if (hit.collider.CompareTag("Trader"))
+                {
+                    Debug.Log("商人だ");
+
+                    //スクリプトを取得
+                    traderManager = hit.collider.gameObject.GetComponent<TraderManager>();
+
+                    traderManager.OpenShop();//商人のスクリプトを実行
                 }
             }
         }
