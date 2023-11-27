@@ -39,6 +39,7 @@ using UnityEngine;
     private GameObject camera;       //Main Cameraオブジェクト
     private PlayerStatusManager playerStatus;//PlayerStatusManagerスクリプト
     private TresureBoxManager tresureBox;    //TresureBoxManagerスクリプト
+    private SceneChange sceneChange;         //SceneChangeスクリプト
 
     void Start()
     {
@@ -203,6 +204,10 @@ using UnityEngine;
     {
         Debug.Log("やられた");
         Destroy(gameObject, 0.4f);
+
+        //SeneChangeスクリプトを探し、ゲームオーバーシーンに移行
+        sceneChange = camera.GetComponent<SceneChange>();
+        sceneChange.GameOver();
     }
 
     //残像生成関数
