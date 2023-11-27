@@ -10,6 +10,7 @@ public class ItemObjectManager : MonoBehaviour
 
     PlayerItemManager playerItemManager;
     ItemManager itemManager;
+    ItemUIManager itemUI;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,9 +19,13 @@ public class ItemObjectManager : MonoBehaviour
         {
             Debug.Log("アイテム獲得");
 
-            //ManagerSceneのスクリプトを取得
+            //スクリプトを取得
             playerItemManager = LoadManagerScene.GetPlayerItemManager();
             itemManager = LoadManagerScene.GetItemManager();
+
+            GameObject obj = GameObject.Find("Canvas");
+            itemUI = obj.GetComponent<ItemUIManager>();
+
 
             //ランダムなアイテムのIDを取得
             itemId = itemManager.GetRandomItem();
@@ -29,6 +34,9 @@ public class ItemObjectManager : MonoBehaviour
 
             //このオブジェクトのアイテムIDを取得させる
             playerItemManager.AddItem(itemId);
+
+            //アイコン更新
+            itemUI.ChangeIcon();
 
             //このオブジェクトを削除
             Destroy(gameObject, destroyTime);

@@ -18,6 +18,9 @@ public class HPBar : MonoBehaviour
     //‘Ì—ÍXVŠÖ”
     public void Update()
     {
+        if(playerStatusManager == null)
+            playerStatusManager = LoadManagerScene.GetPlayerStatusManager();
+
         //Œ»İ‚Ì‘Ì—Í‚ÌŠ„‡‚©‚çŒ©‚½–Ú‚ğ•Ï‚¦‚é
         hpBarcurrent.fillAmount = playerStatusManager.HPper();
     }
