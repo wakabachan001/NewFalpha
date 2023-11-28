@@ -10,6 +10,18 @@ public class EnemyAntiHoming : MonoBehaviour
 
     private Camera mainCamera;
     public float speed = 1f;
+
+    private bool moveOn = false;//行動可能フラグ
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //アクティブエリア内に入ったら
+        if (collision.gameObject.tag == "ActiveArea")
+        {
+            moveOn = true;//行動可能フラグをオン
+            Debug.Log("行動可能");
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,58 +32,62 @@ public class EnemyAntiHoming : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Vector2 position = transform.position;
 
-        if (position.y <= 20)// Y軸　移動制限
+        if (moveOn)
         {
-            //  距離を一定に保つと動かない
-            if(transform.position.y - playerTransform.position.y == 2) { ; }
-            //　奥に逃げる
-            else if (transform.position.y - playerTransform.position.y <= 2)
+            if (position.y <= 20)// Y軸　移動制限
             {
-                position.y += speed; 
-                if (position.y > 20) position.y -= speed;
+                //  距離を一定に保つと動かない
+                if(transform.position.y - playerTransform.position.y == 2) { ; }
+                //　奥に逃げる
+                else if (transform.position.y - playerTransform.position.y <= 2)
+                {
+                    position.y += speed; 
+                    if (position.y > 20) position.y -= speed;
+                }
+                //　離れすぎると近づいてくる
+                else if (transform.position.y - playerTransform.position.y >= 2)
+                {
+                    position.y -= speed;
+                }
             }
-            //　離れすぎると近づいてくる
-            else if (transform.position.y - playerTransform.position.y >= 2)
-            {
-                position.y -= speed;
-            }
-        }
       
-        if (position.x > 0 && position.x < 6) // X軸　移動制限
-        {
-            //　右に逃げる
-            if (playerTransform.position.x==transform.position.x -1)
+            if (position.x > 0 && position.x < 6) // X軸　移動制限
             {
-                position.x += speed;
-                if (position.x > 5) position.x -= speed;
-            }
-            // 左に逃げる
-            if (playerTransform.position.x == transform.position.x + 1)
-            {
-                position.x -= speed;
-                if (position.x < 1) position.x += speed;
-            }
-
-            // X座標が同じとき左右のどっちかに逃げる
-            if (transform.position.x == playerTransform.position.x) 
-            {
-                int randomNumber = Random.Range(0, 2);  //ランダムな値を生成
-
-                if (randomNumber == 0 && position.x < 5)
+                //　右に逃げる
+                if (playerTransform.position.x==transform.position.x -1)
                 {
-                    position.x += speed;    //右に移動
+                    position.x += speed;
+                    if (position.x > 5) position.x -= speed;
                 }
-                else if (randomNumber != 0 && position.x > 1) 
+                // 左に逃げる
+                if (playerTransform.position.x == transform.position.x + 1)
                 {
-                    position.x -= speed;    //左に移動
+                    position.x -= speed;
+                    if (position.x < 1) position.x += speed;
+                }
+
+                // X座標が同じとき左右のどっちかに逃げる
+                if (transform.position.x == playerTransform.position.x) 
+                {
+                    int randomNumber = Random.Range(0, 2);  //ランダムな値を生成
+
+                    if (randomNumber == 0 && position.x < 5)
+                    {
+                        position.x += speed;    //右に移動
+                    }
+                    else if (randomNumber != 0 && position.x > 1) 
+                    {
+                        position.x -= speed;    //左に移動
            
+                    }
                 }
             }
         }
+        
 
         transform.position = position;  //座標の更新
     }

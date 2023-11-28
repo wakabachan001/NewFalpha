@@ -8,12 +8,6 @@ public class Cloner_Script : MonoBehaviour
     public int numberOfClones = 3; // 分身する敵の数
     public float cloneDistance = 1.5f; // 分身する敵の間隔
 
-    public float clonepos = -1.0f;//クローン生成位置調整用
-    public float coolTime = 2.0f;//攻撃のクールタイム
-    private float time = 0.0f;//時間計測用
-    private bool moveOn = true;//行動可能フラグ
-    public GameObject AttackEffect;//クローンするオブジェクト
-
     GameObject ClonerforClone;
     EnemyAttack attack = new EnemyAttack();
 
@@ -22,11 +16,6 @@ public class Cloner_Script : MonoBehaviour
         SpawnClones();
         ClonerforClone= GameObject.FindGameObjectWithTag("Cloner for clone");
         attack=ClonerforClone.GetComponent<EnemyAttack>();
-    }
-
-    private void FixedUpdate()
-    {
-       
     }
 
     void SpawnClones()

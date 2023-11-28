@@ -5,16 +5,24 @@ using UnityEngine;
 public class kamikaze : MonoBehaviour
 {
     public float speed = 2.0f;
-    // Start is called before the first frame update
-    void Start()
+
+    private bool moveOn = false;//行動可能フラグ
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        //アクティブエリア内に入ったら
+        if (collision.gameObject.tag == "ActiveArea")
+        {
+            moveOn = true;//行動可能フラグをオン
+            Debug.Log("行動可能");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        Vector2 position = transform.position;
-        position.y += speed;
+        if (moveOn)
+        {
+            Vector2 position = transform.position;
+            position.y += speed;
+        }
     }
 }

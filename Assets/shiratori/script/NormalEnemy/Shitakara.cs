@@ -7,11 +7,22 @@ public class Shitakara : MonoBehaviour
     GameObject playerObj;
     public GameObject enemy; // 敵のゲームオブジェクト
     public GameObject attackEffect; // 攻撃エフェクト
-    public float attackRange = 1.5f;
-    public float attackCooldown = 2.5f; // 攻撃のクールダウン時間
-    public float timeSinceLastAttack = 0f; // 最後に攻撃した時間
 
     Vector3 playerCenterPosition;
+
+
+    public float coolTime = 2.0f;//攻撃のクールタイム
+    private float time = 0.0f;//時間計測用
+    private bool moveOn = false;//行動可能フラグ
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //アクティブエリア内に入ったら
+        if (collision.gameObject.tag == "ActiveArea")
+        {
+            moveOn = true;//行動可能フラグをオン
+            Debug.Log("行動可能");
+        }
+    }
 
 
     private void Start()
@@ -19,16 +30,19 @@ public class Shitakara : MonoBehaviour
         playerObj = GameObject.Find("player");
         
     }
-    void Update()
-    {
-        // 時間の経過を追跡
-        timeSinceLastAttack += Time.deltaTime ;
 
-        //クールダウン時間が経過したら攻撃
-        if ( timeSinceLastAttack >= attackCooldown)
+    private void FixedUpdate()
+    {
+        if (moveOn)
         {
-            Attack();
-            timeSinceLastAttack = 0f; // 攻撃したのでクールダウンをリセット
+            time += 0.02f;//1秒で1増える
+
+            //timeがクールタイムを超えたら
+            if (time >= coolTime)
+            {
+                Attack();
+                time = 0.0f;
+            }
         }
     }
 
@@ -39,22 +53,6 @@ public class Shitakara : MonoBehaviour
             // プレイヤーの中心位置を取得
             playerCenterPosition = playerObj.transform.position;
            //Invoke("sisyou", 0.5f);
-            // 攻撃エフェクトを生成
-            if (attackEffect != null)
-            {
-                Instantiate(attackEffect, playerCenterPosition, Quaternion.identity);
-                // ここに攻撃エフェクトの発生音などを追加する
-
-                // 攻撃範囲内の敵にダメージを与える処理などをここに追加する
-            }
-        }
-    }
-
-    void sisyou()
-    {
-        // 攻撃範囲内かどうかを判定
-        if (Vector3.Distance(playerObj.transform.position, playerCenterPosition) <= attackRange)
-        {
             // 攻撃エフェクトを生成
             if (attackEffect != null)
             {

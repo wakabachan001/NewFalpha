@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3389573295588184537}
   - component: {fileID: 553013487187958541}
-  - component: {fileID: 6148940771833909159}
-  - component: {fileID: 5785895379452708550}
   - component: {fileID: -6008910119244256017}
+  - component: {fileID: 5785895379452708550}
+  - component: {fileID: 6148940771833909159}
   - component: {fileID: 3574018849346529302}
   - component: {fileID: 1303441300928284679}
   m_Layer: 6
@@ -89,6 +89,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-6008910119244256017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549716839820228433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9ba0fce96585fa4ea3e5f8f6fa788af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 1549716839820228433, guid: fbde780eaf4e61a4bb27959893e742e7, type: 3}
+  numberOfClones: 2
+  cloneDistance: 2
+--- !u!114 &5785895379452708550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549716839820228433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3797e3fba598ffc4c94108c1d49eba0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clonepos: 0
+  coolTime: 1.6
+  AttackEffect: {fileID: 5297010364463725093, guid: 053c9fdbd34ffbe48a02451919cdd70b, type: 3}
 --- !u!114 &6148940771833909159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,39 +135,6 @@ MonoBehaviour:
   money: 100
   attackDamage1: 10
   attackDamage2: 10
---- !u!114 &5785895379452708550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1549716839820228433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3797e3fba598ffc4c94108c1d49eba0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clonepos: 0
-  coolTime: 1.6
-  AttackEffect: {fileID: 5007766752859079650, guid: 0f5420e5643c6cb428f775d24026aef5, type: 3}
---- !u!114 &-6008910119244256017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1549716839820228433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9ba0fce96585fa4ea3e5f8f6fa788af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 0}
-  numberOfClones: 3
-  cloneDistance: 1.5
-  clonepos: -1
-  coolTime: 2
-  AttackEffect: {fileID: 0}
 --- !u!61 &3574018849346529302
 BoxCollider2D:
   m_ObjectHideFlags: 0
