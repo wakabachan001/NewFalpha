@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class skill : MonoBehaviour
 {
     public GameObject OriginObjct;//オリジナルのオブジェクト
+    public GameObject CloneObject;//クローンするオブジェクト
 
     private bool skillused = false;
 
@@ -43,18 +44,14 @@ public class skill : MonoBehaviour
 
 
             //クローン作成
-            a = Instantiate(OriginObjct, OriginObjct.transform.position + (transform.right * right), Quaternion.identity);
+            a = Instantiate(CloneObject, OriginObjct.transform.position + (transform.right * right), Quaternion.identity);
 
             //クローン作成
-            b = Instantiate(OriginObjct, OriginObjct.transform.position + (transform.right * right * -1.0f), Quaternion.identity);
-
-            a.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 100);
+            b = Instantiate(CloneObject, OriginObjct.transform.position + (transform.right * right * -1.0f), Quaternion.identity);
 
             //5秒後に消す
             Destroy(a, time);
             Destroy(b, time);
-
-
         }
     }
 

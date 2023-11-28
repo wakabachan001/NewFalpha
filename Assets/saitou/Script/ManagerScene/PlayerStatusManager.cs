@@ -32,6 +32,7 @@ public class PlayerStatusManager : MonoBehaviour
 
         addAttackDamage = 1;
         addShotDamage = 1;
+        addMoney = 1;
 
         Debug.Log("maxHP" + status.MaxHP);
     }
@@ -104,6 +105,16 @@ public class PlayerStatusManager : MonoBehaviour
     public float MaxHP()
     {
         return statusCalc.MaxHPCalc(status.MaxHP);
+    }
+    //Œ»İ‚Ì‘Ì—Í‚ğ’²®‚·‚éŠÖ”
+    public void RoadHP()
+    {
+        //Œ»İ‚Ì‘Ì—Í‚ªÅ‘å‘Ì—Í‚ğ’´‚¦‚Ä‚¢‚½‚ç
+        if(status.CurrentHP > statusCalc.MaxHPCalc(status.MaxHP))
+        {
+            //Œ»İ‚Ì‘Ì—Í‚ğÅ‘å‘Ì—Í‚ÉXV
+            status.CurrentHP = statusCalc.MaxHPCalc(status.MaxHP);
+        }
     }
 }
 

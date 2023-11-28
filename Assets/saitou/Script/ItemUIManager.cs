@@ -13,6 +13,7 @@ public class ItemUIManager : MonoBehaviour
     [SerializeField] private float iconPos;         //アイコン位置調整用
     [SerializeField] private GameObject iconPrefab; //生成するPrefab    
     
+    [SerializeField]
     private Transform iconParent; //その親オブジェクト
     private GameObject[] iconObj = new GameObject[20]; //クローンしたオブジェクト
 
@@ -31,8 +32,8 @@ public class ItemUIManager : MonoBehaviour
         itemIcon = LoadManagerScene.GetItemIcon();
 
         //Iconをまとめる用のオブジェクトを生成し、Canvasの子にする
-        iconParent = new GameObject("Icon").transform;
-        iconParent.SetParent(gameObject.transform);
+        //iconParent = new GameObject("Icon").transform;
+        //iconParent.SetParent(gameObject.transform);
 
         //クローン（アイコン）生成
         for(int i = 0; i < iconObj.Length; i++)

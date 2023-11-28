@@ -130,6 +130,7 @@ public class PlayerItemManager : MonoBehaviour
             playerStatusManager.addAttackDamage = addSword;
             playerStatusManager.addShotDamage = addShot;
             playerStatusManager.plusShotDamage = plusShot;
+            playerStatusManager.RoadHP();
         }
     }
 
@@ -160,7 +161,7 @@ public class PlayerItemManager : MonoBehaviour
     public void BuyingItem(string id)
     {
         //w“ü‰¿Ši‚ğæ“¾
-        int price = itemManager.GetSellingPrice(id);
+        int price = itemManager.GetBuyingPrice(id);
 
         //Š‹à‚ª‘«‚è‚Ä‚¢‚é‚È‚ç
         if (playerStatusManager.status.Money >= price)
@@ -169,7 +170,11 @@ public class PlayerItemManager : MonoBehaviour
             playerStatusManager.GettingMoney(price * -1);
             AddItem(id);    //ƒAƒCƒeƒ€‚ğŠl“¾
 
-            Debug.Log(id + "‚ğw“ü");
+            Debug.Log(id + "‚ğw“ü : " + price);
+        }
+        else
+        {
+            Debug.Log("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ");
         }
     }
     //ƒAƒCƒeƒ€”„‹pŠÖ” ¡‚Ì‚Æ‚±‚ëg‚¤—\’è‚È‚µ
