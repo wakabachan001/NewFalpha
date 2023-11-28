@@ -67,8 +67,8 @@ public class PlayerClone : MonoBehaviour
 
                 position.x += speed;
             }
-            if (Input.GetKeyDown("up") ||
-                Input.GetKeyDown(KeyCode.W) &&
+            if ((Input.GetKeyDown("up") ||
+                Input.GetKeyDown(KeyCode.W)) &&
                 position.y < upLimit)
             {
 
@@ -76,8 +76,8 @@ public class PlayerClone : MonoBehaviour
 
                 onBottomColumn = false;
             }
-            if (Input.GetKeyDown("down") ||
-                Input.GetKeyDown(KeyCode.S) &&
+            if ((Input.GetKeyDown("down") ||
+                Input.GetKeyDown(KeyCode.S)) &&
                 !onBottomColumn)
             {
                 position.y -= speed;

@@ -35,11 +35,11 @@ public class AHB_Attack : MonoBehaviour
                 Debug.Log("UŒ‚");
                 //UŒ‚ˆ—
                 // Boss‚Ì X+1,Y-2 ‚ÌˆÊ’u‚ÉUŒ‚
-                Vector2 position1 = new Vector2(transform.position.x + 1.0f, transform.position.y - 2.0f);
+                Vector2 position1 = new Vector2(transform.position.x + 1.0f, transform.position.y - 1.0f);
                 Instantiate(AttackEffect, position1, Quaternion.identity);
 
                 // Boss‚Ì X-1,Y-2 ‚ÌˆÊ’u‚ÉUŒ‚
-                Vector2 position2 = new Vector2(transform.position.x - 1.0f, transform.position.y - 2.0f);
+                Vector2 position2 = new Vector2(transform.position.x - 1.0f, transform.position.y - 1.0f);
                 Instantiate(AttackEffect, position2, Quaternion.identity);
 
                 time = 0.0f;

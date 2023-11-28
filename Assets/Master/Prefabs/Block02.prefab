@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9178344923006874103}
   m_Layer: 0
   m_Name: Block02
-  m_TagString: Untagged
+  m_TagString: floorTiles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

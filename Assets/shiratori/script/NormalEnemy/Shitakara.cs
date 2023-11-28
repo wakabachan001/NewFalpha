@@ -27,7 +27,7 @@ public class Shitakara : MonoBehaviour
 
     private void Start()
     {
-        playerObj = GameObject.Find("player");
+        playerObj = GameObject.Find("Player");
         
     }
 
