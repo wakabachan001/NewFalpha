@@ -48,7 +48,7 @@ public class skill : MonoBehaviour
             //ÉNÉçÅ[ÉìçÏê¨
             b = Instantiate(OriginObjct, OriginObjct.transform.position + (transform.right * right * -1.0f), Quaternion.identity);
 
-            a.GetComponent<SpriteRenderer>().color -= new Color(0, 0, 0, 50);
+            a.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 100);
 
             //5ïbå„Ç…è¡Ç∑
             Destroy(a, time);

@@ -13,6 +13,8 @@ public class TresureBoxManager : MonoBehaviour
 
     public GameObject itemObj;//アイテムオブジェクト
 
+    private ItemSerect itemSerect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,18 +23,32 @@ public class TresureBoxManager : MonoBehaviour
 
         //初期の画像を閉じた画像にする
         spriteRenderer.sprite = closeImg;
+
+        open = false;
     }
     
     //宝箱を開ける関数
     public void OpenBox()
     {
-        open = true;
-        Debug.Log("宝箱が開いた");
+        //空いていないなら
+        if (open == false)
+        {
+            open = true;
+            Debug.Log("宝箱が開いた");
 
-        //開けた画像に変える
-        spriteRenderer.sprite = openImg;
+            //開けた画像に変える
+            spriteRenderer.sprite = openImg;
 
-        //アイテムなどを取得する
-        Instantiate(itemObj, transform.position - transform.up, Quaternion.identity);
+            //ItemSerectスクリプトを探す
+            GameObject obj = GameObject.Find("UImanager");
+            itemSerect = obj.GetComponent<ItemSerect>();
+
+            //宝箱用UIを表示する
+            itemSerect.ActiveItemSelectUI();
+        }
+        else
+        {
+            Debug.Log("すでに開いています");
+        }
     }
 }

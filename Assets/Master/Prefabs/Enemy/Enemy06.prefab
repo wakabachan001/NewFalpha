@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 100
-  money: 100
+  money: 20
   attackDamage1: 10
   attackDamage2: 10
 --- !u!114 &7588447353859387966

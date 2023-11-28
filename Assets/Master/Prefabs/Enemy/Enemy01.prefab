@@ -100,7 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a83c28501563544a89c2e66575ee81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHP: 4
+  maxHP: 100
+  money: 10
+  attackDamage1: 10
+  attackDamage2: 10
 --- !u!114 &-1118852370046655070
 MonoBehaviour:
   m_ObjectHideFlags: 0

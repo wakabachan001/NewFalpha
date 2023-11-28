@@ -11,7 +11,7 @@ public class TradeClick : MonoBehaviour
 
     private void Start()
     {
-        traderOBJ = GameObject.Find("BuyUImanager");
+        traderOBJ = GameObject.Find("TradeUImanager");
         trader = traderOBJ.GetComponent<Trader>();
     }
 

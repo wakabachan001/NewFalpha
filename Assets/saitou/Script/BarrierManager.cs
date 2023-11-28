@@ -17,18 +17,26 @@ public class BarrierManager : MonoBehaviour
     private bool on0 = false; //バリアが0以下になったか
 
     PlayerStatusManager playerStatusManager;
+    PlayerManager playerManager;
 
     private void Start()
     {
         //PlayerStatusManagerを取得
         playerStatusManager = LoadManagerScene.GetPlayerStatusManager();
 
+        GameObject obj = GameObject.Find("Player");
+        playerManager = obj.GetComponent<PlayerManager>();
+
         //現在のバリアの初期化
         barrierCur = barrierMax;     
     }
     private void FixedUpdate()
     {
-        barrierCur -= barrierDec * 0.02f; //1秒でbarrierDec分更新
+        //プレイヤーが動けないときは止まるようにする（条件をプレイヤーY座標にするかも）
+        if (playerManager.dontMove == false)
+        {
+            barrierCur -= barrierDec * 0.02f; //1秒でbarrierDec分更新
+        }
 
         //現在のバリアの割合分、ゲージを変える
         BarrierBarcurrent.fillAmount = barrierCur / barrierMax;
