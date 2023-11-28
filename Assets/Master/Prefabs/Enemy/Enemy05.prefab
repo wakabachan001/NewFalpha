@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2454574835237239678}
   - component: {fileID: 2126059936732773742}
+  - component: {fileID: 9035585619554339851}
+  - component: {fileID: -7705330023605776301}
   - component: {fileID: 2711832397110912179}
   - component: {fileID: 1686110129483122101}
   - component: {fileID: 1115507643019341226}
@@ -88,6 +90,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9035585619554339851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8675528888604314490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: befb35c98f749aa4f958caf4121faccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 8675528888604314490}
+  attackEffect: {fileID: 8667471911016283574, guid: ea89722f0133d314683cadaf1d386dca, type: 3}
+  attackRange: 1.5
+  attackCooldown: 2.5
+  timeSinceLastAttack: 0
+--- !u!114 &-7705330023605776301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8675528888604314490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 672060bad1db28c43ab7e15aa2db1927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EffectTime: 0.2
+  time: 0
 --- !u!114 &2711832397110912179
 MonoBehaviour:
   m_ObjectHideFlags: 0
