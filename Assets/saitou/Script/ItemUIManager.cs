@@ -42,8 +42,8 @@ public class ItemUIManager : MonoBehaviour
 
             //子としてImageを持つPrefabをクローン
             iconObj[i] = Instantiate(iconPrefab, //クローンするオブジェクト
-                new Vector2(transform.position.x + iconFirstPosX + (iconPos * column),
-                            transform.position.y + iconFirstPosY + (iconPos * -row)),//leftInfo始点の位置
+                new Vector2(iconParent.position.x + iconFirstPosX + (iconPos * column),
+                            iconParent.position.y + iconFirstPosY + (iconPos * -row)),//leftInfo始点の位置
                 Quaternion.identity,
                 iconParent);//回転
 

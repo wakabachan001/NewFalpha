@@ -9,8 +9,16 @@ public class WarpManager : MonoBehaviour
     GameObject ui;                //クローン管理用
 
     CreateMap createMap;          //マップ生成スクリプト
+    PlayerManager playerManager;
 
     bool ontext = false;          //textが表示されているかどうか
+
+    private void Start()
+    {
+        //スクリプト取得
+        GameObject obj = GameObject.Find("Player");
+        playerManager = obj.GetComponent<PlayerManager>();
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -29,7 +37,8 @@ public class WarpManager : MonoBehaviour
 
             ui = Instantiate(checkText, canvas.position + transform.up*20f, Quaternion.identity, canvas);
 
-            ontext = true;   
+            ontext = true;
+            playerManager.dontMove = true;
         }
     }
 
@@ -44,11 +53,13 @@ public class WarpManager : MonoBehaviour
 
                 Destroy(ui);
                 ontext = false;
+                playerManager.dontMove = false;
             }
             else if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Destroy(ui);
                 ontext = false;
+                playerManager.dontMove = false;
             }
         }
     }
