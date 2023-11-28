@@ -6,6 +6,7 @@ public class ChangeEnemy : MonoBehaviour
 {
     public Transform PlayerTransform;
     public Transform Enemy04Transform;
+    GameObject playerObj;
 
     public float coolTime = 2.0f;//攻撃のクールタイム
     private float time = 0.0f;//時間計測用
@@ -23,12 +24,17 @@ public class ChangeEnemy : MonoBehaviour
         }
     }
 
-    void Swap()
+    private void Start()
     {
-        Vector2 tempPos = new Vector2( PlayerTransform.position.x, PlayerTransform.position.y + 1f );
+        playerObj = GameObject.Find("Player");
+        Vector2 EnemyPos = transform.position;
+    }
 
+    public void Swap()
+    {
+        //Vector2 PlayerPos = new Vector2(playerObj.transform.position.x, playerObj.transform.position.y);
         //PlayerTransform.position = Enemy04Transform.position;
-        Enemy04Transform.position = tempPos;
+        transform.position = playerObj.transform.position + transform.up;
     }
 
     // Update is called once per frame
@@ -43,6 +49,8 @@ public class ChangeEnemy : MonoBehaviour
             {
                 Swap();
                 time = 0.0f;
+
+
             }
         }
     }
