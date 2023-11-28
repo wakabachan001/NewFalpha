@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ChangeEnemy : MonoBehaviour
 {
-    public Transform object1;
-    public Transform object2;
+    public Transform PlayerTransform;
+    public Transform Enemy04Transform;
 
     public float coolTime = 2.0f;//攻撃のクールタイム
     private float time = 0.0f;//時間計測用
@@ -25,9 +25,10 @@ public class ChangeEnemy : MonoBehaviour
 
     void Swap()
     {
-        Vector3 tempPos = object1.position;
-        object1.position = object2.position;
-        object2.position = tempPos;
+        Vector2 tempPos = new Vector2( PlayerTransform.position.x, PlayerTransform.position.y + 1f );
+
+        //PlayerTransform.position = Enemy04Transform.position;
+        Enemy04Transform.position = tempPos;
     }
 
     // Update is called once per frame
