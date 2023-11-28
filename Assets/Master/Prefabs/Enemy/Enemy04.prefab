@@ -101,9 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e41e46b073961a4f9e7e6c8b51530f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  object1: {fileID: 1288840254261512013, guid: bba2be691b178d74b8c8828591d7a2d2, type: 3}
-  object2: {fileID: 247762438091682496}
-  coolTime: 5
+  PlayerTransform: {fileID: 1288840254261512013, guid: bba2be691b178d74b8c8828591d7a2d2, type: 3}
+  Enemy04Transform: {fileID: 247762438091682496}
+  coolTime: 3
 --- !u!114 &5502859169039823882
 MonoBehaviour:
   m_ObjectHideFlags: 0
