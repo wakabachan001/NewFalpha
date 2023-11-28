@@ -66,22 +66,22 @@ using UnityEngine;
         if (dontMove == false)
         {
             //ˆÚ“®(êŠO‚É‚¢‚©‚È‚¢‚æ‚¤‚É‚·‚é)
-            if (Input.GetKeyDown("left") ||
-                Input.GetKeyDown(KeyCode.A) &&
+            if ((Input.GetKeyDown("left") ||
+                Input.GetKeyDown(KeyCode.A)) &&
                 position.x > leftLimit)
             {
                 CloneAfterimage();
                 position.x -= speed;
             }
-            if (Input.GetKeyDown("right") ||
-                Input.GetKeyDown(KeyCode.D) &&
+            if ((Input.GetKeyDown("right") ||
+                Input.GetKeyDown(KeyCode.D)) &&
                 position.x < rightLimit)
             {
                 CloneAfterimage();
                 position.x += speed;
             }
-            if (Input.GetKeyDown("up") ||
-                Input.GetKeyDown(KeyCode.W) &&
+            if ((Input.GetKeyDown("up") ||
+                Input.GetKeyDown(KeyCode.W)) &&
                 position.y < upLimit)
             {
                 CloneAfterimage();
@@ -95,8 +95,8 @@ using UnityEngine;
                 }
                 onBottomColumn = false;
             }
-            if (Input.GetKeyDown("down") ||
-                Input.GetKeyDown(KeyCode.S) &&
+            if ((Input.GetKeyDown("down") ||
+                Input.GetKeyDown(KeyCode.S)) &&
                 !onBottomColumn)
             {
                 CloneAfterimage();

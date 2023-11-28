@@ -116,9 +116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3797e3fba598ffc4c94108c1d49eba0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clonepos: 0
-  coolTime: 1.6
-  AttackEffect: {fileID: 5007766752859079650, guid: 0f5420e5643c6cb428f775d24026aef5, type: 3}
+  clonepos: -1
+  coolTime: 1
+  AttackEffect: {fileID: 8667471911016283574, guid: ea89722f0133d314683cadaf1d386dca, type: 3}
 --- !u!61 &2275002470933319381
 BoxCollider2D:
   m_ObjectHideFlags: 0

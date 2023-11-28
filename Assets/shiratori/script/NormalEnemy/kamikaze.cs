@@ -21,8 +21,7 @@ public class kamikaze : MonoBehaviour
     {
         if (moveOn)
         {
-            Vector2 position = transform.position;
-            position.y += speed;
+            transform.position -= transform.up * (speed * 0.02f);
         }
     }
 }

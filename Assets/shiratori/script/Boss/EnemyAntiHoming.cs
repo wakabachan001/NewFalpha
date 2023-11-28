@@ -38,7 +38,7 @@ public class EnemyAntiHoming : MonoBehaviour
 
         if (moveOn)
         {
-            if (position.y <= 20)// Y軸　移動制限
+            if (position.y <= 7)// Y軸　移動制限
             {
                 //  距離を一定に保つと動かない
                 if(transform.position.y - playerTransform.position.y == 2) { ; }
@@ -46,7 +46,7 @@ public class EnemyAntiHoming : MonoBehaviour
                 else if (transform.position.y - playerTransform.position.y <= 2)
                 {
                     position.y += speed; 
-                    if (position.y > 20) position.y -= speed;
+                    if (position.y > 7) position.y -= speed;
                 }
                 //　離れすぎると近づいてくる
                 else if (transform.position.y - playerTransform.position.y >= 2)
@@ -55,19 +55,19 @@ public class EnemyAntiHoming : MonoBehaviour
                 }
             }
       
-            if (position.x > 0 && position.x < 6) // X軸　移動制限
+            if (position.x > -1 && position.x < 5) // X軸　移動制限
             {
                 //　右に逃げる
                 if (playerTransform.position.x==transform.position.x -1)
                 {
                     position.x += speed;
-                    if (position.x > 5) position.x -= speed;
+                    if (position.x > 4) position.x -= speed;
                 }
                 // 左に逃げる
                 if (playerTransform.position.x == transform.position.x + 1)
                 {
                     position.x -= speed;
-                    if (position.x < 1) position.x += speed;
+                    if (position.x < 0) position.x += speed;
                 }
 
                 // X座標が同じとき左右のどっちかに逃げる
@@ -75,11 +75,11 @@ public class EnemyAntiHoming : MonoBehaviour
                 {
                     int randomNumber = Random.Range(0, 2);  //ランダムな値を生成
 
-                    if (randomNumber == 0 && position.x < 5)
+                    if (randomNumber == 0 && position.x < 4)
                     {
                         position.x += speed;    //右に移動
                     }
-                    else if (randomNumber != 0 && position.x > 1) 
+                    else if (randomNumber != 0 && position.x > 0) 
                     {
                         position.x -= speed;    //左に移動
            
