@@ -134,8 +134,8 @@ public class PlayerItemManager : MonoBehaviour
         }
     }
 
-    //アイテム取得関数
-    public void AddItem(string id)
+    //アイテム取得関数 すでに所持していたらfalseを返す
+    public bool AddItem(string id)
     {
         //取得アイテムが所持アイテム中にあるか調べる
         for (int i = 0; i < havingItem.Count; i++)
@@ -144,12 +144,13 @@ public class PlayerItemManager : MonoBehaviour
             {
                 //すでに所持していたなら何もしない
                 Debug.Log(id + "をすでに所持しています");
-                return;
+                return false;
             }
         }
         //未所持なら
         havingItem.Add(id);//所持アイテムにidを追加
         Debug.Log(id + "を獲得しました");
+        return true;
     }
     //アイテム廃棄関数
     public void RemoveItem(string id)
@@ -166,11 +167,14 @@ public class PlayerItemManager : MonoBehaviour
         //所持金が足りているなら
         if (playerStatusManager.status.Money >= price)
         {
-            //価格分、所持金を減らす
-            playerStatusManager.GettingMoney(price * -1);
-            AddItem(id);    //アイテムを獲得
+            //アイテムを獲得 未所持アイテムなら
+            if (AddItem(id) == true)
+            {
+                //価格分、所持金を減らす
+                playerStatusManager.GettingMoney(price * -1);
 
-            Debug.Log(id + "を購入 : " + price);
+                Debug.Log(id + "を購入 : " + price);
+            } 
         }
         else
         {
