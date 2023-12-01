@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 553013487187958541}
   - component: {fileID: -6008910119244256017}
   - component: {fileID: 5785895379452708550}
+  - component: {fileID: 6349433919499118235}
   - component: {fileID: 6148940771833909159}
   - component: {fileID: 3574018849346529302}
   - component: {fileID: 1303441300928284679}
@@ -119,7 +120,7 @@ MonoBehaviour:
   clonepos: 0
   coolTime: 1.6
   AttackEffect: {fileID: 5297010364463725093, guid: 053c9fdbd34ffbe48a02451919cdd70b, type: 3}
---- !u!114 &6148940771833909159
+--- !u!114 &6349433919499118235
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,6 +128,22 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549716839820228433}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a83c28501563544a89c2e66575ee81c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 20
+  money: 50
+  attackDamage1: 10
+  attackDamage2: 10
+--- !u!114 &6148940771833909159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549716839820228433}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39dd4e85e04eac649a57f1c5fa98bebd, type: 3}
   m_Name: 

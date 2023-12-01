@@ -99,7 +99,7 @@ public class PlayerStatusManager : MonoBehaviour
     //HealthTreat—pŠÖ”
     public void HT()
     {
-        statusCalc.HealHPper(status.MaxHP, status.CurrentHP, 0.03f);
+        status.CurrentHP = statusCalc.HealHPper(status.MaxHP, status.CurrentHP, 0.03f);
     }
     //Å‘å‘Ì—ÍŠÖ”
     public float MaxHP()

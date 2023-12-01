@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8493383174280404246}
   m_Layer: 2
   m_Name: PlayerClone
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,4 +159,3 @@ MonoBehaviour:
   dontMove: 0
   AttackEffect: {fileID: 8667471911016283574, guid: 295a818369434c1498917dd0e556a106, type: 3}
   ShotEffect: {fileID: 5007766752859079650, guid: 5c0ea26d5d80343498e57c94bc00f7e6, type: 3}
-  ghostPrefab: {fileID: 0}
