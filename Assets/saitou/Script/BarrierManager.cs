@@ -42,7 +42,7 @@ public class BarrierManager : MonoBehaviour
         BarrierBarcurrent.fillAmount = barrierCur / barrierMax;
 
         //バリアが75%以下になったとき一度だけ
-        if (barrierCur == 75.0f && !on75)
+        if (barrierCur <= 75.0f && !on75)
         {
             on75 = true;//フラグを立てて動かないようにする
 
@@ -52,7 +52,7 @@ public class BarrierManager : MonoBehaviour
             Debug.Log("バリアが半分以下");
         }
         //バリアが半分以下になったとき一度だけ
-        if (barrierCur == 50.0f && !on50)
+        if (barrierCur <= 50.0f && !on50)
         {
             on50 = true;//フラグを立てて動かないようにする
 
@@ -62,7 +62,7 @@ public class BarrierManager : MonoBehaviour
             Debug.Log("バリアが半分以下");
         }
         //バリアが25%以下になったとき一度だけ
-        if (barrierCur == 25.0f && !on25)
+        if (barrierCur <= 25.0f && !on25)
         {
             on25 = true;//フラグを立てて動かないようにする
 
@@ -72,7 +72,7 @@ public class BarrierManager : MonoBehaviour
             Debug.Log("バリアが半分以下");
         }
         //バリアが0以下になったとき一度だけ
-        if (barrierCur == 0.0f && !on0)
+        if (barrierCur <= 0.0f && !on0)
         {
             on0 = true;//フラグを立てて動かないようにする
 
