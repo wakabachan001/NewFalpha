@@ -8,13 +8,13 @@ using UnityEngine;
     public float swordDamage;
     public float syurikenDamage;//後で削除（BossManagerをいじる）
 
-    public float speed = 1.0f;      //移動距離
-    public float shotSpeed = 0.2f;  //手裏剣の速度
-    public float takesDamage = 2.0f;  //被ダメージ
+    public float speed = 1.0f;       //移動距離
+    public float shotSpeed = 0.2f;   //手裏剣の速度
+    public float takesDamage = 2.0f; //被ダメージ
     
     public float effectLimit;       //近距離攻撃の判定が残る時間
     public float shotLimit = 3.5f;  //遠距離攻撃の飛距離の上限
-    public float shotLange;        //遠距離攻撃の飛距離
+    public float shotLange;         //遠距離攻撃の飛距離
     public float attackCooltime = 0.3f;//近距離攻撃クールタイム
     public float shotCooltime = 0.3f;  //遠距離攻撃クールタイム
 
@@ -22,11 +22,14 @@ using UnityEngine;
     public float rightLimit = 4.0f; //侵入できる右の限界
     public float upLimit = 21.0f;   //侵入できる上の限界
     public float backLimitArea = 19.0f; //後退に制限をつける範囲(以下) CreateMapで適宜更新
+    public float invincibleTime = 0.5f; //無敵時間
 
-    public bool dontMove = false;   //移動できなくするフラグ
-    bool onAttack = false;          //近距離攻撃フラグ
-    bool onShot = false;            //遠距離攻撃フラグ
-    bool onBottomColumn = false;    //下列にいるかどうか
+    public bool dontMove = false;    //移動できなくするフラグ
+    private string lastMove = "down";//最後に動いた方向
+    bool onAttack = false;           //近距離攻撃フラグ
+    bool onShot = false;             //遠距離攻撃フラグ
+    bool onBottomColumn = false;     //下列にいるかどうか
+    bool invincible = false;         //無敵フラグ
 
 
     private float time; //時間計測用
@@ -36,8 +39,6 @@ using UnityEngine;
     public GameObject ShotEffect;    //遠距離攻撃
     public GameObject ghostPrefab;   //残像用のプレハブ
     private GameObject camera;       //Main Cameraオブジェクト
-    //private GameObject traderUI;     //UIオブジェクト
-    //private GameObject boxUI;
 
     private PlayerStatusManager playerStatus;//PlayerStatusManagerスクリプト
     private TresureBoxManager tresureBox;    //TresureBoxManagerスクリプト
@@ -49,10 +50,6 @@ using UnityEngine;
         playerStatus = LoadManagerScene.GetPlayerStatusManager();
 
         camera = GameObject.Find("Main Camera"); //カメラの取得
-
-        //UIのオブジェクトを取得
-        //boxUI = GameObject.Find("UImanager");
-        //traderUI = GameObject.Find("TradeUImanager");
 
         //プレイヤー座標の取得
         position = transform.position;
@@ -72,6 +69,7 @@ using UnityEngine;
             {
                 CloneAfterimage();
                 position.x -= speed;
+                lastMove = "left";
             }
             if ((Input.GetKeyDown("right") ||
                 Input.GetKeyDown(KeyCode.D)) &&
@@ -79,6 +77,7 @@ using UnityEngine;
             {
                 CloneAfterimage();
                 position.x += speed;
+                lastMove = "right";
             }
             if ((Input.GetKeyDown("up") ||
                 Input.GetKeyDown(KeyCode.W)) &&
@@ -86,12 +85,12 @@ using UnityEngine;
             {
                 CloneAfterimage();
                 position.y += speed;
+                lastMove = "up";
 
                 //カメラの移動もこっちでする
                 if (onBottomColumn == false && transform.position.y < backLimitArea)
                 {
-                    //カメラの座標Yを+1
-                    camera.transform.position += transform.up;
+                    MoveCamera();//カメラの座標更新
                 }
                 onBottomColumn = false;
             }
@@ -101,6 +100,7 @@ using UnityEngine;
             {
                 CloneAfterimage();
                 position.y -= speed;
+                lastMove = "down";
                 //ボスエリアより手前なら
                 if (transform.position.y <= backLimitArea)
                     onBottomColumn = true;  //後退時に下列にいることにする
@@ -184,15 +184,32 @@ using UnityEngine;
     //敵などとの接触時のダメージ判定
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //接触タグが敵の攻撃か、敵本体ならHPを減らす
-        if(collision.gameObject.tag == "EnemyAttack"|| collision.gameObject.tag == "Enemy")
+        //無敵時間でなければ
+        if (invincible == false)
         {
-            //被ダメージ関数を呼び、falseが返ってきたなら ( HPが0以下でfalse )
-            if (playerStatus.TakeDamage(takesDamage) == false)
+            //接触タグが敵の攻撃か、敵本体ならHPを減らす
+            if (collision.gameObject.tag == "EnemyAttack")
             {
-                //プレイヤーが倒れる
-                PlayerDead();
-            }                
+                //被ダメージ関数を呼び、falseが返ってきたなら ( HPが0以下でfalse )
+                if (playerStatus.TakeDamage(takesDamage) == false)
+                {
+                    //プレイヤーが倒れる
+                    PlayerDead();
+                }
+
+            }
+            if (collision.gameObject.tag == "Enemy")
+            {
+                //被ダメージ関数を呼び、falseが返ってきたなら ( HPが0以下でfalse )
+                if (playerStatus.TakeDamage(takesDamage) == false)
+                {
+                    //プレイヤーが倒れる
+                    PlayerDead();
+                }
+                StartCoroutine( Knockback());
+                //無敵時間
+                StartCoroutine(OnInvincible(invincibleTime));
+            }
         }
     }
 
@@ -239,6 +256,60 @@ using UnityEngine;
     public void ResetPos(Vector2 pos)
     {
         position = pos;
+    }
+    //プレイヤーのけぞり関数
+    public IEnumerator Knockback()
+    {
+        Debug.Log("のけぞり");
+
+        //色を変える
+        
+        yield return new WaitForSeconds(0.1f);
+
+        //最後に移動した方向と逆方向のベクトルを指定
+        switch (lastMove)
+        {
+            case "left":
+                position += Vector2.right;
+                break;
+            case "right":
+                position += Vector2.left;
+                break;
+            case "up":
+                position += Vector2.down;
+                onBottomColumn = true;
+                break;
+            case "down":
+                position += Vector2.up;
+                onBottomColumn = false;
+                break;
+            default:
+                Debug.Log("!最終移動方向が見つかりません。");
+                break;
+        }
+        //連続でのけぞった場合、ステージ外に出そうなので中身を消す
+        lastMove = null;
+
+        transform.position = position;  //座標の更新   
+    }
+    //一定時間無敵コルーチン 引数秒無敵
+    public IEnumerator OnInvincible(float sec)
+    {
+        invincible = true;  //無敵になる
+        dontMove = true;
+
+        yield return new WaitForSeconds(sec);
+
+        dontMove = false;
+
+        yield return new WaitForSeconds(sec);
+
+        invincible = false; //無敵解除
+    }
+    //カメラの座標更新
+    public void MoveCamera()
+    {
+        camera.transform.position = new Vector3(2, transform.position.y + 1.6f, -10);
     }
 }
 

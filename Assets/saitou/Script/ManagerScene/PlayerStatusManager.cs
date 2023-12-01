@@ -43,6 +43,11 @@ public class PlayerStatusManager : MonoBehaviour
         Debug.Log("お金取得");
         status.Money += (int)(money * addMoney);
     }
+    //お金を使ったとき関数
+    public void UseMoney(int money)
+    {
+        status.Money -= money;
+    }
 
     //ダメージを受ける関数
     public bool TakeDamage(float damage)

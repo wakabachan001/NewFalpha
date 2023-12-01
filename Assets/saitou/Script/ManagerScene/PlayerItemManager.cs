@@ -114,7 +114,7 @@ public class PlayerItemManager : MonoBehaviour
                     break;
                 case "MoneyTalent":
                     addMaxHP += -0.50f;
-                    addMoney += 2.0f;
+                    addMoney += 1.0f;
                     break;
                 default:
                     Debug.Log("!アイテム効果が見つかりません");
@@ -171,7 +171,7 @@ public class PlayerItemManager : MonoBehaviour
             if (AddItem(id) == true)
             {
                 //価格分、所持金を減らす
-                playerStatusManager.GettingMoney(price * -1);
+                playerStatusManager.UseMoney(price);
 
                 Debug.Log(id + "を購入 : " + price);
             } 
