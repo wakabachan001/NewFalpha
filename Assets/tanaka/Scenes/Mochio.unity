@@ -904,8 +904,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Clickbutton: {fileID: 0}
+  Attack: {fileID: 0}
   Shot: {fileID: 0}
-  Longattack: {fileID: 0}
   Enemydeath: {fileID: 0}
   GameClear: {fileID: 0}
   GameOver: {fileID: 0}
@@ -915,18 +915,6 @@ MonoBehaviour:
   stage1: {fileID: 0}
   stage2: {fileID: 0}
   stage3: {fileID: 0}
-  on1BGM: 0
-  on2BGM: 0
-  on3BGM: 0
-  onClickMouse: 0
-  onShot: 0
-  onLongAttack: 0
-  onEnemydeath: 0
-  onGameClear: 0
-  onGameOver: 0
-  onmenuclose: 0
-  onbuy: 0
-  onTreasure_Chest: 0
 --- !u!82 &933982400
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2311,6 +2299,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6069138254919360975, guid: d722fc79da0d2044e949efac21006dc9, type: 3}
+      propertyPath: Shot
+      value: 
+      objectReference: {fileID: 8300000, guid: af8541226b69b1346bd04d71f682ce07, type: 3}
+    - target: {fileID: 6069138254919360975, guid: d722fc79da0d2044e949efac21006dc9, type: 3}
+      propertyPath: Attack
+      value: 
+      objectReference: {fileID: 8300000, guid: d7435d8e76908c34ab9db4a7e50f6807, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d722fc79da0d2044e949efac21006dc9, type: 3}
 --- !u!1001 &7835625657225161111

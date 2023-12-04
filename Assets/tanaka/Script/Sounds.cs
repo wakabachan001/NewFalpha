@@ -5,8 +5,8 @@ using UnityEngine;
 public class Sounds : MonoBehaviour
 {
     public AudioClip Clickbutton;
+    public AudioClip Attack;
     public AudioClip Shot;
-    public AudioClip Longattack;
     public AudioClip Enemydeath;
     public AudioClip GameClear;
     public AudioClip GameOver;
@@ -153,16 +153,16 @@ public class Sounds : MonoBehaviour
         audioSource.PlayOneShot(Clickbutton);
 
     }
-    public void ShotSE()
+    public void AttackSE()
     {
         //ãﬂãóó£çUåÇ
-        audioSource.PlayOneShot(Shot);
+        audioSource.PlayOneShot(Attack);
 
     }
-    public void LongAtaackSE()
+    public void ShotSE()
     {
         //âìãóó£çUåÇ
-        audioSource.PlayOneShot(Longattack);
+        audioSource.PlayOneShot(Shot);
 
     }
     public void EnemyDeathSE()
