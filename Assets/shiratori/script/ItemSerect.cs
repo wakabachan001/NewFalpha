@@ -70,13 +70,18 @@ public class ItemSerect : MonoBehaviour
 
         }
 
-        //string Id =itemmanager.GetRandomItem();
-        //string name = itemmanager.GetName(Id);
-        //string discription = itemmanager.GetDescription(Id);
+    }
 
-        //itemname = name;
-        // ランダムに3つのアイテムをアクティブにする
-        //ActivateRandomItems(3);
+    public void CloseUI()
+    {
+        ItemSelectUI.SetActive(false);
+        playerManager.dontMove = false;
+    }
+
+    public void OpenUI()
+    {
+        ItemSelectUI.SetActive(true);
+        playerManager.dontMove = true;
     }
 
     // ActiveItemSelectUI で表示されているアイテムを選択
@@ -90,33 +95,4 @@ public class ItemSerect : MonoBehaviour
         playerManager.dontMove = false;
     }
 
-    //void ActivateRandomItems(int count)
-    //{
-    //    // すべてのアイテムを非アクティブにする
-    //    foreach (var item in Item)
-    //    {
-    //        item.SetActive(false);
-    //    }
-
-    //    List<int> selectedIndices = new List<int>();
-
-    //    //ランダムなアイテムを選択
-    //    while (selectedIndices.Count < count)
-    //    {
-    //        int randomIndex = Random.Range(0, Item.Length);
-    //        if (!selectedIndices.Contains(randomIndex))
-    //        {
-    //            selectedIndices.Add(randomIndex);
-    //        }
-    //    }
-
-    //    // 選択されたアイテムをアクティブにする
-    //    foreach (int index in selectedIndices)
-    //    {
-    //        if (index >= 0 && index < Item.Length)
-    //        {
-    //            Item[index].SetActive(true);
-    //        }
-    //    }
-    //}
 }

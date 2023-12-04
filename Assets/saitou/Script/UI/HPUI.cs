@@ -21,6 +21,6 @@ public class HPUI : MonoBehaviour
     void Update()
     {
         //Å‘å‘Ì—Í‚ÆŒ»İ‚Ì‘Ì—Í‚ğ•\¦
-        HP.text = "HP " + playerStatusManager.status.CurrentHP + " / " + playerStatusManager.MaxHP();
+        HP.text = "HP " + (int)playerStatusManager.status.CurrentHP + " / " + playerStatusManager.MaxHP();
     }
 }

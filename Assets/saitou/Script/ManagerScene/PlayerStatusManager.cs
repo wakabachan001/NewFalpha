@@ -76,6 +76,13 @@ public class PlayerStatusManager : MonoBehaviour
     //遠距離攻撃のダメージ計算関数
     public float ShotDamageCalc()
     {
+        //SelfHarmを持っているかつ体力が１より多いなら
+        if(onSelfHarm == true && status.CurrentHP >1f)
+        {
+            //最大体力の5%を受ける
+            TakeDamage(MaxHP() * 0.05f);
+        }
+
         //AttackDamage[1]を引数として、ダメージ計算関数を呼ぶ
         return (statusCalc.DamageCalc(status.GetAttackDamage(1), status.CriChance, status.CriDamage)
                 + plusShotDamage )

@@ -11,6 +11,9 @@ public class BossManager : MonoBehaviour
     [SerializeField] private float attackDamage1 = 10.0f;//攻撃1のダメージ
     [SerializeField] private float attackDamage2 = 10.0f;//攻撃2のダメージ
 
+    Color mainColor = new Color(1f, 1f, 1f, 1f);     //通常時
+    Color damageColor = new Color(1f, 0.6f, 0.6f, 1f); //被ダメージ時
+
     private float takeDamage;   //被ダメージ
 
     private StatusData status;    //敵ステータスクラス
@@ -40,24 +43,28 @@ public class BossManager : MonoBehaviour
         //剣との接触
         if (other.gameObject.tag == "Sword")
         {
-            Debug.Log("剣のダメージ");
-
             //プレイヤーの近距離攻撃ダメージを調べる
             takeDamage = playerStatusManager.AttackDamageCalc();
 
             //HP計算
             status.CurrentHP = statusCalc.HPCalc(status.CurrentHP, takeDamage);
+
+            StartCoroutine(DamageEfect());
+
+            Debug.Log("剣のダメージ : " + takeDamage);
         }
         //手裏剣との接触
         if (other.gameObject.tag == "Syuriken")
         {
-            Debug.Log("手裏剣のダメージ");
-
             //プレイヤーの遠距離攻撃ダメージを調べる
             takeDamage = playerStatusManager.AttackDamageCalc();
 
             //HP計算
             status.CurrentHP = statusCalc.HPCalc(status.CurrentHP, takeDamage);
+
+            StartCoroutine(DamageEfect());
+
+            Debug.Log("手裏剣のダメージ : " + takeDamage);
         }
         //倒れるか調べる
         EnemyDead();
@@ -87,5 +94,19 @@ public class BossManager : MonoBehaviour
                 //    Instantiate(NextStageTiles, new Vector2(5, 20), Quaternion.identity);
                 //}
         }
+    }
+
+    //被ダメージエフェクト
+    public IEnumerator DamageEfect()
+    {
+        //色変更
+        gameObject.GetComponent<SpriteRenderer>().color = damageColor;
+
+        //SE　被ダメージ
+
+        yield return new WaitForSeconds(0.1f);
+
+        //色を戻す
+        gameObject.GetComponent<SpriteRenderer>().color = mainColor;
     }
 }

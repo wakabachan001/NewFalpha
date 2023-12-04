@@ -18,7 +18,6 @@ public class PlayerClone : MonoBehaviour
     public float upLimit = 21.0f;   //侵入できる上の限界
     public float backLimitArea = 19.0f; //後退に制限をつける範囲(以下) CreateMapで適宜更新
 
-    public bool dontMove = false;   //移動できなくするフラグ
     bool onAttack = false;          //近距離攻撃フラグ
     bool onShot = false;            //遠距離攻撃フラグ
     bool onBottomColumn = false;    //下列にいるかどうか
@@ -29,19 +28,13 @@ public class PlayerClone : MonoBehaviour
     Vector2 position; //プレイヤーの座標用
     public GameObject AttackEffect;  //近距離攻撃
     public GameObject ShotEffect;    //遠距離攻撃
-    private GameObject camera;       //Main Cameraオブジェクト
 
-
+    PlayerManager playerManager;
 
     void Start()
     {
-
-
-        camera = GameObject.Find("Main Camera"); //カメラの取得
-
-        //UIのオブジェクトを取得
-        //boxUI = GameObject.Find("UImanager");
-        //traderUI = GameObject.Find("TradeUImanager");
+        GameObject obj = GameObject.Find("Player");
+        playerManager = obj.GetComponent<PlayerManager>();
 
         //プレイヤー座標の取得
         position = transform.position;
@@ -52,7 +45,7 @@ public class PlayerClone : MonoBehaviour
     void Update()
     {
         //移動不可フラグを調べる
-        if (dontMove == false)
+        if (playerManager.dontMove == false)
         {
             //移動(場外にいかないようにする)
             if (Input.GetKeyDown("left") ||
