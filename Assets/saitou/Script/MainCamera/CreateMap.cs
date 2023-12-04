@@ -42,6 +42,7 @@ public class CreateMap : MonoBehaviour
     PlayerManager playerManager;
     PlayerStatusManager playerStatusManager;
     SceneChange sceneChange;
+    Sounds sounds;
 
     private int start;
     private int end;
@@ -58,6 +59,9 @@ public class CreateMap : MonoBehaviour
 
         GameObject obj = GameObject.Find("Player");
         playerManager = obj.GetComponent<PlayerManager>();
+
+        GameObject obj1 = GameObject.Find("SoundObject");
+        sounds = obj1.GetComponent<Sounds>();
 
         mapCount = 1;
         stageCount = 1;

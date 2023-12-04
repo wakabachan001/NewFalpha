@@ -48,12 +48,16 @@ using UnityEngine;
     private TresureBoxManager tresureBox;    //TresureBoxManagerスクリプト
     private TraderManager traderManager;     //TraderManagerスクリプト
     private SceneChange sceneChange;         //SceneChangeスクリプト
+    private Sounds sounds;
 
     void Start()
     {
         playerStatus = LoadManagerScene.GetPlayerStatusManager();
 
         camera = GameObject.Find("Main Camera"); //カメラの取得
+
+        GameObject obj = GameObject.Find("SoundObject");
+        sounds = obj.GetComponent<Sounds>();
 
         //プレイヤー座標の取得
         position = transform.position;
@@ -225,6 +229,7 @@ using UnityEngine;
         onAttack = true;
 
         //SE 近距離攻撃
+        
 
         //待機
         yield return new WaitForSeconds(attackCooltime);
