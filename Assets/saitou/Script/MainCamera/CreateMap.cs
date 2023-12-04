@@ -69,8 +69,11 @@ public class CreateMap : MonoBehaviour
         //onNextを受け取ったとき、ステージが3以下なら
         if (onNext)
         {
+            //SE ワープ
+
+
             //3より先のステージに進もうとすると
-            if(stageCount > 3 )
+            if (stageCount > 3 )
             {
                 //クリアシーンを呼びだす
                 sceneChange.StageClear();
@@ -95,11 +98,14 @@ public class CreateMap : MonoBehaviour
 
                 //商人が何マップ目に出現するか決める(ボス手前は固定)
                 shopRand = Random.RandomRange(1, 4);
+
+                //BGM ステージによって変更
             }
 
             //マップ生成
             if(mapCount < 5)
             {
+                //敵を決める
                 PicEnemy();
                 //マップ生成
                 MapCreate();

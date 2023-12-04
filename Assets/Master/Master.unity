@@ -934,6 +934,18 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 333299118784434074, guid: bdf0ab7a0ae9e6d49a1f0848d8539431, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 333299118784434074, guid: bdf0ab7a0ae9e6d49a1f0848d8539431, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 333299118784434074, guid: bdf0ab7a0ae9e6d49a1f0848d8539431, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 333299118784434074, guid: bdf0ab7a0ae9e6d49a1f0848d8539431, type: 3}
       propertyPath: m_SortingLayer
       value: 3
       objectReference: {fileID: 0}
@@ -945,6 +957,10 @@ PrefabInstance:
       propertyPath: barrierbar
       value: 
       objectReference: {fileID: 1640934467}
+    - target: {fileID: 333299118784434075, guid: bdf0ab7a0ae9e6d49a1f0848d8539431, type: 3}
+      propertyPath: invincibleTime
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 333299118784434077, guid: bdf0ab7a0ae9e6d49a1f0848d8539431, type: 3}
       propertyPath: m_RootOrder
       value: 3

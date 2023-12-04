@@ -156,7 +156,7 @@ public class ItemManager : MonoBehaviour
             {
                 //エラー
                 Debug.Log("!未所持のアイテムが見つかりません");
-                return null;
+                ans[i] = null;
             }
         }
         //その数値から、IDを返す

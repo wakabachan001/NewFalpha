@@ -52,11 +52,21 @@ public class Trader : MonoBehaviour
 
         for ( int i = 0; i < 6; i++)
         {
-           
-            TradeItem[i].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[i]);
-            textname[i].text = itemmanager.GetName(ItemId[i]);
-            textdisc[i].text = itemmanager.GetDescription(ItemId[i]);
-            textamount[i].text = itemmanager.GetBuyingPrice(ItemId[i]).ToString();
+            if (ItemId[i] != null)
+            {
+                TradeItem[i].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[i]);
+                textname[i].text = itemmanager.GetName(ItemId[i]);
+                textdisc[i].text = itemmanager.GetDescription(ItemId[i]);
+                textamount[i].text = itemmanager.GetBuyingPrice(ItemId[i]).ToString();
+            }
+            //ÉAÉCÉeÉÄÇ™å©Ç¬Ç©ÇÁÇ»Ç©Ç¡ÇΩèÍçá
+            else
+            {
+                TradeItem[i].GetComponent<Image>().sprite = itemicon.Empty();
+                textname[i].text = "NoName";
+                textdisc[i].text = " ";
+                textamount[i].text = "0";
+            }
 
         }
 

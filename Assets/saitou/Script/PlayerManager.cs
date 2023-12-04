@@ -31,8 +31,12 @@ using UnityEngine;
     bool onBottomColumn = false;     //下列にいるかどうか
     bool invincible = false;         //無敵フラグ
 
-
     private float time; //時間計測用
+
+    //色
+    Color mainColor   = new Color(1f, 1f, 1f, 1f);     //通常時
+    Color damageColor = new Color(1f, 0.6f, 0.6f, 1f); //被ダメージ時
+    Color inviColor   = new Color(1f, 1f, 1f, 0.5f);   //無敵時
 
     Vector2 position; //プレイヤーの座標用
     public GameObject AttackEffect;  //近距離攻撃
@@ -190,6 +194,8 @@ using UnityEngine;
             //接触タグが敵の攻撃か、敵本体ならHPを減らす
             if (collision.gameObject.tag == "EnemyAttack")
             {
+                StartCoroutine( DamageEfect());//被ダメージエフェクト
+
                 //被ダメージ関数を呼び、falseが返ってきたなら ( HPが0以下でfalse )
                 if (playerStatus.TakeDamage(takesDamage) == false)
                 {
@@ -218,6 +224,8 @@ using UnityEngine;
     {
         onAttack = true;
 
+        //SE 近距離攻撃
+
         //待機
         yield return new WaitForSeconds(attackCooltime);
 
@@ -227,6 +235,8 @@ using UnityEngine;
     private IEnumerator ShotFlag()
     {
         onShot = true;
+
+        //SE 遠距離攻撃
 
         //待機
         yield return new WaitForSeconds(shotCooltime);
@@ -251,6 +261,8 @@ using UnityEngine;
         //元のオブジェクトの位置に残像を生成
         GameObject ghost =
             Instantiate(ghostPrefab, transform.position, transform.rotation);
+
+        //SE 移動音
     }
 
     public void ResetPos(Vector2 pos)
@@ -262,8 +274,13 @@ using UnityEngine;
     {
         Debug.Log("のけぞり");
 
-        //色を変える
-        
+        dontMove = true;
+
+        //色を変更
+        gameObject.GetComponent<SpriteRenderer>().color = inviColor;
+
+        //SE 被ダメージ
+
         yield return new WaitForSeconds(0.1f);
 
         //最後に移動した方向と逆方向のベクトルを指定
@@ -291,25 +308,43 @@ using UnityEngine;
         lastMove = null;
 
         transform.position = position;  //座標の更新   
+
+        yield return new WaitForSeconds(0.3f);
+
+        dontMove = false;
+        
     }
     //一定時間無敵コルーチン 引数秒無敵
     public IEnumerator OnInvincible(float sec)
     {
         invincible = true;  //無敵になる
-        dontMove = true;
-
-        yield return new WaitForSeconds(sec);
-
-        dontMove = false;
+        
+        //色変更
+        //gameObject.GetComponent<SpriteRenderer>().color = inviColor;       
 
         yield return new WaitForSeconds(sec);
 
         invincible = false; //無敵解除
+        //色を戻す
+        gameObject.GetComponent<SpriteRenderer>().color = mainColor;
     }
     //カメラの座標更新
     public void MoveCamera()
     {
         camera.transform.position = new Vector3(2, transform.position.y + 1.6f, -10);
+    }
+    //被ダメージエフェクト
+    public IEnumerator DamageEfect()
+    {
+        //色変更
+        gameObject.GetComponent<SpriteRenderer>().color = damageColor;
+
+        //SE　被ダメージ
+
+        yield return new WaitForSeconds(0.1f);
+
+        //色を戻す
+        gameObject.GetComponent<SpriteRenderer>().color = mainColor;
     }
 }
 

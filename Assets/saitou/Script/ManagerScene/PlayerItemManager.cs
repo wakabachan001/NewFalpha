@@ -137,20 +137,24 @@ public class PlayerItemManager : MonoBehaviour
     //アイテム取得関数 すでに所持していたらfalseを返す
     public bool AddItem(string id)
     {
-        //取得アイテムが所持アイテム中にあるか調べる
-        for (int i = 0; i < havingItem.Count; i++)
+        if (id != null)
         {
-            if (havingItem[i] == id)
+            //取得アイテムが所持アイテム中にあるか調べる
+            for (int i = 0; i < havingItem.Count; i++)
             {
-                //すでに所持していたなら何もしない
-                Debug.Log(id + "をすでに所持しています");
-                return false;
+                if (havingItem[i] == id)
+                {
+                    //すでに所持していたなら何もしない
+                    Debug.Log(id + "をすでに所持しています");
+                    return false;
+                }
             }
+            //未所持なら
+            havingItem.Add(id);//所持アイテムにidを追加
+            Debug.Log(id + "を獲得しました");
+            return true;
         }
-        //未所持なら
-        havingItem.Add(id);//所持アイテムにidを追加
-        Debug.Log(id + "を獲得しました");
-        return true;
+        return false;//引数がnullのときだけ動く
     }
     //アイテム廃棄関数
     public void RemoveItem(string id)
@@ -161,24 +165,27 @@ public class PlayerItemManager : MonoBehaviour
     //アイテム購入関数
     public void BuyingItem(string id)
     {
-        //購入価格を取得
-        int price = itemManager.GetBuyingPrice(id);
-
-        //所持金が足りているなら
-        if (playerStatusManager.status.Money >= price)
+        if (id != null)
         {
-            //アイテムを獲得 未所持アイテムなら
-            if (AddItem(id) == true)
+            //購入価格を取得
+            int price = itemManager.GetBuyingPrice(id);
+
+            //所持金が足りているなら
+            if (playerStatusManager.status.Money >= price)
             {
-                //価格分、所持金を減らす
-                playerStatusManager.UseMoney(price);
+                //アイテムを獲得 未所持アイテムなら
+                if (AddItem(id) == true)
+                {
+                    //価格分、所持金を減らす
+                    playerStatusManager.UseMoney(price);
 
-                Debug.Log(id + "を購入 : " + price);
-            } 
-        }
-        else
-        {
-            Debug.Log("お金が足りません");
+                    Debug.Log(id + "を購入 : " + price);
+                }
+            }
+            else
+            {
+                Debug.Log("お金が足りません");
+            }
         }
     }
     //アイテム売却関数 今のところ使う予定なし
@@ -192,16 +199,6 @@ public class PlayerItemManager : MonoBehaviour
         RemoveItem(id);     //アイテムを獲得
 
         Debug.Log(id + "を売却");
-    }
-
-    //所持アイテムのアイコンを表示する関数
-    private void MakeIcon()
-    {
-        for (int i = 0; i < havingItem.Count; i++)
-        {
-            //子としてImageを持つPrefabをクローン
-            //クローンしたオブジェクト
-        }
     }
 
     //所持アイテムデバッグ表示関数

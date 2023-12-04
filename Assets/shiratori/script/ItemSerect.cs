@@ -53,10 +53,20 @@ public class ItemSerect : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-             
-            Item[i].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[i]);
-            textname[i].text = itemmanager.GetName(ItemId[i]);
-            textdisc[i].text = itemmanager.GetDescription(ItemId[i]);
+            if (ItemId[i] != null)
+            {
+                Item[i].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[i]);
+                textname[i].text = itemmanager.GetName(ItemId[i]);
+                textdisc[i].text = itemmanager.GetDescription(ItemId[i]);
+            }
+            //ÉAÉCÉeÉÄÇ™å©Ç¬Ç©ÇÁÇ»Ç©Ç¡ÇΩèÍçá
+            else
+            {
+                
+                Item[i].GetComponent<Image>().sprite = itemicon.Empty();
+                textname[i].text = "NoName";
+                textdisc[i].text = " ";
+            }
 
         }
 
