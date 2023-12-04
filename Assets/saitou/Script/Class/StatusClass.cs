@@ -147,12 +147,15 @@ public class StatusCalc
     //‘Ì—ÍŠ„‡‰ñ•œŠÖ”
     public float HealHPper(float maxhp, float hp, float per)
     {
-        float heal = MaxHPCalc(maxhp) * per;
+        float maxHP = MaxHPCalc(maxhp);
+
+        float heal = maxHP * per;
+
         //‰ñ•œ‚µ‚ÄÅ‘å‘Ì—Í‚ğ’´‚¦‚é‚È‚ç
-        if (hp + heal >= MaxHPCalc(maxhp))
+        if (hp + heal >= maxHP)
         {
             //Œ»İ‚Ì‘Ì—Í‚ğÅ‘å‘Ì—Í‚Æ“¯‚¶‚É‚·‚é
-            return MaxHPCalc(maxhp);
+            return maxHP;
         }
         else
         {

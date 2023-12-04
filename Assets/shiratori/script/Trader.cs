@@ -70,13 +70,6 @@ public class Trader : MonoBehaviour
 
         }
 
-        //string Id =itemmanager.GetRandomItem();
-        //string name = itemmanager.GetName(Id);
-        //string discription = itemmanager.GetDescription(Id);
-
-        //itemname = name;
-        // ランダムに3つのアイテムをアクティブにする
-        //ActivateRandomItems(3);
     }
 
     public void CloseUI()
@@ -98,33 +91,4 @@ public class Trader : MonoBehaviour
         itemUI.ChangeIcon();//所持アイテムアイコン更新
     }
 
-    //void ActivateRandomItems(int count)
-    //{
-    //    // すべてのアイテムを非アクティブにする
-    //    foreach (var item in Item)
-    //    {
-    //        item.SetActive(false);
-    //    }
-
-    //    List<int> selectedIndices = new List<int>();
-
-    //    //ランダムなアイテムを選択
-    //    while (selectedIndices.Count < count)
-    //    {
-    //        int randomIndex = Random.Range(0, Item.Length);
-    //        if (!selectedIndices.Contains(randomIndex))
-    //        {
-    //            selectedIndices.Add(randomIndex);
-    //        }
-    //    }
-
-    //    // 選択されたアイテムをアクティブにする
-    //    foreach (int index in selectedIndices)
-    //    {
-    //        if (index >= 0 && index < Item.Length)
-    //        {
-    //            Item[index].SetActive(true);
-    //        }
-    //    }
-    //}
 }
