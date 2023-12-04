@@ -10,10 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3389573295588184537}
   - component: {fileID: 553013487187958541}
-  - component: {fileID: -6008910119244256017}
   - component: {fileID: 5785895379452708550}
   - component: {fileID: 6349433919499118235}
-  - component: {fileID: 6148940771833909159}
   - component: {fileID: 3574018849346529302}
   - component: {fileID: 1303441300928284679}
   m_Layer: 6
@@ -90,21 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-6008910119244256017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1549716839820228433}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9ba0fce96585fa4ea3e5f8f6fa788af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 0}
-  numberOfClones: 2
-  cloneDistance: 2
 --- !u!114 &5785895379452708550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,26 +115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a83c28501563544a89c2e66575ee81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 20
+  maxHP: 300
   money: 50
   attackDamage1: 10
   attackDamage2: 10
---- !u!114 &6148940771833909159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1549716839820228433}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39dd4e85e04eac649a57f1c5fa98bebd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 200
-  money: 50
-  attackDamage1: 5
-  attackDamage2: 5
 --- !u!61 &3574018849346529302
 BoxCollider2D:
   m_ObjectHideFlags: 0

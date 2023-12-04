@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class ChangeEnemy : MonoBehaviour
 {
-    public Transform PlayerTransform;
-    public Transform Enemy04Transform;
+    //public Transform PlayerTransform;
+    //public Transform Enemy04Transform;
     GameObject playerObj;
 
+    public Vector2 EnemyPos;
+
+    public float clonepos = -1.0f;//クローン生成位置調整用
     public float coolTime = 2.0f;//攻撃のクールタイム
     private float time = 0.0f;//時間計測用
 
     private bool moveOn = false;//行動可能フラグ
+
+    public GameObject AttackEffect;//クローンするオブジェクト
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -27,13 +32,12 @@ public class ChangeEnemy : MonoBehaviour
     private void Start()
     {
         playerObj = GameObject.Find("Player");
-        Vector2 EnemyPos = transform.position;
+        EnemyPos = transform.position;
     }
 
-    public void Swap()
+    public void teleport()
     {
-        //Vector2 PlayerPos = new Vector2(playerObj.transform.position.x, playerObj.transform.position.y);
-        //PlayerTransform.position = Enemy04Transform.position;
+        //プレイヤーの１マス前に移動
         transform.position = playerObj.transform.position + transform.up;
     }
 
@@ -47,11 +51,39 @@ public class ChangeEnemy : MonoBehaviour
             //timeがクールタイムを超えたら
             if (time >= coolTime)
             {
-                Swap();
-                time = 0.0f;
+                teleport();
 
+                //プレイヤーの１マス先にいるかどうか
+                if(transform.position == playerObj.transform.position + transform.up)
+                {
+                    //攻撃処理コルーチン呼び出し
+                    StartCoroutine(Attack());
+                }
+
+                //逃走処理コルーチン呼び出し
+                StartCoroutine(Escape());
+                time = 0.0f;
 
             }
         }
+    }
+
+    private IEnumerator Attack()
+    {
+        //待機
+        yield return new WaitForSeconds(0.3f);
+
+        //攻撃処理
+        //これの前方(下方向)に攻撃エフェクトのクローン生成
+        Instantiate(AttackEffect, transform.position + (transform.up * clonepos), Quaternion.identity);        
+    }
+
+    private IEnumerator Escape()
+    {
+        //待機
+        yield return new WaitForSeconds(0.4f);
+
+        //元の位置に逃げる
+        transform.position = EnemyPos;
     }
 }
