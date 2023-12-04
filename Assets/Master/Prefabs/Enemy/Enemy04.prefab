@@ -103,7 +103,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerTransform: {fileID: 1288840254261512013, guid: bba2be691b178d74b8c8828591d7a2d2, type: 3}
   Enemy04Transform: {fileID: 247762438091682496}
+  EnemyPos: {x: 0, y: 0}
+  clonepos: -1
   coolTime: 3
+  AttackEffect: {fileID: 8667471911016283574, guid: ea89722f0133d314683cadaf1d386dca, type: 3}
 --- !u!114 &5502859169039823882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a83c28501563544a89c2e66575ee81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 200
+  maxHP: 80
   money: 20
   attackDamage1: 10
   attackDamage2: 10
