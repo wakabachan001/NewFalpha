@@ -5,8 +5,8 @@ using UnityEngine;
 public class Sounds : MonoBehaviour
 {
     public AudioClip Clickbutton;
+    public AudioClip Attack;
     public AudioClip Shot;
-    public AudioClip Longattack;
     public AudioClip Enemydeath;
     public AudioClip GameClear;
     public AudioClip GameOver;
@@ -20,18 +20,18 @@ public class Sounds : MonoBehaviour
     public AudioSource stage3;
 
 
-    public bool on1BGM = false;
-    public bool on2BGM = false;
-    public bool on3BGM = false;
-    public bool onClickMouse = false;
-    public bool onShot = false;
-    public bool onLongAttack = false;
-    public bool onEnemydeath= false;
-    public bool onGameClear = false;
-    public bool onGameOver = false;
-    public bool onmenuclose = false;
-    public bool onbuy = false;
-    public bool onTreasure_Chest = false;
+    //public bool on1BGM = false;
+    //public bool on2BGM = false;
+    //public bool on3BGM = false;
+    //public bool onClickMouse = false;
+    //public bool onShot = false;
+    //public bool onLongAttack = false;
+    //public bool onEnemydeath= false;
+    //public bool onGameClear = false;
+    //public bool onGameOver = false;
+    //public bool onmenuclose = false;
+    //public bool onbuy = false;
+    //public bool onTreasure_Chest = false;
 
 
 
@@ -46,82 +46,82 @@ public class Sounds : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        if(on1BGM == true)
-        {
-            on1BGM = false;
+    //private void Update()
+    //{
+    //    if(on1BGM == true)
+    //    {
+    //        on1BGM = false;
 
-            Stage1BGM();
-        }
-        if (on2BGM == true)
-        {
-            on2BGM = false;
+    //        Stage1BGM();
+    //    }
+    //    if (on2BGM == true)
+    //    {
+    //        on2BGM = false;
 
-            Stage2BGM();
-        }
-        if (on3BGM == true)
-        {
-            on3BGM = false;
+    //        Stage2BGM();
+    //    }
+    //    if (on3BGM == true)
+    //    {
+    //        on3BGM = false;
 
-            Stage3BGM();
-        }
+    //        Stage3BGM();
+    //    }
 
-        if(onClickMouse == true)
-        {
-            onClickMouse = false;
-            ClickSE();
-        }
-        if (onShot == true)
-        {
-            onShot = false;
-            ClickSE2();
-        }
-        if (onLongAttack == true)
-        {
-            onLongAttack = false;
-            ClickSE3();
-        }
-        if (onEnemydeath == true)
-        {
-            onEnemydeath = false;
-            ClickSE4();
-        }
-        if (onGameClear == true)
-        {
-            onGameClear = false;
-            ClickSE5();
-        }
+    //    if(onClickMouse == true)
+    //    {
+    //        onClickMouse = false;
+    //        ClickSE();
+    //    }
+    //    if (onShot == true)
+    //    {
+    //        onShot = false;
+    //        ClickSE2();
+    //    }
+    //    if (onLongAttack == true)
+    //    {
+    //        onLongAttack = false;
+    //        ClickSE3();
+    //    }
+    //    if (onEnemydeath == true)
+    //    {
+    //        onEnemydeath = false;
+    //        ClickSE4();
+    //    }
+    //    if (onGameClear == true)
+    //    {
+    //        onGameClear = false;
+    //        ClickSE5();
+    //    }
 
-        if (onGameOver == true)
-        {
-            onGameOver = false;
-            ClickSE6();
-        }
-        if (onmenuclose == true)
-        {
-            onmenuclose = false;
-            ClickSE7();
-        }
-        if (onbuy == true)
-        {
-            onbuy = false;
-            ClickSE8();
-        }
-        if (onTreasure_Chest == true)
-        {
-            onTreasure_Chest = false;
-            ClickSE9();
-        }
-
-
+    //    if (onGameOver == true)
+    //    {
+    //        onGameOver = false;
+    //        ClickSE6();
+    //    }
+    //    if (onmenuclose == true)
+    //    {
+    //        onmenuclose = false;
+    //        ClickSE7();
+    //    }
+    //    if (onbuy == true)
+    //    {
+    //        onbuy = false;
+    //        ClickSE8();
+    //    }
+    //    if (onTreasure_Chest == true)
+    //    {
+    //        onTreasure_Chest = false;
+    //        ClickSE9();
+    //    }
 
 
 
 
 
 
-    }
+
+
+    //}
 
     public void Stage1BGM()
     {
@@ -153,49 +153,49 @@ public class Sounds : MonoBehaviour
         audioSource.PlayOneShot(Clickbutton);
 
     }
-    public void ClickSE2()
+    public void AttackSE()
     {
         //近距離攻撃
+        audioSource.PlayOneShot(Attack);
+
+    }
+    public void ShotSE()
+    {
+        //遠距離攻撃
         audioSource.PlayOneShot(Shot);
 
     }
-    public void ClickSE3()
-    {
-        //遠距離攻撃
-        audioSource.PlayOneShot(Longattack);
-
-    }
-    public void ClickSE4()
+    public void EnemyDeathSE()
     {
         //敵死亡サウンド
         audioSource.PlayOneShot(Enemydeath);
 
     }
-    public void ClickSE5()
+    public void GameClearSE()
     {
         //ゲームクリア
         audioSource.PlayOneShot(GameClear);
 
     }
-    public void ClickSE6()
+    public void GameOverSE()
     {
         //ゲームオーバー
         audioSource.PlayOneShot(GameOver);
 
     }
-    public void ClickSE7()
+    public void MenuCloseSE()
     {
         //メニュークローズボタン
         audioSource.PlayOneShot(menuclose);
 
     }
-    public void ClickSE8()
+    public void BuySE()
     {
         //商人からお買い物ボタン
         audioSource.PlayOneShot(buy);
 
     }
-    public void ClickSE9()
+    public void Treasure_ChestSE()
     {
         //宝箱開けた時の音
         audioSource.PlayOneShot(treasure_chest);
