@@ -65,4 +65,9 @@ public class ItemIcon : MonoBehaviour
                 return emptyIconImage;    
         }
     }
+    //空のアイコン取得関数
+    public Sprite Empty()
+    {
+        return emptyIconImage;//空アイコンを返す
+    }
 }
