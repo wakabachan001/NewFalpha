@@ -38,7 +38,6 @@ public class Cloner_Script : MonoBehaviour
         
         for (int i = 0; i < numberOfClones; i++)
         {
-
             clonePosition[i] = new Vector2(transform.position.x + i * cloneDistance -1, transform.position.y);
             clone[i] = Instantiate(enemyPrefab, clonePosition[i], Quaternion.identity);Debug.Log("生成");
             clone[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f); // サイズを1/2倍に変更する
