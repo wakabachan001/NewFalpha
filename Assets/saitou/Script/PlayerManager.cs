@@ -229,6 +229,7 @@ using UnityEngine;
         onAttack = true;
 
         //SE ‹ß‹——£UŒ‚
+        sounds.AttackSE();
         
 
         //‘Ò‹@
@@ -242,6 +243,7 @@ using UnityEngine;
         onShot = true;
 
         //SE ‰“‹——£UŒ‚
+        sounds.ShotSE();
 
         //‘Ò‹@
         yield return new WaitForSeconds(shotCooltime);

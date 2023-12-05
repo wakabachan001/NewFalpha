@@ -9,13 +9,14 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float attackDamage1 = 10.0f;//攻撃1のダメージ
     [SerializeField] private float attackDamage2 = 10.0f;//攻撃2のダメージ
 
-    Color mainColor = new Color(1f, 1f, 1f, 1f);     //通常時
-    Color damageColor = new Color(1f, 0.6f, 0.6f, 1f); //被ダメージ時
+    public Color mainColor = new Color(1f, 1f, 1f, 1f);       //通常時
+    public Color damageColor = new Color(1f, 0.6f, 0.6f, 1f); //被ダメージ時
 
     private float takeDamage;   //被ダメージ
 
     private StatusData status;    //敵ステータスクラス
     private StatusCalc statusCalc = new StatusCalc();     //ダメージ計算クラス
+    Sounds sounds;
 
     PlayerStatusManager playerStatusManager;//PlayerStatusManagerスクリプト
 
@@ -25,6 +26,9 @@ public class EnemyManager : MonoBehaviour
 
         //DataInfoのPlayerStatusManagerを取得
         playerStatusManager = LoadManagerScene.GetPlayerStatusManager();
+
+        GameObject soun = GameObject.Find("SoundObject");
+        sounds = soun.GetComponent<Sounds>();
 
         //ステータス初期化
         status = new StatusData(maxHP, money, attackDamage1, attackDamage2);
@@ -82,6 +86,7 @@ public class EnemyManager : MonoBehaviour
             {
                 playerStatusManager.HT();
             }
+            sounds.EnemyDeathSE();//SE 敵が倒れた
 
             Destroy(gameObject);
             Debug.Log("敵が倒れた");

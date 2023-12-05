@@ -104,10 +104,23 @@ public class CreateMap : MonoBehaviour
                 shopRand = Random.RandomRange(1, 4);
 
                 //BGM ステージによって変更
+                switch (stageCount)
+                {
+                    case 1:
+                        sounds.Stage1BGM();
+                        break;
+                    case 2:
+                        sounds.Stage2BGM();
+                        break;
+                    case 3:
+                        sounds.Stage3BGM();
+                        break;
+                }
+
             }
 
             //マップ生成
-            if(mapCount < 5)
+            if (mapCount < 5)
             {
                 //敵を決める
                 PicEnemy();

@@ -2285,6 +2285,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6069138254919360960, guid: d722fc79da0d2044e949efac21006dc9, type: 3}
+      propertyPath: m_Volume
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069138254919360961, guid: d722fc79da0d2044e949efac21006dc9, type: 3}
+      propertyPath: m_Volume
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069138254919360962, guid: d722fc79da0d2044e949efac21006dc9, type: 3}
+      propertyPath: m_Volume
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6069138254919360969, guid: d722fc79da0d2044e949efac21006dc9, type: 3}
       propertyPath: m_Name
       value: SoundObject
@@ -2373,6 +2385,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6069138254919360971, guid: d722fc79da0d2044e949efac21006dc9, type: 3}
+      propertyPath: m_Volume
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069138254919360971, guid: d722fc79da0d2044e949efac21006dc9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6069138254919360975, guid: d722fc79da0d2044e949efac21006dc9, type: 3}
+      propertyPath: Attack
+      value: 
+      objectReference: {fileID: 8300000, guid: af8541226b69b1346bd04d71f682ce07, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d722fc79da0d2044e949efac21006dc9, type: 3}
 --- !u!1001 &1675719312

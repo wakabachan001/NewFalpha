@@ -23,6 +23,7 @@ public class ItemSerect : MonoBehaviour
 
     PlayerManager playerManager;
     ItemUIManager itemUI;
+    Sounds sounds;
 
     public GameObject[] Item = new GameObject[3];
     public Text[] textname = new Text[3];
@@ -42,10 +43,14 @@ public class ItemSerect : MonoBehaviour
 
         GameObject canv = GameObject.Find("Canvas");
         itemUI = canv.GetComponent<ItemUIManager>();
+
+        GameObject soun = GameObject.Find("SoundObject");
+        sounds = soun.GetComponent<Sounds>();
     }
 
     public void ActiveItemSelectUI()
     {
+        sounds.Treasure_ChestSE();//宝箱を開けた音
         ItemSelectUI.SetActive(true);
         playerManager.dontMove = true;
 
@@ -76,6 +81,7 @@ public class ItemSerect : MonoBehaviour
     {
         ItemSelectUI.SetActive(false);
         playerManager.dontMove = false;
+        sounds.MenuCloseSE();//SE 閉じる
     }
 
     public void OpenUI()
@@ -87,12 +93,17 @@ public class ItemSerect : MonoBehaviour
     // ActiveItemSelectUI で表示されているアイテムを選択
     public void ItemChoice(int objectname)
     {
+        Debug.Log("ステータス上昇" + objectname);
 
-        PIM.AddItem(ItemId[objectname]); Debug.Log("ステータス上昇"+objectname);
-        itemUI.ChangeIcon();//所持アイテムアイコン更新
+        //アイテム追加関数を呼び出して、取得出来たら
+        if (PIM.AddItem(ItemId[objectname]) == true)
+        {
+            sounds.ClickSE();
+            itemUI.ChangeIcon();//所持アイテムアイコン更新
 
-        ItemSelectUI.SetActive(false);
-        playerManager.dontMove = false;
+            CloseUI();//UIを閉じる
+        }
+        
     }
 
 }

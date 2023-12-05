@@ -21,6 +21,7 @@ public class Trader : MonoBehaviour
 
     PlayerManager playerManager;
     ItemUIManager itemUI;
+    Sounds sounds;
 
     public GameObject[] TradeItem = new GameObject[6];
     public Text[] textamount = new Text[6];
@@ -41,6 +42,9 @@ public class Trader : MonoBehaviour
 
         GameObject canv = GameObject.Find("Canvas");
         itemUI = canv.GetComponent<ItemUIManager>();
+
+        GameObject soun = GameObject.Find("SoundObject");
+        sounds = soun.GetComponent<Sounds>();
     }
 
     public void ActiveTradeUI()
@@ -76,6 +80,7 @@ public class Trader : MonoBehaviour
     {
         TradeUI.SetActive(false);
         playerManager.dontMove = false;
+        sounds.MenuCloseSE();//SE 閉じる
     }
 
     public void OpenUI()
@@ -87,8 +92,18 @@ public class Trader : MonoBehaviour
     // ActiveItemSelectUI で表示されているアイテムを選択
     public void TradeChoice(int objectname)
     {
-        PIM.BuyingItem(ItemId[objectname]); Debug.Log("ステータス上昇" + objectname);
-        itemUI.ChangeIcon();//所持アイテムアイコン更新
+        Debug.Log("ステータス上昇" + objectname);
+
+        //購入関数を呼び出し、購入できたなら
+        if(PIM.BuyingItem(ItemId[objectname]) == true)
+        {
+            itemUI.ChangeIcon();//所持アイテムアイコン更新
+            sounds.BuySE();//SE 購入
+        }
+        else
+        {
+            sounds.ClickSE();//SE クリック
+        } 
     }
 
 }

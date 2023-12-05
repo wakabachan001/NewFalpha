@@ -72,8 +72,7 @@ public class PlayerItemManager : MonoBehaviour
                 case "SelfHarm":
                     //持っている時に遠距離攻撃が自傷効果をもつ 捨てたときの動作未実装
                     playerStatusManager.onSelfHarm = true;
-                    plusShot += playerStatusManager.statusCalc.MaxHPCalc(playerStatusManager.status.MaxHP) 
-                                 * 0.1f;
+                    plusShot += playerStatusManager.MaxHP() * 0.1f;
                     break;
                 case "Health":
                     //最大体力20%増加
@@ -121,16 +120,18 @@ public class PlayerItemManager : MonoBehaviour
                     break;
             }
             //プレイヤーステータスクラス内の計算クラスに代入
-            playerStatusManager.statusCalc.AddMaxHP = addMaxHP;
+            
             playerStatusManager.statusCalc.IncreaseAttack = increaseAttack;
             playerStatusManager.statusCalc.IncreaseBlock = increaseBlock;
             playerStatusManager.statusCalc.AddCriticalChance = addCriticalChance;
             playerStatusManager.statusCalc.AddCriticalDamage = addCriticalDamage;
+            playerStatusManager.addMaxHP = addMaxHP;
             playerStatusManager.addMoney = addMoney;
             playerStatusManager.addAttackDamage = addSword;
             playerStatusManager.addShotDamage = addShot;
             playerStatusManager.plusShotDamage = plusShot;
-            playerStatusManager.RoadHP();
+
+            //playerStatusManager.RoadHP();
         }
     }
 
@@ -163,7 +164,7 @@ public class PlayerItemManager : MonoBehaviour
     }
 
     //アイテム購入関数
-    public void BuyingItem(string id)
+    public bool BuyingItem(string id)
     {
         if (id != null)
         {
@@ -180,13 +181,16 @@ public class PlayerItemManager : MonoBehaviour
                     playerStatusManager.UseMoney(price);
 
                     Debug.Log(id + "を購入 : " + price);
+                    return true;
                 }
             }
             else
             {
                 Debug.Log("お金が足りません");
+                return false;
             }
         }
+        return false;
     }
     //アイテム売却関数 今のところ使う予定なし
     public void SellingItem(string id)
