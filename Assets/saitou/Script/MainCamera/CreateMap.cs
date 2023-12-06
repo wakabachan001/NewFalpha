@@ -83,8 +83,6 @@ public class CreateMap : MonoBehaviour
                 //BGMを止める
                 sounds.StopBGM();
 
-                sounds.GameClearSE();//SE クリア
-
                 //クリアシーンを呼びだす
                 sceneChange.StageClear();
 
