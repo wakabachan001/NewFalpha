@@ -73,12 +73,18 @@ public class CreateMap : MonoBehaviour
         //onNextを受け取ったとき、ステージが3以下なら
         if (onNext)
         {
-            //SE ワープ
-
+            //一番最初以外
+            if(mapCount != 1 && stageCount != 1)
+                sounds.WarpSE();//SE ワープ
 
             //3より先のステージに進もうとすると
             if (stageCount > 3 )
             {
+                //BGMを止める
+                sounds.StopBGM();
+
+                sounds.GameClearSE();//SE クリア
+
                 //クリアシーンを呼びだす
                 sceneChange.StageClear();
 

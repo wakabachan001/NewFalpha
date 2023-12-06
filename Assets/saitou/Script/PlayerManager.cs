@@ -195,9 +195,10 @@ using UnityEngine;
         //無敵時間でなければ
         if (invincible == false)
         {
-            //接触タグが敵の攻撃か、敵本体ならHPを減らす
+            //接触タグが敵の攻撃なら
             if (collision.gameObject.tag == "EnemyAttack")
             {
+                sounds.PlayerDamageSE();//SE 被ダメージ
                 StartCoroutine( DamageEfect());//被ダメージエフェクト
 
                 //被ダメージ関数を呼び、falseが返ってきたなら ( HPが0以下でfalse )
@@ -208,8 +209,11 @@ using UnityEngine;
                 }
 
             }
+            //接触タグが敵本体なら
             if (collision.gameObject.tag == "Enemy")
             {
+                sounds.PlayerDamageSE();//SE 被ダメージ
+
                 //被ダメージ関数を呼び、falseが返ってきたなら ( HPが0以下でfalse )
                 if (playerStatus.TakeDamage(takesDamage) == false)
                 {
@@ -255,6 +259,9 @@ using UnityEngine;
     void PlayerDead()
     {
         Debug.Log("やられた");
+
+        sounds.GameOverSE();//SE ゲームオーバー
+
         Destroy(gameObject, 0.4f);
 
         //SeneChangeスクリプトを探し、ゲームオーバーシーンに移行
@@ -269,7 +276,7 @@ using UnityEngine;
         GameObject ghost =
             Instantiate(ghostPrefab, transform.position, transform.rotation);
 
-        //SE 移動音
+        sounds.MoveSE();//SE 移動
     }
 
     public void ResetPos(Vector2 pos)

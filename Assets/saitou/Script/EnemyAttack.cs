@@ -12,6 +12,12 @@ public class EnemyAttack : MonoBehaviour
 
     public GameObject AttackEffect;//クローンするオブジェクト
 
+    private void Start()
+    {
+        //最初の攻撃タイミングを乱数で少し変える
+        time = Random.RandomRange(0.0f, coolTime / 2);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //アクティブエリア内に入ったら
@@ -22,13 +28,6 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.name == "ActiveArea")
-    //    {
-    //        moveOn = false;
-    //    }
-    //}
 
     private void FixedUpdate()
     {
