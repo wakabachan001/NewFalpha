@@ -134,6 +134,8 @@ MonoBehaviour:
   money: 100
   attackDamage1: 10
   attackDamage2: 10
+  mainColor: {r: 0, g: 0, b: 0, a: 1}
+  damageColor: {r: 0.6509434, g: 0.009211446, b: 0.009211446, a: 1}
 --- !u!114 &-5808207655937766657
 MonoBehaviour:
   m_ObjectHideFlags: 0

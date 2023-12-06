@@ -13,12 +13,15 @@ public class PlayerStatusManager : MonoBehaviour
     [SerializeField] private float criDamage;   //クリティカルダメージ
     [SerializeField] private int initialMoney;  //初期所持金
     [SerializeField] private float[] barrier = new float[5];  //バリアの倍率 最初は要素0番
+    public float addMaxHP;         //追加最大体力
     public float addAttackDamage;   //追加近距離攻撃ダメージ
     public float addShotDamage;     //追加遠距離攻撃ダメージ
     public float plusShotDamage;
-    public float addMoney;         //所持金追加
-    public bool onSelfHarm = false;   //アイテム用フラグ
+    public float addMoney;          //所持金追加
+    public bool onSelfHarm = false; //アイテム用フラグ
     public bool onHealthTreat = false;
+
+    //[SerializeField] private int killNum; //倒した敵の数
 
     public bool onResetHpBr = false;    //体力、バリアリセットしたか
     public PlayerStatusData status;     //プレイヤーのステータス格納用
@@ -30,6 +33,7 @@ public class PlayerStatusManager : MonoBehaviour
         //ステータスの初期化
         status = new PlayerStatusData(maxHP, initialMoney, attackDamage, shotDamage, barrier[0], criChance, criDamage);
 
+        addMaxHP = 1;
         addAttackDamage = 1;
         addShotDamage = 1;
         addMoney = 1;
@@ -98,7 +102,7 @@ public class PlayerStatusManager : MonoBehaviour
     //体力、バリアリセット関数
     public void ResetHpBr()
     {
-        status.CurrentHP = statusCalc.MaxHPCalc(status.MaxHP);
+        status.CurrentHP = status.MaxHP;
         status.Barrier = barrier[0];
 
         onResetHpBr = true;//バリアゲージの初期化用
@@ -106,7 +110,7 @@ public class PlayerStatusManager : MonoBehaviour
     //現在の体力の割合を求める関数
     public float HPper()
     {
-        return status.CurrentHP / statusCalc.MaxHPCalc(status.MaxHP);
+        return status.CurrentHP / status.MaxHP;
     }
     //HealthTreat用関数
     public void HT()
@@ -116,16 +120,17 @@ public class PlayerStatusManager : MonoBehaviour
     //最大体力関数
     public float MaxHP()
     {
-        return statusCalc.MaxHPCalc(status.MaxHP);
+        status.MaxHP = maxHP * addMaxHP;
+        return status.MaxHP;
     }
     //現在の体力を調整する関数
     public void RoadHP()
     {
         //現在の体力が最大体力を超えていたら
-        if(status.CurrentHP > statusCalc.MaxHPCalc(status.MaxHP))
+        if(status.CurrentHP > status.MaxHP)
         {
             //現在の体力を最大体力に更新
-            status.CurrentHP = statusCalc.MaxHPCalc(status.MaxHP);
+            status.CurrentHP = status.MaxHP;
         }
     }
 }

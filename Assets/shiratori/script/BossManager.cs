@@ -11,13 +11,14 @@ public class BossManager : MonoBehaviour
     [SerializeField] private float attackDamage1 = 10.0f;//攻撃1のダメージ
     [SerializeField] private float attackDamage2 = 10.0f;//攻撃2のダメージ
 
-    Color mainColor = new Color(1f, 1f, 1f, 1f);     //通常時
-    Color damageColor = new Color(1f, 0.6f, 0.6f, 1f); //被ダメージ時
+    public Color mainColor = new Color(1f, 1f, 1f, 1f);     //通常時
+    public Color damageColor = new Color(1f, 0.6f, 0.6f, 1f); //被ダメージ時
 
     private float takeDamage;   //被ダメージ
 
     private StatusData status;    //敵ステータスクラス
     private StatusCalc statusCalc = new StatusCalc();     //ダメージ計算クラス
+    Sounds sounds;
 
     PlayerStatusManager playerStatusManager;//PlayerStatusManagerスクリプト
     GameObject obj;//DataInfo用
@@ -28,11 +29,15 @@ public class BossManager : MonoBehaviour
         //PlayerStatusManagerの取得
         playerStatusManager = LoadManagerScene.GetPlayerStatusManager();
 
+        GameObject soun = GameObject.Find("SoundObject");
+        sounds = soun.GetComponent<Sounds>();
+
         //ステータス初期化
         status = new StatusData(maxHP, money, attackDamage1, attackDamage2);
 
         Debug.Log("ボス初期化完了");
 
+        //mainColor = gameObject.GetComponent<Color>();
     }
 
     //他collider接触時
@@ -83,6 +88,8 @@ public class BossManager : MonoBehaviour
 
             //ボスが倒されたとき関数
             createMap.BossDead();
+
+            sounds.EnemyDeathSE();//SE 敵が倒れた
 
             //gameObject.SetActive(true);
             Destroy(gameObject);

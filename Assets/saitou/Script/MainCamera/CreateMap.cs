@@ -42,6 +42,7 @@ public class CreateMap : MonoBehaviour
     PlayerManager playerManager;
     PlayerStatusManager playerStatusManager;
     SceneChange sceneChange;
+    Sounds sounds;
 
     private int start;
     private int end;
@@ -58,6 +59,9 @@ public class CreateMap : MonoBehaviour
 
         GameObject obj = GameObject.Find("Player");
         playerManager = obj.GetComponent<PlayerManager>();
+
+        GameObject obj1 = GameObject.Find("SoundObject");
+        sounds = obj1.GetComponent<Sounds>();
 
         mapCount = 1;
         stageCount = 1;
@@ -100,10 +104,23 @@ public class CreateMap : MonoBehaviour
                 shopRand = Random.RandomRange(1, 4);
 
                 //BGM ステージによって変更
+                switch (stageCount)
+                {
+                    case 1:
+                        sounds.Stage1BGM();
+                        break;
+                    case 2:
+                        sounds.Stage2BGM();
+                        break;
+                    case 3:
+                        sounds.Stage3BGM();
+                        break;
+                }
+
             }
 
             //マップ生成
-            if(mapCount < 5)
+            if (mapCount < 5)
             {
                 //敵を決める
                 PicEnemy();

@@ -87,7 +87,7 @@ public class PlayerStatusData : StatusData
 //ステータス計算クラス
 public class StatusCalc
 {
-    private float addMaxHP;       //追加最大体力
+    //private float addMaxHP;       //追加最大体力
     private float increaseAttack; //増加ダメージ(*)
     private float increaseBlock;  //防御（割合）＊
 
@@ -99,7 +99,6 @@ public class StatusCalc
     public StatusCalc()
     {
         //初期化
-        addMaxHP = 1f;
         increaseAttack = 1f;
         increaseBlock = 1f;
 
@@ -133,10 +132,10 @@ public class StatusCalc
     public float HealHP(float maxhp, float hp, float heal)
     {
         //回復して最大体力を超えるなら
-        if (hp + heal >= MaxHPCalc(maxhp))
+        if (hp + heal >= maxhp)
         {
             //現在の体力を最大体力と同じにする
-            return MaxHPCalc(maxhp);
+            return maxhp;
         }
         else
         {
@@ -147,15 +146,13 @@ public class StatusCalc
     //体力割合回復関数
     public float HealHPper(float maxhp, float hp, float per)
     {
-        float maxHP = MaxHPCalc(maxhp);
-
-        float heal = maxHP * per;
+        float heal = maxhp * per;
 
         //回復して最大体力を超えるなら
-        if (hp + heal >= maxHP)
+        if (hp + heal >= maxhp)
         {
             //現在の体力を最大体力と同じにする
-            return maxHP;
+            return maxhp;
         }
         else
         {
@@ -163,18 +160,7 @@ public class StatusCalc
             return hp + heal;
         }
     }
-    //最大体力計算
-    public float MaxHPCalc(float maxhp)
-    {
-        return maxhp *= addMaxHP;
-    }
 
-    //プロパティ
-    public float AddMaxHP
-    {
-        get { return addMaxHP; }
-        set { addMaxHP = value; }
-    }
     public float IncreaseAttack
     {
         get { return increaseAttack; }
