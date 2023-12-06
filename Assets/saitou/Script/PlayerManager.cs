@@ -206,6 +206,8 @@ using UnityEngine;
                 sounds.PlayerDamageSE();//SE 被ダメージ
                 StartCoroutine( DamageEfect());//被ダメージエフェクト
 
+                takesDamage = collision.GetComponent<EffectData>().damage;//当たった攻撃からダメージを取得
+
                 //被ダメージ関数を呼び、falseが返ってきたなら ( HPが0以下でfalse )
                 if (playerStatus.TakeDamage(takesDamage) == false)
                 {
@@ -218,6 +220,8 @@ using UnityEngine;
             if (collision.gameObject.tag == "Enemy")
             {
                 sounds.PlayerDamageSE();//SE 被ダメージ
+
+                takesDamage = 1f;//ぶつかったときのダメージは固定
 
                 //被ダメージ関数を呼び、falseが返ってきたなら ( HPが0以下でfalse )
                 if (playerStatus.TakeDamage(takesDamage) == false)

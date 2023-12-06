@@ -10,15 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1288840254261512013}
   - component: {fileID: 1288840254261512003}
+  - component: {fileID: -7834366186183561516}
   - component: {fileID: 7907649101762703249}
   - component: {fileID: -5778813076899766677}
-  - component: {fileID: 240379359307176261}
   - component: {fileID: -5808207655937766657}
   - component: {fileID: 1288840254261512001}
   - component: {fileID: 1288840254261512000}
   m_Layer: 0
   m_Name: Boss03
-  m_TagString: Player
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,6 +90,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-7834366186183561516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288840254261512012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a83c28501563544a89c2e66575ee81c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 500
+  money: 100
+  attackDamage1: 10
+  attackDamage2: 10
+  mainColor: {r: 0, g: 0, b: 0, a: 1}
+  damageColor: {r: 0.6320754, g: 0, b: 0, a: 1}
 --- !u!114 &7907649101762703249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,24 +136,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
---- !u!114 &240379359307176261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288840254261512012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39dd4e85e04eac649a57f1c5fa98bebd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 500
-  money: 100
-  attackDamage1: 10
-  attackDamage2: 10
-  mainColor: {r: 0, g: 0, b: 0, a: 1}
-  damageColor: {r: 0.6509434, g: 0.009211446, b: 0.009211446, a: 1}
 --- !u!114 &-5808207655937766657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clonepos: -1
   coolTime: 1.5
+  attackType: 0
   AttackEffect: {fileID: 8667471911016283574, guid: ea89722f0133d314683cadaf1d386dca, type: 3}
 --- !u!61 &1288840254261512001
 BoxCollider2D:

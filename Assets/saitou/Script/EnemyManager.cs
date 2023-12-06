@@ -14,8 +14,8 @@ public class EnemyManager : MonoBehaviour
 
     private float takeDamage;   //被ダメージ
 
-    private StatusData status;    //敵ステータスクラス
-    private StatusCalc statusCalc = new StatusCalc();     //ダメージ計算クラス
+    public StatusData status;    //敵ステータスクラス
+    private StatusCalc statusCalc = new StatusCalc();  //ダメージ計算クラス
     Sounds sounds;
 
     PlayerStatusManager playerStatusManager;//PlayerStatusManagerスクリプト
@@ -87,6 +87,18 @@ public class EnemyManager : MonoBehaviour
                 playerStatusManager.HT();
             }
             sounds.EnemyDeathSE();//SE 敵が倒れた
+
+            //タグがBossなら
+            if (gameObject.tag == "Boss")
+            {
+                //CreateMapスクリプトを探す
+                CreateMap createMap;
+                GameObject obj = GameObject.Find("Main Camera");
+                createMap = obj.GetComponent<CreateMap>();
+
+                //ボスが倒されたとき関数
+                createMap.BossDead();
+            }
 
             Destroy(gameObject);
             Debug.Log("敵が倒れた");
