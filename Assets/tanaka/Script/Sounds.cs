@@ -13,12 +13,14 @@ public class Sounds : MonoBehaviour
     public AudioClip menuclose;
     public AudioClip buy;
     public AudioClip treasure_chest;
+    public AudioClip warp;
+    public AudioClip playerDamage;
+    public AudioClip move;
 
 
     public AudioSource stage1;
     public AudioSource stage2;
     public AudioSource stage3;
-
 
     //public bool on1BGM = false;
     //public bool on2BGM = false;
@@ -147,6 +149,15 @@ public class Sounds : MonoBehaviour
         stage3.Play();
 
     }
+    public void StopBGM()
+    {
+        stage1.Stop();
+        stage2.Stop();
+        stage3.Stop();
+
+    }
+
+
     public void ClickSE()
     {
             //クリックボタン
@@ -201,6 +212,25 @@ public class Sounds : MonoBehaviour
         audioSource.PlayOneShot(treasure_chest);
 
     }
+    public void WarpSE()
+    {
+        //ワープポイントに入ったときの音
+        audioSource.PlayOneShot(warp);
+
+    }
+    public void PlayerDamageSE()
+    {
+        //プレイヤーがダメージを受けた時の音
+        audioSource.PlayOneShot(playerDamage);
+
+    }
+    public void MoveSE()
+    {
+        //プレイヤーが移動した時の音
+        audioSource.PlayOneShot(move);
+
+    }
+
 
 
 
