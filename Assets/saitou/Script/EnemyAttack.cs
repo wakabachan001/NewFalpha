@@ -5,12 +5,25 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     public float clonepos = -1.0f;//クローン生成位置調整用
-    public float coolTime = 2.0f;//攻撃のクールタイム
-    private float time = 0.0f;//時間計測用
+    public float coolTime = 2.0f; //攻撃のクールタイム
+    public int attackType = 0;    //どの攻撃ダメージを参照するか
+    private float time = 0.0f;    //時間計測用
 
     private bool moveOn = false;//行動可能フラグ
 
-    public GameObject AttackEffect;//クローンするオブジェクト
+    public GameObject AttackEffect;//クローンするプレハブ
+    private GameObject cloneObj;   //クローンしたオブジェクト
+
+    EnemyManager enemyManager;//スクリプト
+
+    private void Start()
+    {
+        //最初の攻撃タイミングを乱数で少し変える
+        time = Random.RandomRange(0.0f, coolTime / 2);
+
+        //スクリプト取得
+        enemyManager = gameObject.GetComponent<EnemyManager>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -22,13 +35,6 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.name == "ActiveArea")
-    //    {
-    //        moveOn = false;
-    //    }
-    //}
 
     private void FixedUpdate()
     {
@@ -41,7 +47,13 @@ public class EnemyAttack : MonoBehaviour
             {
                 //攻撃処理
                 //これの前方(下方向)に攻撃エフェクトのクローン生成
-                Instantiate(AttackEffect, transform.position + (transform.up * clonepos), Quaternion.identity);
+                cloneObj = Instantiate(AttackEffect, transform.position + (transform.up * clonepos), Quaternion.identity);
+
+                if (enemyManager != null)
+                {
+                    //攻撃エフェクトのダメージ数値を変更する
+                    cloneObj.GetComponent<EffectData>().damage = enemyManager.status.GetAttackDamage(attackType);
+                }
                 time = 0.0f;
             }
         }

@@ -10,10 +10,11 @@ public class skill : MonoBehaviour
     public GameObject CloneObject;//クローンするオブジェクト
 
     private bool skillused = false;
+    private bool buttonOn = true;  //ボタンが押せるかどうか
 
     private Button button;
     private Color normalColor  = Color.white; //ノーマルカラー
-    private Color pressedlColor = Color.gray; //プレスドカラー
+    private Color pressedlColor = Color.gray; //プレスドカラー（押されているとき）
 
 
     public float right = 1.0f;
@@ -57,30 +58,24 @@ public class skill : MonoBehaviour
 
     private void ChangeColor()
     {
-        //ボタンのカラーを変更
-        ColorBlock colors = button.colors;
-        colors.selectedColor = pressedlColor;
-    
-        button.colors     = colors;
-        //EditorUtility.SetDirty(button);
+        if (buttonOn == true)//ボタンが押せる状態なら
+        {
+            buttonOn = false;
+            //ボタンのカラーを変更
+            gameObject.GetComponent<Image>().color = pressedlColor;
 
-        //ボタンを再度元のカラーに戻すためのコルーチンを呼び出す例
-        StartCoroutine(ResetColor());
+            //ボタンを再度元のカラーに戻すためのコルーチンを呼び出す例
+            StartCoroutine(ResetColor());
+        }
     }
     private IEnumerator ResetColor()
     {
+        
+        yield return new WaitForSeconds(cooldownTime);//10秒後に元のカラーに戻す
 
-       
-        yield return new WaitForSeconds(10.0f);//10秒後に元のカラーに戻す
-        ColorBlock colors = button.colors;
-        colors.selectedColor = normalColor;
-        button.colors = colors;
+        gameObject.GetComponent<Image>().color = normalColor;//ボタンのカラーを戻す
 
-       // EditorUtility.SetDirty(button);
-
-
-
-
+        buttonOn = true;
     }
     IEnumerator Startskill()
     {

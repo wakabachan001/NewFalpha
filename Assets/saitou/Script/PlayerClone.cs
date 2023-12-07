@@ -82,7 +82,9 @@ public class PlayerClone : MonoBehaviour
 
 
         //近距離攻撃
-        if (Input.GetKeyDown(KeyCode.Space) && !onAttack && !onShot)//攻撃開始時(Spaceキーを押すと攻撃開始)
+        //if (Input.GetKeyDown(KeyCode.Space) && !onAttack && !onShot)//攻撃開始時(Spaceキーを押すと攻撃開始)
+        if (Input.GetMouseButtonDown(1))//右クリックが押されたとき
+
         {
             //プレイヤーの前方に攻撃エフェクトのクローン生成
             Instantiate(AttackEffect, transform.position + transform.up, Quaternion.identity);
@@ -92,7 +94,8 @@ public class PlayerClone : MonoBehaviour
         }
 
         //遠距離攻撃
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !onAttack && !onShot)//攻撃開始時(Spaceキーを押すと攻撃開始)
+        //if (Input.GetKeyDown(KeyCode.LeftShift) && !onAttack && !onShot)//攻撃開始時(Spaceキーを押すと攻撃開始)
+        if (Input.GetMouseButtonDown(0))//左クリックが押されたとき
         {
             //現在いる列によって飛距離を変更
             if (onBottomColumn)

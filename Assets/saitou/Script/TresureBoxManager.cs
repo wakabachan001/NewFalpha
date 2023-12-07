@@ -21,6 +21,10 @@ public class TresureBoxManager : MonoBehaviour
         //SpriteRendererを取得
         spriteRenderer = GetComponent<SpriteRenderer>();
 
+        //ItemSerectスクリプトを探す
+        GameObject obj = GameObject.Find("UImanager");
+        itemSerect = obj.GetComponent<ItemSerect>();
+
         //初期の画像を閉じた画像にする
         spriteRenderer.sprite = closeImg;
 
@@ -37,11 +41,7 @@ public class TresureBoxManager : MonoBehaviour
             Debug.Log("宝箱が開いた");
 
             //開けた画像に変える
-            spriteRenderer.sprite = openImg;
-
-            //ItemSerectスクリプトを探す
-            GameObject obj = GameObject.Find("UImanager");
-            itemSerect = obj.GetComponent<ItemSerect>();
+            spriteRenderer.sprite = openImg;    
 
             //宝箱用UIを表示する
             itemSerect.ActiveItemSelectUI();
@@ -49,6 +49,7 @@ public class TresureBoxManager : MonoBehaviour
         else
         {
             Debug.Log("すでに開いています");
+            itemSerect.OpenUI();
         }
     }
 }

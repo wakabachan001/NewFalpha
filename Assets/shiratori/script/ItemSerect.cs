@@ -30,6 +30,8 @@ public class ItemSerect : MonoBehaviour
     public Text[] textdisc = new Text[3];
     public string[] ItemId = new string[3];
     //　TextMeshProUGUI   メッシュプろを使う際はこっち
+
+    private bool getItem = false; //この宝箱でアイテムを取得したか
     private void Start()
     {
         //datainfo = GameObject.Find("DataInfo");
@@ -46,6 +48,8 @@ public class ItemSerect : MonoBehaviour
 
         GameObject soun = GameObject.Find("SoundObject");
         sounds = soun.GetComponent<Sounds>();
+
+        getItem = false;
     }
 
     public void ActiveItemSelectUI()
@@ -86,8 +90,12 @@ public class ItemSerect : MonoBehaviour
 
     public void OpenUI()
     {
-        ItemSelectUI.SetActive(true);
-        playerManager.dontMove = true;
+        //まだこの宝箱からアイテムを取得していないなら
+        if (getItem == false)
+        {
+            ItemSelectUI.SetActive(true);
+            playerManager.dontMove = true;
+        }
     }
 
     // ActiveItemSelectUI で表示されているアイテムを選択
@@ -98,6 +106,7 @@ public class ItemSerect : MonoBehaviour
         //アイテム追加関数を呼び出して、取得出来たら
         if (PIM.AddItem(ItemId[objectname]) == true)
         {
+            getItem = true;
             sounds.ClickSE();
             itemUI.ChangeIcon();//所持アイテムアイコン更新
 

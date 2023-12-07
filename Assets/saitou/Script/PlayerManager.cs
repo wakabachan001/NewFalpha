@@ -114,71 +114,76 @@ using UnityEngine;
                     onBottomColumn = true;  //後退時に下列にいることにする
             }
         }
-        
 
-        //近距離攻撃
-        if (Input.GetKeyDown(KeyCode.Space) && !onAttack && !onShot)//攻撃開始時(Spaceキーを押すと攻撃開始)
+        //フラグチェック
+        if (!dontMove && !onAttack && !onShot)
         {
-            //プレイヤーの前方に攻撃エフェクトのクローン生成
-            Instantiate(AttackEffect, transform.position + transform.up, Quaternion.identity);
 
-            //フラグ管理用コルーチン呼び出し
-            StartCoroutine(AttackFlag());
-        }
-
-        //遠距離攻撃
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !onAttack && !onShot)//攻撃開始時(Spaceキーを押すと攻撃開始)
-        {
-            //現在いる列によって飛距離を変更
-            if (onBottomColumn)
-                shotLange = shotLimit;
-            else
-                shotLange = shotLimit - 1.0f;
-
-            //フラグ管理用コルーチン呼び出し
-            StartCoroutine(ShotFlag());
-
-            //プレイヤーの位置に手裏剣のクローン生成
-            Instantiate(ShotEffect, transform.position, Quaternion.identity);
-        }
-
-        //前方を調べる
-        if (Input.GetKeyDown(KeyCode.E) &&
-            !onAttack && !onShot)
-        {
-            Debug.DrawRay(transform.position + (transform.up * 0.5f),  transform.up * 0.8f, Color.green, 0.5f);
-
-            Debug.Log("調べる");
-
-            //プレイヤーの上から、上方を調べる
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * 1.5f, 0.8f);
-
-            if (hit.collider != null)
+            //近距離攻撃
+            //if (Input.GetKeyDown(KeyCode.Space))//攻撃開始時(Spaceキーを押すと攻撃開始)
+            if(Input.GetMouseButtonDown(1))//右クリックが押されたとき
             {
-                if (hit.collider)
+                //プレイヤーの前方に攻撃エフェクトのクローン生成
+                Instantiate(AttackEffect, transform.position + transform.up, Quaternion.identity);
+
+                //フラグ管理用コルーチン呼び出し
+                StartCoroutine(AttackFlag());
+            }
+
+            //遠距離攻撃
+            //if (Input.GetKeyDown(KeyCode.LeftShift))//攻撃開始時(Spaceキーを押すと攻撃開始)
+            if (Input.GetMouseButtonDown(0))//左クリックが押されたとき
+            {
+                //現在いる列によって飛距離を変更
+                if (onBottomColumn)
+                    shotLange = shotLimit;
+                else
+                    shotLange = shotLimit - 1.0f;
+
+                //フラグ管理用コルーチン呼び出し
+                StartCoroutine(ShotFlag());
+
+                //プレイヤーの位置に手裏剣のクローン生成
+                Instantiate(ShotEffect, transform.position, Quaternion.identity);
+            }
+
+            //前方を調べる
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.DrawRay(transform.position + (transform.up * 0.5f), transform.up * 0.8f, Color.green, 0.5f);
+
+                Debug.Log("調べる");
+
+                //プレイヤーの上から、上方を調べる
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * 1.5f, 0.8f);
+
+                if (hit.collider != null)
                 {
-                    Debug.Log(hit.collider.gameObject.name);
-                }
+                    if (hit.collider)
+                    {
+                        Debug.Log(hit.collider.gameObject.name);
+                    }
 
-                //調べた物が宝箱なら
-                if (hit.collider.CompareTag("TreasureBox"))
-                {
-                    Debug.Log("宝箱だ");
-                    
-                    //スクリプトを取得
-                    tresureBox = hit.collider.gameObject.GetComponent<TresureBoxManager>();
+                    //調べた物が宝箱なら
+                    if (hit.collider.CompareTag("TreasureBox"))
+                    {
+                        Debug.Log("宝箱だ");
 
-                    tresureBox.OpenBox();//宝箱のスクリプトを実行
-                }
-                //調べた物が商人なら
-                else if (hit.collider.CompareTag("Trader"))
-                {
-                    Debug.Log("商人だ");
+                        //スクリプトを取得
+                        tresureBox = hit.collider.gameObject.GetComponent<TresureBoxManager>();
 
-                    //スクリプトを取得
-                    traderManager = hit.collider.gameObject.GetComponent<TraderManager>();
+                        tresureBox.OpenBox();//宝箱のスクリプトを実行
+                    }
+                    //調べた物が商人なら
+                    else if (hit.collider.CompareTag("Trader"))
+                    {
+                        Debug.Log("商人だ");
 
-                    traderManager.OpenShop();//商人のスクリプトを実行
+                        //スクリプトを取得
+                        traderManager = hit.collider.gameObject.GetComponent<TraderManager>();
+
+                        traderManager.OpenShop();//商人のスクリプトを実行
+                    }
                 }
             }
         }
@@ -195,10 +200,13 @@ using UnityEngine;
         //無敵時間でなければ
         if (invincible == false)
         {
-            //接触タグが敵の攻撃か、敵本体ならHPを減らす
+            //接触タグが敵の攻撃なら
             if (collision.gameObject.tag == "EnemyAttack")
             {
+                sounds.PlayerDamageSE();//SE 被ダメージ
                 StartCoroutine( DamageEfect());//被ダメージエフェクト
+
+                takesDamage = collision.GetComponent<EffectData>().damage;//当たった攻撃からダメージを取得
 
                 //被ダメージ関数を呼び、falseが返ってきたなら ( HPが0以下でfalse )
                 if (playerStatus.TakeDamage(takesDamage) == false)
@@ -208,8 +216,13 @@ using UnityEngine;
                 }
 
             }
+            //接触タグが敵本体なら
             if (collision.gameObject.tag == "Enemy")
             {
+                sounds.PlayerDamageSE();//SE 被ダメージ
+
+                takesDamage = 1f;//ぶつかったときのダメージは固定
+
                 //被ダメージ関数を呼び、falseが返ってきたなら ( HPが0以下でfalse )
                 if (playerStatus.TakeDamage(takesDamage) == false)
                 {
@@ -255,6 +268,9 @@ using UnityEngine;
     void PlayerDead()
     {
         Debug.Log("やられた");
+
+        sounds.GameOverSE();//SE ゲームオーバー
+
         Destroy(gameObject, 0.4f);
 
         //SeneChangeスクリプトを探し、ゲームオーバーシーンに移行
@@ -269,7 +285,7 @@ using UnityEngine;
         GameObject ghost =
             Instantiate(ghostPrefab, transform.position, transform.rotation);
 
-        //SE 移動音
+        sounds.MoveSE();//SE 移動
     }
 
     public void ResetPos(Vector2 pos)

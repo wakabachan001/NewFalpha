@@ -121,6 +121,12 @@ public class PlayerStatusManager : MonoBehaviour
     public float MaxHP()
     {
         status.MaxHP = maxHP * addMaxHP;
+
+        //Œ»İHP‚ªÅ‘åHP‚ğ’´‚¦‚Ä‚¢‚é‚È‚ç’²®
+        if(status.CurrentHP > status.MaxHP)
+        {
+            status.CurrentHP = status.MaxHP;
+        }
         return status.MaxHP;
     }
     //Œ»İ‚Ì‘Ì—Í‚ğ’²®‚·‚éŠÖ”
