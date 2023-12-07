@@ -17,116 +17,23 @@ public class Sounds : MonoBehaviour
     public AudioClip playerDamage;
     public AudioClip move;
 
-
     public AudioSource stage1;
     public AudioSource stage2;
     public AudioSource stage3;
-
-    //public bool on1BGM = false;
-    //public bool on2BGM = false;
-    //public bool on3BGM = false;
-    //public bool onClickMouse = false;
-    //public bool onShot = false;
-    //public bool onLongAttack = false;
-    //public bool onEnemydeath= false;
-    //public bool onGameClear = false;
-    //public bool onGameOver = false;
-    //public bool onmenuclose = false;
-    //public bool onbuy = false;
-    //public bool onTreasure_Chest = false;
-
-
-
-
+    public AudioSource titleBGM;
+    public AudioSource bossBGM;
 
     AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-
     }
 
 
-    //private void Update()
-    //{
-    //    if(on1BGM == true)
-    //    {
-    //        on1BGM = false;
-
-    //        Stage1BGM();
-    //    }
-    //    if (on2BGM == true)
-    //    {
-    //        on2BGM = false;
-
-    //        Stage2BGM();
-    //    }
-    //    if (on3BGM == true)
-    //    {
-    //        on3BGM = false;
-
-    //        Stage3BGM();
-    //    }
-
-    //    if(onClickMouse == true)
-    //    {
-    //        onClickMouse = false;
-    //        ClickSE();
-    //    }
-    //    if (onShot == true)
-    //    {
-    //        onShot = false;
-    //        ClickSE2();
-    //    }
-    //    if (onLongAttack == true)
-    //    {
-    //        onLongAttack = false;
-    //        ClickSE3();
-    //    }
-    //    if (onEnemydeath == true)
-    //    {
-    //        onEnemydeath = false;
-    //        ClickSE4();
-    //    }
-    //    if (onGameClear == true)
-    //    {
-    //        onGameClear = false;
-    //        ClickSE5();
-    //    }
-
-    //    if (onGameOver == true)
-    //    {
-    //        onGameOver = false;
-    //        ClickSE6();
-    //    }
-    //    if (onmenuclose == true)
-    //    {
-    //        onmenuclose = false;
-    //        ClickSE7();
-    //    }
-    //    if (onbuy == true)
-    //    {
-    //        onbuy = false;
-    //        ClickSE8();
-    //    }
-    //    if (onTreasure_Chest == true)
-    //    {
-    //        onTreasure_Chest = false;
-    //        ClickSE9();
-    //    }
-
-
-
-
-
-
-
-
-    //}
-
     public void Stage1BGM()
     {
+        //ステージ１以外を止めてステージ１を流す
         stage2.Stop();
         stage3.Stop();
 
@@ -135,6 +42,7 @@ public class Sounds : MonoBehaviour
     }
     public void Stage2BGM()
     {
+        //ステージ２以外を止めてステージ３を流す
         stage1.Stop();
         stage3.Stop();
 
@@ -143,14 +51,42 @@ public class Sounds : MonoBehaviour
     }
     public void Stage3BGM()
     {
+        //ステージ３以外を止めてステージ３を流す
         stage2.Stop();
         stage1.Stop();
 
         stage3.Play();
 
     }
+    public void TitleBGM()
+    {
+        //タイトルBGM以外を止めてタイトルBGMを流す
+        stage1.Stop();
+        stage2.Stop();
+        stage3.Stop();
+        bossBGM.Stop();
+
+        titleBGM.Play();
+
+    }
+    public void BossBGM()
+    {
+        //ボスBGM以外を止めてボスBGMを流す
+        stage1.Stop();
+        stage2.Stop();
+        stage3.Stop();
+        bossBGM.Stop();
+        titleBGM.Stop();
+
+        bossBGM.Play();
+
+
+
+    }
+
     public void StopBGM()
     {
+        //すべてのBGMをストップ
         stage1.Stop();
         stage2.Stop();
         stage3.Stop();
@@ -218,7 +154,7 @@ public class Sounds : MonoBehaviour
         audioSource.PlayOneShot(warp);
 
     }
-    public void PlayerDamageSE()
+    public void DamageSE()
     {
         //プレイヤーがダメージを受けた時の音
         audioSource.PlayOneShot(playerDamage);
@@ -230,12 +166,4 @@ public class Sounds : MonoBehaviour
         audioSource.PlayOneShot(move);
 
     }
-
-
-
-
-
-
-
-
 }
