@@ -59,10 +59,10 @@ public class Cloner_Script : MonoBehaviour
         //clone 座標更新
         for (int i = 0; i < numberOfClones; i++) 
         {
-            //Vector2[] clonePosition = new Vector2[numberOfClones];//clonePositionの初期化
-            //GameObject[] clone = new GameObject[numberOfClones];// clone生成用変数を初期化
-
+            //　クローン座標変数にボス本体の座標を代入
             clonePosition[i] = new Vector2(transform.position.x + i * cloneDistance - 1, transform.position.y);
+
+            //　クローンに変数の座標を代入
             clone[i].transform.position = clonePosition[i];
 
             Debug.Log(i + "番目");
