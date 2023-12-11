@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 400
   money: 100
-  attackDamage1: 10
+  attackDamage1: 20
   attackDamage2: 10
   mainColor: {r: 1, g: 1, b: 1, a: 1}
   damageColor: {r: 1, g: 0.6, b: 0.6, a: 1}

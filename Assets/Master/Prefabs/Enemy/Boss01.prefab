@@ -151,8 +151,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 300
   money: 100
-  attackDamage1: 10
-  attackDamage2: 10
+  attackDamage1: 20
+  attackDamage2: 15
   mainColor: {r: 1, g: 1, b: 1, a: 1}
   damageColor: {r: 1, g: 0.6, b: 0.6, a: 1}
 --- !u!114 &6497434783059384007
@@ -198,5 +198,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clonepos: 0
   coolTime: 1.3
-  attackType: 0
+  attackType: 1
   AttackEffect: {fileID: 5007766752859079650, guid: 0f5420e5643c6cb428f775d24026aef5, type: 3}

@@ -1871,7 +1871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 286b112408821044494c96a1052986a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OriginObjct: {fileID: 1244957864}
+  OriginObject: {fileID: 1244957864}
   CloneObject: {fileID: 8493383174280404251, guid: 70642e04155c2ca4d9848f39a9089a74, type: 3}
   right: 1
   time: 5
