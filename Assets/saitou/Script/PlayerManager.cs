@@ -221,7 +221,7 @@ using UnityEngine;
             {
                 sounds.PlayerDamageSE();//SE 被ダメージ
 
-                takesDamage = 1f;//ぶつかったときのダメージは固定
+                takesDamage = 10f;//ぶつかったときのダメージは固定
 
                 //被ダメージ関数を呼び、falseが返ってきたなら ( HPが0以下でfalse )
                 if (playerStatus.TakeDamage(takesDamage) == false)

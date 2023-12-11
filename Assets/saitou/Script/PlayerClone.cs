@@ -15,8 +15,10 @@ public class PlayerClone : MonoBehaviour
     public float attackCooltime = 0.3f;//近距離攻撃クールタイム
     public float shotCooltime = 0.3f;  //遠距離攻撃クールタイム
 
-    public float upLimit = 21.0f;   //侵入できる上の限界
+    public float upLimit = 21.0f;       //侵入できる上の限界
     public float backLimitArea = 19.0f; //後退に制限をつける範囲(以下) CreateMapで適宜更新
+
+    public Vector3 clonePos; //クローン元から見てどの位置か
 
     bool onAttack = false;          //近距離攻撃フラグ
     bool onShot = false;            //遠距離攻撃フラグ
@@ -25,9 +27,9 @@ public class PlayerClone : MonoBehaviour
 
     private float time; //時間計測用
 
-    Vector2 position; //プレイヤーの座標用
     public GameObject AttackEffect;  //近距離攻撃
     public GameObject ShotEffect;    //遠距離攻撃
+    GameObject baseObj; //クローン元の親オブジェクト
 
     PlayerManager playerManager;
 
@@ -36,49 +38,16 @@ public class PlayerClone : MonoBehaviour
         GameObject obj = GameObject.Find("Player");
         playerManager = obj.GetComponent<PlayerManager>();
 
-        //プレイヤー座標の取得
-        position = transform.position;
+
+        //親オブジェクトの取得
+        baseObj = transform.parent.gameObject;
     }
 
     // Update is called once per frame
 
     void Update()
     {
-        //移動不可フラグを調べる
-        if (playerManager.dontMove == false)
-        {
-            //移動(場外にいかないようにする)
-            if (Input.GetKeyDown("left") ||
-                Input.GetKeyDown(KeyCode.A))
-            {
-
-                position.x -= speed;
-            }
-            if (Input.GetKeyDown("right") ||
-                Input.GetKeyDown(KeyCode.D))
-            {
-
-                position.x += speed;
-            }
-            if ((Input.GetKeyDown("up") ||
-                Input.GetKeyDown(KeyCode.W)) &&
-                position.y < upLimit)
-            {
-
-                position.y += speed;
-
-                onBottomColumn = false;
-            }
-            if ((Input.GetKeyDown("down") ||
-                Input.GetKeyDown(KeyCode.S)) &&
-                !onBottomColumn)
-            {
-                position.y -= speed;
-                //ボスエリアより手前なら
-                if (transform.position.y <= backLimitArea)
-                    onBottomColumn = true;  //後退時に下列にいることにする
-            }
-        }
+        
 
 
         //近距離攻撃
@@ -113,7 +82,7 @@ public class PlayerClone : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = position;  //座標の更新
+        gameObject.transform.position = baseObj.transform.position + clonePos;
     }
 
 

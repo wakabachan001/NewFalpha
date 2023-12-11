@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class skill : MonoBehaviour
 {
-    public GameObject OriginObjct;//オリジナルのオブジェクト
+    public GameObject OriginObject;//オリジナルのオブジェクト
     public GameObject CloneObject;//クローンするオブジェクト
 
     private bool skillused = false;
@@ -40,15 +40,13 @@ public class skill : MonoBehaviour
             GameObject a;
             GameObject b;
 
-            //現在地を取得
-            Vector3 currentPositione = transform.position;
+            //クローン作成　元にするオブジェクトの左右に子として生成
+            a = Instantiate(CloneObject, OriginObject.transform.position + (transform.right * right), Quaternion.identity, OriginObject.transform);
+            b = Instantiate(CloneObject, OriginObject.transform.position + (transform.right * right * -1.0f), Quaternion.identity, OriginObject.transform);
 
-
-            //クローン作成
-            a = Instantiate(CloneObject, OriginObjct.transform.position + (transform.right * right), Quaternion.identity);
-
-            //クローン作成
-            b = Instantiate(CloneObject, OriginObjct.transform.position + (transform.right * right * -1.0f), Quaternion.identity);
+            //元オブジェクトから見てどの位置に固定するか
+            a.GetComponent<PlayerClone>().clonePos = new Vector3(1,  0, 0);
+            b.GetComponent<PlayerClone>().clonePos = new Vector3(-1, 0, 0);
 
             //5秒後に消す
             Destroy(a, time);
