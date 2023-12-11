@@ -307,6 +307,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1162952066}
+        m_TargetAssemblyTypeName: Sounds, Assembly-CSharp
+        m_MethodName: StopBGM
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &354664251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +364,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 234082427672250269, guid: ed80d60d6f7d4ed458d37689b546c8ee, type: 3}
+      propertyPath: m_Volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 473996801994412083, guid: ed80d60d6f7d4ed458d37689b546c8ee, type: 3}
+      propertyPath: m_Volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5512628259676715001, guid: ed80d60d6f7d4ed458d37689b546c8ee, type: 3}
+      propertyPath: m_Volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5884797227387002000, guid: ed80d60d6f7d4ed458d37689b546c8ee, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886139030549768759, guid: ed80d60d6f7d4ed458d37689b546c8ee, type: 3}
+      propertyPath: m_Volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886139030549768759, guid: ed80d60d6f7d4ed458d37689b546c8ee, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231158686415466642, guid: ed80d60d6f7d4ed458d37689b546c8ee, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231158686415466642, guid: ed80d60d6f7d4ed458d37689b546c8ee, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322035200723151753, guid: ed80d60d6f7d4ed458d37689b546c8ee, type: 3}
+      propertyPath: m_Volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8845420170789217606, guid: ed80d60d6f7d4ed458d37689b546c8ee, type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8845420170789217613, guid: ed80d60d6f7d4ed458d37689b546c8ee, type: 3}
       propertyPath: m_Name
       value: SoundObject
@@ -543,6 +595,7 @@ MonoBehaviour:
   titleScene: 
   clearScene: 
   gameoverScene: 
+  changeTime: 0.3
 --- !u!114 &1162952066 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8845420170789217611, guid: ed80d60d6f7d4ed458d37689b546c8ee, type: 3}

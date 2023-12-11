@@ -203,7 +203,7 @@ using UnityEngine;
             //接触タグが敵の攻撃なら
             if (collision.gameObject.tag == "EnemyAttack")
             {
-                sounds.PlayerDamageSE();//SE 被ダメージ
+                sounds.DamageSE();//SE 被ダメージ
                 StartCoroutine( DamageEfect());//被ダメージエフェクト
 
                 takesDamage = collision.GetComponent<EffectData>().damage;//当たった攻撃からダメージを取得
@@ -219,7 +219,7 @@ using UnityEngine;
             //接触タグが敵本体なら
             if (collision.gameObject.tag == "Enemy")
             {
-                sounds.PlayerDamageSE();//SE 被ダメージ
+                sounds.DamageSE();//SE 被ダメージ
 
                 takesDamage = 10f;//ぶつかったときのダメージは固定
 
