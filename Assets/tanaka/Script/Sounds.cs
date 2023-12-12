@@ -60,12 +60,7 @@ public class Sounds : MonoBehaviour
     }
     public void TitleBGM()
     {
-        //タイトルBGM以外を止めてタイトルBGMを流す
-        stage1.Stop();
-        stage2.Stop();
-        stage3.Stop();
-        bossBGM.Stop();
-
+        //タイトルBGMを流す
         titleBGM.Play();
 
     }
@@ -75,12 +70,8 @@ public class Sounds : MonoBehaviour
         stage1.Stop();
         stage2.Stop();
         stage3.Stop();
-        bossBGM.Stop();
-        titleBGM.Stop();
 
         bossBGM.Play();
-
-
 
     }
 
@@ -90,6 +81,8 @@ public class Sounds : MonoBehaviour
         stage1.Stop();
         stage2.Stop();
         stage3.Stop();
+        bossBGM.Stop();
+        titleBGM.Stop();
 
     }
 
