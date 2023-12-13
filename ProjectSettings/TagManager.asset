@@ -16,6 +16,7 @@ TagManager:
   - DeleteArea
   - WarpZone
   - Trader
+  - Fade
   layers:
   - Default
   - TransparentFX

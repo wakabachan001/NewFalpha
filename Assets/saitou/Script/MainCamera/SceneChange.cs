@@ -40,6 +40,7 @@ public class SceneChange : MonoBehaviour
     {
         yield return new WaitForSeconds(sec);//引数だけ待つ
 
-        SceneManager.LoadScene(scene);//シーン切り替え
+        //SceneManager.LoadScene(scene);//シーン切り替え
+        Initiate.Fade(scene, Color.black, 0.5f);
     }
 }
