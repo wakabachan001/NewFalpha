@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
+    public bool onUpdate = true;  //FixedUpdateの中身を実行するか
     public float clonepos = -1.0f;//クローン生成位置調整用
     public float coolTime = 2.0f; //攻撃のクールタイム
     public int attackType = 0;    //どの攻撃ダメージを参照するか
@@ -38,24 +39,44 @@ public class EnemyAttack : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (moveOn)
+        if (moveOn && onUpdate)
         {
             time += 0.02f;//1秒で1増える
 
             //timeがクールタイムを超えたら
             if (time >= coolTime)
             {
-                //攻撃処理
-                //これの前方(下方向)に攻撃エフェクトのクローン生成
-                cloneObj = Instantiate(AttackEffect, transform.position + (transform.up * clonepos), Quaternion.identity);
+                Attack();//攻撃処理呼び出し
 
-                if (enemyManager != null)
-                {
-                    //攻撃エフェクトのダメージ数値を変更する
-                    cloneObj.GetComponent<EffectData>().damage = enemyManager.status.GetAttackDamage(attackType);
-                }
-                time = 0.0f;
+                time = 0.0f;//時間リセット
             }
         }
+    }
+
+    //攻撃処理関数
+    public void Attack()
+    {
+        //指定の位置に攻撃エフェクトのクローン生成
+        cloneObj = Instantiate(AttackEffect, transform.position + (transform.up * clonepos), Quaternion.identity);
+
+        if (enemyManager != null)
+        {
+            //攻撃エフェクトのダメージ数値を変更する
+            cloneObj.GetComponent<EffectData>().damage = enemyManager.status.GetAttackDamage(attackType);
+        }
+        
+    }
+    //位置指定オーバーロード
+    public void Attack(Vector3 pos)
+    {
+        //指定の位置に攻撃エフェクトのクローン生成
+        cloneObj = Instantiate(AttackEffect, pos, Quaternion.identity);
+
+        if (enemyManager != null)
+        {
+            //攻撃エフェクトのダメージ数値を変更する
+            cloneObj.GetComponent<EffectData>().damage = enemyManager.status.GetAttackDamage(attackType);
+        }
+
     }
 }

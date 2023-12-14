@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ChangeEnemy : MonoBehaviour
 {
-    //public Transform PlayerTransform;
-    //public Transform Enemy04Transform;
     GameObject playerObj;
 
     public Vector2 EnemyPos;
@@ -16,7 +14,7 @@ public class ChangeEnemy : MonoBehaviour
 
     private bool moveOn = false;//行動可能フラグ
 
-    public GameObject AttackEffect;//クローンするオブジェクト
+    EnemyAttack enemyAttack;//攻撃用スクリプト
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,6 +31,11 @@ public class ChangeEnemy : MonoBehaviour
     {
         playerObj = GameObject.Find("Player");
         EnemyPos = transform.position;
+
+        enemyAttack = GetComponent<EnemyAttack>();
+
+        //最初の攻撃タイミングを乱数で少し変える
+        time = Random.RandomRange(0.0f, coolTime / 2);
     }
 
     public void teleport()
@@ -53,12 +56,10 @@ public class ChangeEnemy : MonoBehaviour
             {
                 teleport();
 
-                //プレイヤーの１マス先にいるかどうか
-                if(transform.position == playerObj.transform.position + transform.up)
-                {
-                    //攻撃処理コルーチン呼び出し
-                    StartCoroutine(Attack());
-                }
+
+                //攻撃処理コルーチン呼び出し
+                StartCoroutine(Attack());
+
 
                 //逃走処理コルーチン呼び出し
                 StartCoroutine(Escape());
@@ -71,17 +72,16 @@ public class ChangeEnemy : MonoBehaviour
     private IEnumerator Attack()
     {
         //待機
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.4f);
 
         //攻撃処理
-        //これの前方(下方向)に攻撃エフェクトのクローン生成
-        Instantiate(AttackEffect, transform.position + (transform.up * clonepos), Quaternion.identity);        
+        enemyAttack.Attack();
     }
 
     private IEnumerator Escape()
     {
         //待機
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.6f);
 
         //元の位置に逃げる
         transform.position = EnemyPos;

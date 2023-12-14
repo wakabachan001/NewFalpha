@@ -6,6 +6,12 @@ using UnityEngine;
 //カメラにアタッチ
 public class CreateMap : MonoBehaviour
 {
+    [Header("通常マップ切り替え(Debag)")]
+    public bool[] debugGoMap1 = new bool[3];
+
+    [Header("ボスマップ切り替え(Debag)")]
+    public bool[] debugGoBoss = new bool[3];
+
     public bool onNext = true;  //次マップに進んだときtrue
     [SerializeField]
     private int mapCount = 1;   //何マップ目かどうか
@@ -65,11 +71,20 @@ public class CreateMap : MonoBehaviour
 
         mapCount = 1;
         stageCount = 1;
+
+        for (int i = 0; i <= 3; i++)
+        {
+            debugGoMap1[i] = false;
+            debugGoBoss[i] = false;
+        }
+                
     }
 
     // Update is called once per frame
     void Update()
     {
+        DebugChange();
+
         //onNextを受け取ったとき、ステージが3以下なら
         if (onNext)
         {
@@ -336,6 +351,30 @@ public class CreateMap : MonoBehaviour
             foreach (var clone in floorClones)
             {
                 Destroy(clone);
+            }
+        }
+    }
+
+    //デバッグ用マップチェンジ関数
+    void DebugChange()
+    {
+        for(int i=0; i < 3; i++)
+        {
+            //フラグが立っていたらマップ切り替え
+            if (debugGoMap1[i] == true)
+            {
+                debugGoMap1[i] = false;
+
+                mapCount = 1;
+                stageCount = i+1;
+                onNext = true;
+            }
+            if (debugGoBoss[i] == true)
+            {
+                debugGoBoss[i] = false;
+                mapCount = 5;
+                stageCount = i+1;
+                onNext = true;
             }
         }
     }
