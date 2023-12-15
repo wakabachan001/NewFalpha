@@ -5,10 +5,10 @@ using UnityEngine;
 public class Shitakara : MonoBehaviour
 {
     GameObject playerObj;
-    public GameObject enemy; // 敵のゲームオブジェクト
-    public GameObject attackEffect; // 攻撃エフェクト
 
     Vector3 playerCenterPosition;
+
+    EnemyAttack enemyAttack;//攻撃用スクリプト
 
 
     public float coolTime = 2.0f;//攻撃のクールタイム
@@ -28,7 +28,12 @@ public class Shitakara : MonoBehaviour
     private void Start()
     {
         playerObj = GameObject.Find("Player");
-        
+
+        enemyAttack = GetComponent<EnemyAttack>();
+
+        //最初の攻撃タイミングを乱数で少し変える
+        time = Random.RandomRange(0.0f, coolTime / 2);
+
     }
 
     private void FixedUpdate()
@@ -48,20 +53,21 @@ public class Shitakara : MonoBehaviour
 
     void Attack()
     {
-        if (enemy != null)
-        {
-            // プレイヤーの中心位置を取得
-            playerCenterPosition = playerObj.transform.position;
-           //Invoke("sisyou", 0.5f);
-            // 攻撃エフェクトを生成
-            if (attackEffect != null)
-            {
-                Instantiate(attackEffect, playerCenterPosition, Quaternion.identity);
-                // ここに攻撃エフェクトの発生音などを追加する
+        // プレイヤーの中心位置を取得
+        playerCenterPosition = playerObj.transform.position;
+        //Invoke("sisyou", 0.5f);
 
-                // 攻撃範囲内の敵にダメージを与える処理などをここに追加する
-            }
-        }
+        StartCoroutine(DelayAttack());//攻撃に遅延
     }
-   
+
+    //攻撃に遅延をかけるコルーチン
+    private IEnumerator DelayAttack()
+    {
+        yield return new WaitForSeconds(0.2f);//遅延
+
+        // 攻撃エフェクトを生成
+        enemyAttack.Attack(playerCenterPosition);
+    }
+
+
 }

@@ -653,14 +653,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eef14817f0bcfb4ca837eb13718cc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 0.001
-  red: 0
-  green: 0
-  blue: 0
-  alfa: 0
-  Out: 0
-  In: 0
-  fadeImage: {fileID: 0}
 --- !u!1 &578774407
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,14 +911,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eef14817f0bcfb4ca837eb13718cc32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 0.001
-  red: 0
-  green: 0
-  blue: 0
-  alfa: 0
-  Out: 1
-  In: 0
-  fadeImage: {fileID: 0}
 --- !u!114 &691772893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -939,8 +923,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe393c3fa66ec16408baf63f9f9e4ec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadecanvas: {fileID: 1945602052}
-  clear_over: {fileID: 0}
 --- !u!1 &751497943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,6 +1526,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01000bcc7a214f34c92f43fe4533512e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugGoMap1: 000000
+  debugGoBoss: 000000
   onNext: 1
   mapCount: 1
   stageCount: 1
@@ -2083,7 +2067,7 @@ MonoBehaviour:
   CloneObject: {fileID: 8493383174280404251, guid: 70642e04155c2ca4d9848f39a9089a74, type: 3}
   right: 1
   time: 5
-  cooldownTime: 10
+  cooldownTime: 30
 --- !u!114 &1188897612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2980,11 +2964,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57038824b171ac54dbe4df975d33a2de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1945602052 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6362012873406615967, guid: d92c3569386bd2a46bddc52f64783c13, type: 3}
-  m_PrefabInstance: {fileID: 6362012874272738253}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1959130433 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5303987440934967085, guid: e902747da560a294b99d96bf41fcaa5c, type: 3}
