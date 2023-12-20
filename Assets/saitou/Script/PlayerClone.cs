@@ -47,36 +47,39 @@ public class PlayerClone : MonoBehaviour
 
     void Update()
     {
-        
-
-
-        //近距離攻撃
-        //if (Input.GetKeyDown(KeyCode.Space) && !onAttack && !onShot)//攻撃開始時(Spaceキーを押すと攻撃開始)
-        if (Input.GetMouseButtonDown(1))//右クリックが押されたとき
-
+        //フラグチェック
+        if (!onAttack && !onShot)
         {
-            //プレイヤーの前方に攻撃エフェクトのクローン生成
-            Instantiate(AttackEffect, transform.position + transform.up, Quaternion.identity);
 
-            //フラグ管理用コルーチン呼び出し
-            StartCoroutine(AttackFlag());
-        }
 
-        //遠距離攻撃
-        //if (Input.GetKeyDown(KeyCode.LeftShift) && !onAttack && !onShot)//攻撃開始時(Spaceキーを押すと攻撃開始)
-        if (Input.GetMouseButtonDown(0))//左クリックが押されたとき
-        {
-            //現在いる列によって飛距離を変更
-            if (onBottomColumn)
-                shotLange = shotLimit;
-            else
-                shotLange = shotLimit - 1.0f;
+            //近距離攻撃
+            //if (Input.GetKeyDown(KeyCode.Space) && !onAttack && !onShot)//攻撃開始時(Spaceキーを押すと攻撃開始)
+            if (Input.GetMouseButtonDown(1))//右クリックが押されたとき
 
-            //フラグ管理用コルーチン呼び出し
-            StartCoroutine(ShotFlag());
+            {
+                //プレイヤーの前方に攻撃エフェクトのクローン生成
+                Instantiate(AttackEffect, transform.position + transform.up, Quaternion.identity);
 
-            //プレイヤーの位置に手裏剣のクローン生成
-            Instantiate(ShotEffect, transform.position, Quaternion.identity);
+                //フラグ管理用コルーチン呼び出し
+                StartCoroutine(AttackFlag());
+            }
+
+            //遠距離攻撃
+            //if (Input.GetKeyDown(KeyCode.LeftShift) && !onAttack && !onShot)//攻撃開始時(Spaceキーを押すと攻撃開始)
+            if (Input.GetMouseButtonDown(0))//左クリックが押されたとき
+            {
+                //現在いる列によって飛距離を変更
+                if (onBottomColumn)
+                    shotLange = shotLimit;
+                else
+                    shotLange = shotLimit - 1.0f;
+
+                //フラグ管理用コルーチン呼び出し
+                StartCoroutine(ShotFlag());
+
+                //プレイヤーの位置に手裏剣のクローン生成
+                Instantiate(ShotEffect, transform.position, Quaternion.identity);
+            }
         }
     }
 
