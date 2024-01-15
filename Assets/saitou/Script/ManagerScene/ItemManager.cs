@@ -8,7 +8,10 @@ using System.IO;
 public class ItemManager : MonoBehaviour
 {
     //全アイテムデータList
-    private List<ItemDataC> ItemData = new List<ItemDataC>();
+    //private List<ItemDataC> ItemData = new List<ItemDataC>();
+
+    private List<ItemData> ItemData = new List<ItemData>();
+
 
     private TextAsset csvFile; // CSVファイル
     private List<string[]> csvData = new List<string[]>(); // CSVファイルの中身を入れるリスト
@@ -17,9 +20,39 @@ public class ItemManager : MonoBehaviour
 
     void Start()
     {
+        {
+        //    playerItemManager = GetComponent<PlayerItemManager>();
+
+        //    csvFile = Resources.Load("ItemData") as TextAsset; // ResourcesにあるCSVファイルを格納
+        //    StringReader reader = new StringReader(csvFile.text); // TextAssetをStringReaderに変換
+
+        //    while (reader.Peek() != -1)
+        //    {
+        //        string line = reader.ReadLine(); // 1行ずつ読み込む
+        //        csvData.Add(line.Split(',')); // csvDataリストに追加する 
+        //    }
+        //    for (int i = 0; i < 5; i++)
+        //        Debug.Log(csvData[1][i]);
+
+        //    //2行目からデータを読み込み
+        //    for (int i = 1; i < csvData.Count; i++)
+        //    {
+        //        ItemDataC LoadItem = new ItemDataC();
+        //        LoadItem.Id = csvData[i][0];
+        //        LoadItem.ItemName = csvData[i][1];
+        //        LoadItem.Description = csvData[i][2];
+        //        LoadItem.BuyingPrice = int.Parse(csvData[i][3]);
+        //        LoadItem.SellingPrice = int.Parse(csvData[i][4]);
+
+        //        //アイテムデータにデータを追加
+        //        ItemData.Add(LoadItem);
+        //    }
+        //    Debug.Log("アイテムデータを作成しました");
+        }
+
         playerItemManager = GetComponent<PlayerItemManager>();
 
-        csvFile = Resources.Load("ItemData") as TextAsset; // ResourcesにあるCSVファイルを格納
+        csvFile = Resources.Load("ItemData_v2") as TextAsset; // ResourcesにあるCSVファイルを格納
         StringReader reader = new StringReader(csvFile.text); // TextAssetをStringReaderに変換
 
         while (reader.Peek() != -1)
@@ -27,25 +60,31 @@ public class ItemManager : MonoBehaviour
             string line = reader.ReadLine(); // 1行ずつ読み込む
             csvData.Add(line.Split(',')); // csvDataリストに追加する 
         }
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 11; i++)
             Debug.Log(csvData[1][i]);
 
         //2行目からデータを読み込み
         for (int i = 1; i < csvData.Count; i++)
         {
-            ItemDataC LoadItem = new ItemDataC();
+            ItemData LoadItem = new ItemData();
             LoadItem.Id = csvData[i][0];
             LoadItem.ItemName = csvData[i][1];
             LoadItem.Description = csvData[i][2];
-            LoadItem.BuyingPrice = int.Parse(csvData[i][3]);
-            LoadItem.SellingPrice = int.Parse(csvData[i][4]);
+            LoadItem.Grade = int.Parse(csvData[i][3]);
+            LoadItem.MaxHp = float.Parse(csvData[i][4]);
+            LoadItem.Attack = float.Parse(csvData[i][5]);
+            LoadItem.SwordAttack = float.Parse(csvData[i][6]);
+            LoadItem.ShotAttack = float.Parse(csvData[i][7]);
+            LoadItem.Block = float.Parse(csvData[i][8]);
+            LoadItem.CriChance = float.Parse(csvData[i][9]);
+            LoadItem.CriDamage = float.Parse(csvData[i][10]);
 
             //アイテムデータにデータを追加
             ItemData.Add(LoadItem);
         }
         Debug.Log("アイテムデータを作成しました");
     }
-
+    
     //名前を返す関数
     public string GetName(string id)
     {
@@ -80,7 +119,7 @@ public class ItemManager : MonoBehaviour
         return null;
     }
 
-    //購入価格を返す関数
+    //購入価格を返す関数 削除予定
     public int GetBuyingPrice(string id)
     {
         //アイテムデータを全て探す
@@ -89,29 +128,29 @@ public class ItemManager : MonoBehaviour
             //IDが一致したなら
             if (ItemData[i].Id == id)
             {
-                return ItemData[i].BuyingPrice;
+                return 100;//ItemData[i].BuyingPrice;
             }
         }
         //引数のIDがアイテムデータに存在しないなら
         Debug.Log("!指定したアイテムの購入価格が見つかりません");
         return 0;
     }
-    //売却価格を返す関数
-    public int GetSellingPrice(string id)
-    {
-        //アイテムデータを全て探す
-        for (int i = 0; i < ItemData.Count; i++)
-        {
-            //IDが一致したなら
-            if (ItemData[i].Id == id)
-            {
-                return ItemData[i].SellingPrice;
-            }
-        }
-        //引数のIDがアイテムデータに存在しないなら
-        Debug.Log("!指定したアイテムの売却価格が見つかりません");
-        return 0;
-    }
+    //売却価格を返す関数　削除予定
+    //public int GetSellingPrice(string id)
+    //{
+    //    //アイテムデータを全て探す
+    //    for (int i = 0; i < ItemData.Count; i++)
+    //    {
+    //        //IDが一致したなら
+    //        if (ItemData[i].Id == id)
+    //        {
+    //            return ItemData[i].SellingPrice;
+    //        }
+    //    }
+    //    //引数のIDがアイテムデータに存在しないなら
+    //    Debug.Log("!指定したアイテムの売却価格が見つかりません");
+    //    return 0;
+    //}
 
     //ランダムアイテム指定関数
     public string GetRandomItem()
@@ -122,7 +161,7 @@ public class ItemManager : MonoBehaviour
         //その数値から、IDを返す
         return ItemData[r].Id;
     }
-    //引数のidと被らないオーバーロード numは個数
+    //引数のidと被らないオーバーロード numは個数 havingItemの方に移行したい
     public string[] GetRandomItem(int num = 1)
     {
         string[] ans = new string[num];//返り値用配列

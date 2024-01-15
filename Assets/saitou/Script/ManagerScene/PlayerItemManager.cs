@@ -192,18 +192,7 @@ public class PlayerItemManager : MonoBehaviour
         }
         return false;
     }
-    //アイテム売却関数 今のところ使う予定なし
-    public void SellingItem(string id)
-    {
-        //購入価格を取得
-        int price = itemManager.GetSellingPrice(id);
 
-        //価格分、所持金を増やす
-        playerStatusManager.GettingMoney(price);
-        RemoveItem(id);     //アイテムを獲得
-
-        Debug.Log(id + "を売却");
-    }
 
     //所持アイテムデバッグ表示関数
     public void CheckHaveItem()
