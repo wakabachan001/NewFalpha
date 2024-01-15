@@ -50,8 +50,6 @@ public class PlayerClone : MonoBehaviour
         //フラグチェック
         if (!onAttack && !onShot)
         {
-
-
             //近距離攻撃
             //if (Input.GetKeyDown(KeyCode.Space) && !onAttack && !onShot)//攻撃開始時(Spaceキーを押すと攻撃開始)
             if (Input.GetMouseButtonDown(1))//右クリックが押されたとき
