@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public bool onUpdate = true;  //FixedUpdateの中身を実行するか
     public float clonepos = -1.0f;//クローン生成位置調整用
     public float coolTime = 2.0f; //攻撃のクールタイム
     public int attackType = 0;    //どの攻撃ダメージを参照するか
@@ -39,7 +38,7 @@ public class EnemyAttack : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (moveOn && onUpdate)
+        if (moveOn)
         {
             time += 0.02f;//1秒で1増える
 
