@@ -15,7 +15,7 @@ public class ItemUIManager : MonoBehaviour
     
     [SerializeField]
     private Transform iconParent; //その親オブジェクト
-    private GameObject[] iconObj = new GameObject[20]; //クローンしたオブジェクト
+    private GameObject[] iconObj = new GameObject[8]; //クローンしたオブジェクト
 
     PlayerItemManager playerItemManager;
     ItemIcon itemIcon;
@@ -26,7 +26,6 @@ public class ItemUIManager : MonoBehaviour
         int column = 0;
         int row = 0;
 
-        //コンパイルエラーはおそらくこれのせい
         //スクリプトの取得
         playerItemManager = LoadManagerScene.GetPlayerItemManager();
         itemIcon = LoadManagerScene.GetItemIcon();
@@ -65,11 +64,12 @@ public class ItemUIManager : MonoBehaviour
         Debug.Log("アイテムアイコン更新");
         Sprite iconImage; //探した画像を入れる用の変数
 
+        int i = 0;
         //アイコンの画像を所持アイテムによって変える
-        for (int i = 0; i < playerItemManager.havingItem.Count; i++)
+        foreach (KeyValuePair<string, int> haveitem in playerItemManager.havingItem)
         {
             //所持アイテムから画像を探す
-            iconImage = itemIcon.SearchImage(playerItemManager.havingItem[i]);
+            iconImage = itemIcon.SearchImage(haveitem.Key);
 
             //エラーでなければ
             if (iconImage != null)
@@ -77,6 +77,7 @@ public class ItemUIManager : MonoBehaviour
                 //クローンの画像を変える
                 iconObj[i].GetComponent<Image>().sprite = iconImage;
             }
+            i++;
         }
     }
 

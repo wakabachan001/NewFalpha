@@ -637,7 +637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onChange: 0
   iconFirstPosX: 50
-  iconFirstPosY: 0
+  iconFirstPosY: -300
   iconPos: 90
   iconPrefab: {fileID: 4646658839360970503, guid: 3602defe69bc77345aaba7363fa3f614, type: 3}
   iconParent: {fileID: 677291910}
@@ -1811,7 +1811,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5303987439860824447, guid: e902747da560a294b99d96bf41fcaa5c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5303987439955518899, guid: e902747da560a294b99d96bf41fcaa5c, type: 3}
       propertyPath: m_Layer

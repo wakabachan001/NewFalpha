@@ -3,14 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+//アイテムデータの要素
+public enum ItemElement
+{
+    ID,
+    NAME,
+    DESCRIPTION,
+    GRADE,
+    MAXHP,
+    ATTACK,
+    SWORD,
+    SHOT,
+    BLOCK,
+    CRICHANCE,
+    CRIDAMAGE,
+    PRICE
+}
+
 //全アイテムの管理クラス
 //基本的に他オブジェクトからアクセス出来ないようにしたい
 public class ItemManager : MonoBehaviour
 {
+    
     //全アイテムデータList
     //private List<ItemDataC> ItemData = new List<ItemDataC>();
 
-    private List<ItemData> ItemData = new List<ItemData>();
+    private List<ItemDataC> ItemData = new List<ItemDataC>();
 
 
     private TextAsset csvFile; // CSVファイル
@@ -64,93 +82,213 @@ public class ItemManager : MonoBehaviour
             Debug.Log(csvData[1][i]);
 
         //2行目からデータを読み込み
-        for (int i = 1; i < csvData.Count; i++)
+        for (int i = 1, j = 0; i < csvData.Count; i++, j++)
         {
-            ItemData LoadItem = new ItemData();
-            LoadItem.Id = csvData[i][0];
-            LoadItem.ItemName = csvData[i][1];
-            LoadItem.Description = csvData[i][2];
-            LoadItem.Grade = int.Parse(csvData[i][3]);
-            LoadItem.MaxHp = float.Parse(csvData[i][4]);
-            LoadItem.Attack = float.Parse(csvData[i][5]);
-            LoadItem.SwordAttack = float.Parse(csvData[i][6]);
-            LoadItem.ShotAttack = float.Parse(csvData[i][7]);
-            LoadItem.Block = float.Parse(csvData[i][8]);
-            LoadItem.CriChance = float.Parse(csvData[i][9]);
-            LoadItem.CriDamage = float.Parse(csvData[i][10]);
+            ItemDataC LoadItem = new ItemDataC();//これだと場所取りが不十分ぽい
+            LoadItem.grade[j].Id            = csvData[i][(int)ItemElement.ID];
+            LoadItem.grade[j].ItemName      = csvData[i][(int)ItemElement.NAME];
+            LoadItem.grade[j].Description   = csvData[i][(int)ItemElement.DESCRIPTION];
+            LoadItem.grade[j].Grade         = int.Parse(csvData[i][(int)ItemElement.GRADE]);
+            LoadItem.grade[j].MaxHp         = float.Parse(csvData[i][(int)ItemElement.MAXHP]);
+            LoadItem.grade[j].Attack        = float.Parse(csvData[i][(int)ItemElement.ATTACK]);
+            LoadItem.grade[j].SwordAttack   = float.Parse(csvData[i][(int)ItemElement.SWORD]);
+            LoadItem.grade[j].ShotAttack    = float.Parse(csvData[i][(int)ItemElement.SHOT]);
+            LoadItem.grade[j].Block         = float.Parse(csvData[i][(int)ItemElement.BLOCK]);
+            LoadItem.grade[j].CriChance     = float.Parse(csvData[i][(int)ItemElement.CRICHANCE]);
+            LoadItem.grade[j].CriDamage     = float.Parse(csvData[i][(int)ItemElement.CRIDAMAGE]);
 
-            //アイテムデータにデータを追加
-            ItemData.Add(LoadItem);
+            Debug.Log(" : "+LoadItem.grade[0].Id);
+
+            if (j >= 2)
+            {
+                //Debug.Log(LoadItem.grade[0].Id);
+                //Debug.Log(LoadItem.grade[1].Id);
+                //Debug.Log(LoadItem.grade[2].Id);//0,1の要素が空になっている
+                //アイテムデータにデータを追加
+                ItemData.Add(LoadItem);
+
+                j = -1;
+            }
         }
         Debug.Log("アイテムデータを作成しました");
     }
-    
-    //名前を返す関数
-    public string GetName(string id)
+
+    //IDとグレードからアイテム情報を取得する関数(ID,グレード,返り値の要素)
+    public string GetItemData(string id,int gra,int elem)
     {
+        //グレードの値が正しくないなら
+        if (gra < 0 || gra > 2)
+        {
+            return null;
+            Debug.Log("!グレードの値が正しくないです");
+        }
+        //要素の値が正しくないなら
+        if(elem<0||elem>10)
+        {
+            return null;
+            Debug.Log("!要素の値が正しくないです");
+        }
+        
+
         //アイテムデータを全て探す
         for (int i = 0; i < ItemData.Count; i++)
         {
             //IDが一致したなら
-            if (ItemData[i].Id == id)
+            if (ItemData[i].grade[0].Id == id)
             {
-                return ItemData[i].ItemName;
+                switch (elem)
+                {
+                    case (int)ItemElement.NAME:
+                        return ItemData[i].grade[gra].ItemName;
+
+                    case (int)ItemElement.DESCRIPTION:
+                        return ItemData[i].grade[gra].Description;
+
+                    case (int)ItemElement.MAXHP:
+                        return ItemData[i].grade[gra].MaxHp.ToString();
+
+                    case (int)ItemElement.ATTACK:
+                        return ItemData[i].grade[gra].Attack.ToString();
+
+                    case (int)ItemElement.SWORD:
+                        return ItemData[i].grade[gra].SwordAttack.ToString();
+
+                    case (int)ItemElement.SHOT:
+                        return ItemData[i].grade[gra].ShotAttack.ToString();
+
+                    case (int)ItemElement.BLOCK:
+                        return ItemData[i].grade[gra].Block.ToString();
+
+                    case (int)ItemElement.CRICHANCE:
+                        return ItemData[i].grade[gra].CriChance.ToString();
+
+                    case (int)ItemElement.CRIDAMAGE:
+                        return ItemData[i].grade[gra].CriDamage.ToString();
+                }               
             }
         }
         //引数のIDがアイテムデータに存在しないなら
-        Debug.Log("!指定したアイテムの名前が見つかりません");
+        Debug.Log("!指定したアイテムのIDが見つかりません");
         return null;
+
     }
 
-    //説明文を返す関数
-    public string GetDescription(string id)
-    {
-        //アイテムデータを全て探す
-        for (int i = 0; i < ItemData.Count; i++)
-        {
-            //IDが一致したなら
-            if (ItemData[i].Id == id)
-            {
-                return ItemData[i].Description;
-            }
-        }
-        //引数のIDがアイテムデータに存在しないなら
-        Debug.Log("!指定したアイテムの説明文が見つかりません");
-        return null;
-    }
-
-    //購入価格を返す関数 削除予定
-    public int GetBuyingPrice(string id)
-    {
-        //アイテムデータを全て探す
-        for (int i = 0; i < ItemData.Count; i++)
-        {
-            //IDが一致したなら
-            if (ItemData[i].Id == id)
-            {
-                return 100;//ItemData[i].BuyingPrice;
-            }
-        }
-        //引数のIDがアイテムデータに存在しないなら
-        Debug.Log("!指定したアイテムの購入価格が見つかりません");
-        return 0;
-    }
-    //売却価格を返す関数　削除予定
-    //public int GetSellingPrice(string id)
+    ////グレード0の名前を返す関数
+    //public string GetName(string id)
     //{
     //    //アイテムデータを全て探す
     //    for (int i = 0; i < ItemData.Count; i++)
     //    {
     //        //IDが一致したなら
-    //        if (ItemData[i].Id == id)
+    //        if (ItemData[i].grade[0].Id == id)
     //        {
-    //            return ItemData[i].SellingPrice;
+    //            return ItemData[i].grade[0].ItemName;
     //        }
     //    }
     //    //引数のIDがアイテムデータに存在しないなら
-    //    Debug.Log("!指定したアイテムの売却価格が見つかりません");
-    //    return 0;
+    //    Debug.Log("!指定したアイテムの名前が見つかりません");
+    //    return null;
     //}
+    ////名前を返す関数(アイテムID,クレード0~2)
+    //public string GetName(string id, int gra)
+    //{
+    //    //グレードの値が正しくないなら
+    //    if (gra < 0 || gra > 2){
+    //        return null;
+    //        Debug.Log("!グレードの値が正しくないです");
+    //    }     
+
+    //    //アイテムデータを全て探す
+    //    for (int i = 0; i < ItemData.Count; i++)
+    //    {
+    //        //IDが一致したなら
+    //        if (ItemData[i].grade[gra].Id == id)
+    //        {
+    //            return ItemData[i].grade[gra].ItemName;
+    //        }
+    //    }
+    //    //引数のIDがアイテムデータに存在しないなら
+    //    Debug.Log("!指定したアイテムの名前が見つかりません");
+    //    return null;
+    //}
+
+    ////説明文を返す関数
+    //public string GetDescription(string id)
+    //{
+    //    //アイテムデータを全て探す
+    //    for (int i = 0; i < ItemData.Count; i++)
+    //    {
+    //        //IDが一致したなら
+    //        if (ItemData[i].grade[0].Id == id)
+    //        {
+    //            return ItemData[i].grade[0].Description;
+    //        }
+    //    }
+    //    //引数のIDがアイテムデータに存在しないなら
+    //    Debug.Log("!指定したアイテムの説明文が見つかりません");
+    //    return null;
+    //}
+    ////説明文を返す関数
+    //public string GetDescription(string id, int gra)
+    //{
+    //    //グレードの値が正しくないなら
+    //    if (gra < 0 || gra > 2)
+    //    {
+    //        return null;
+    //        Debug.Log("!グレードの値が正しくないです");
+    //    }
+
+    //    //アイテムデータを全て探す
+    //    for (int i = 0; i < ItemData.Count; i++)
+    //    {
+    //        //IDが一致したなら
+    //        if (ItemData[i].grade[gra].Id == id)
+    //        {
+    //            return ItemData[i].grade[gra].Description;
+    //        }
+    //    }
+    //    //引数のIDがアイテムデータに存在しないなら
+    //    Debug.Log("!指定したアイテムの説明文が見つかりません");
+    //    return null;
+    //}
+
+    //購入価格を返す関数 削除予定
+    public int GetBuyingPrice(int gra)
+    {
+        switch (gra)
+        {
+            case 0:
+                return 100;
+            case 1:
+                return 200;
+            case 2:
+                return 300;
+            default:
+                Debug.Log("!グレードの値がおかしいです");
+                return 0;
+        }  
+    }
+
+    //アイテムの要素数
+    public int GetCount()
+    {
+        return ItemData.Count;
+    }
+
+    //引数の要素番目のIDを取得する関数
+    public string GetID(int num)
+    {
+        if (num< ItemData.Count)
+        {
+            Debug.Log("IDを返す"+ ItemData[num].grade[0].Id);
+            return ItemData[num].grade[0].Id;
+        }
+        else
+        {
+            Debug.Log("IDねえよ");
+            return null;
+        }
+    }
 
     //ランダムアイテム指定関数
     public string GetRandomItem()
@@ -159,47 +297,48 @@ public class ItemManager : MonoBehaviour
         int r = Random.RandomRange(0, ItemData.Count);
 
         //その数値から、IDを返す
-        return ItemData[r].Id;
+        return ItemData[r].grade[0].Id;
     }
     //引数のidと被らないオーバーロード numは個数 havingItemの方に移行したい
-    public string[] GetRandomItem(int num = 1)
-    {
-        string[] ans = new string[num];//返り値用配列
+    //public string[] GetRandomItem(int num = 1)
+    //{
+    //    string[] ans = new string[num];//返り値用配列
 
-        //アイテムID一覧の生成
-        List<string> itemId = new List<string>();
-        for(int i = 0; i<ItemData.Count; i++)
-        {
-            itemId.Add(ItemData[i].Id);
-        }
+    //    //アイテムID一覧の生成
+    //    List<string> itemId = new List<string>();
+    //    for(int i = 0; i<ItemData.Count; i++)
+    //    {
+    //        itemId.Add(ItemData[i].grade[0].Id);
+    //    }
 
-        //引数のIDと被っている要素を削除
-        for (int i = 0; i < playerItemManager.havingItem.Count; i++) 
-        {
-            itemId.Remove(playerItemManager.havingItem[i]);
-        }
+    //    //引数のIDと被っている要素を削除
+    //    for (int i = 0; i < playerItemManager.havingItem.Count; i++) 
+    //    {
+    //        itemId.Remove(playerItemManager.havingItem.grade[0]);
+    //    }
 
-        for (int i = 0; i < num; i++)
-        {
-            //itemIdの中身があるかチェック
-            if (itemId.Count != 0)
-            {
-                //0～全アイテムの種類のランダムな数値を取得
-                int r = Random.RandomRange(0, itemId.Count);
+    //    for (int i = 0; i < num; i++)
+    //    {
+    //        //itemIdの中身があるかチェック
+    //        if (itemId.Count != 0)
+    //        {
+    //            //0～全アイテムの種類のランダムな数値を取得
+    //            int r = Random.RandomRange(0, itemId.Count);
 
-                ans[i] = itemId[r];//返り値用配列にランダムなIDを代入
+    //            ans[i] = itemId[r];//返り値用配列にランダムなIDを代入
 
-                itemId.RemoveAt(r);//代入したIDを削除
-            }
-            else
-            {
-                //エラー
-                Debug.Log("!未所持のアイテムが見つかりません");
-                ans[i] = null;
-            }
-        }
-        //その数値から、IDを返す
-        return ans;
-    }
+    //            itemId.RemoveAt(r);//代入したIDを削除
+    //        }
+    //        else
+    //        {
+    //            //エラー
+    //            Debug.Log("!未所持のアイテムが見つかりません");
+    //            ans[i] = null;
+    //        }
+    //    }
+    //    //その数値から、IDを返す
+    //    return ans;
+    //}
+
 }
 
