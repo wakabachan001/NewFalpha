@@ -6,7 +6,7 @@ public class ChangeEnemy : MonoBehaviour
 {
     GameObject playerObj;
 
-    public Vector2 EnemyPos;
+    private Vector2 EnemyPos;
 
     public float clonepos = -1.0f;//クローン生成位置調整用
     public float coolTime = 2.0f;//攻撃のクールタイム
@@ -58,7 +58,7 @@ public class ChangeEnemy : MonoBehaviour
 
 
                 //攻撃処理コルーチン呼び出し
-                StartCoroutine(Attack());
+                StartCoroutine(AttackCt());
 
 
                 //逃走処理コルーチン呼び出し
@@ -69,7 +69,7 @@ public class ChangeEnemy : MonoBehaviour
         }
     }
 
-    private IEnumerator Attack()
+    private IEnumerator AttackCt()
     {
         //待機
         yield return new WaitForSeconds(0.4f);

@@ -7,14 +7,15 @@ public class EnemyAttack : MonoBehaviour
     public float clonepos = -1.0f;//クローン生成位置調整用
     public float coolTime = 2.0f; //攻撃のクールタイム
     public int attackType = 0;    //どの攻撃ダメージを参照するか
-    private float time = 0.0f;    //時間計測用
+    public float time = 0.0f;    //時間計測用
 
     private bool moveOn = false;//行動可能フラグ
 
-    public GameObject AttackEffect;//クローンするプレハブ
+    public GameObject[] AttackEffect = new GameObject[2];//クローンするプレハブ
     private GameObject cloneObj;   //クローンしたオブジェクト
 
     EnemyManager enemyManager;//スクリプト
+    enemyAttackTypeChange enemyattacktypechange;//スクリプト
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class EnemyAttack : MonoBehaviour
 
         //スクリプト取得
         enemyManager = gameObject.GetComponent<EnemyManager>();
+        enemyattacktypechange = gameObject.GetComponent<enemyAttackTypeChange>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -47,6 +49,10 @@ public class EnemyAttack : MonoBehaviour
             {
                 Attack();//攻撃処理呼び出し
 
+                // Boss01ならこの関数の中に入る
+                if( gameObject.name == "Boss01(Clone)")
+                    enemyattacktypechange.Boss01AttackChange();
+
                 time = 0.0f;//時間リセット
             }
         }
@@ -56,7 +62,7 @@ public class EnemyAttack : MonoBehaviour
     public void Attack()
     {
         //指定の位置に攻撃エフェクトのクローン生成
-        cloneObj = Instantiate(AttackEffect, transform.position + (transform.up * clonepos), Quaternion.identity);
+        cloneObj = Instantiate(AttackEffect[attackType], transform.position + (transform.up * clonepos), Quaternion.identity);
 
         if (enemyManager != null)
         {
@@ -65,17 +71,18 @@ public class EnemyAttack : MonoBehaviour
         }
         
     }
+
     //位置指定オーバーロード
     public void Attack(Vector3 pos)
     {
         //指定の位置に攻撃エフェクトのクローン生成
-        cloneObj = Instantiate(AttackEffect, pos, Quaternion.identity);
+        cloneObj = Instantiate(AttackEffect[attackType], pos, Quaternion.identity);
 
         if (enemyManager != null)
         {
             //攻撃エフェクトのダメージ数値を変更する
             cloneObj.GetComponent<EffectData>().damage = enemyManager.status.GetAttackDamage(attackType);
         }
-
     }
+
 }

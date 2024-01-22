@@ -118,6 +118,8 @@ MonoBehaviour:
   money: 20
   attackDamage1: 10
   attackDamage2: 10
+  mainColor: {r: 1, g: 1, b: 1, a: 1}
+  damageColor: {r: 1, g: 0.6, b: 0.6, a: 1}
 --- !u!114 &7588447353859387966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,7 +134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clonepos: 0
   coolTime: 1.6
-  AttackEffect: {fileID: 5007766752859079650, guid: 0f5420e5643c6cb428f775d24026aef5, type: 3}
+  attackType: 0
+  AttackEffect: []
 --- !u!61 &4262679359455047563
 BoxCollider2D:
   m_ObjectHideFlags: 0

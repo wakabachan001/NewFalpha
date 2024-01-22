@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Cloner_Script : MonoBehaviour
-{
+{   
+    PlayerManager _player;
     GameObject playerObj;//プレイヤーを探す用
     public GameObject enemyPrefab; // 分身する敵のプレハブ
     public int numberOfClones = 3; // 分身する敵の数
@@ -12,23 +13,34 @@ public class Cloner_Script : MonoBehaviour
     bool positionflag = true;
 
     Vector2 position; //Boss02座標]
+    Vector2 playerPOS;
     
     Vector2[] clonePosition = new Vector2[2];//clonePositionの初期化
     GameObject[] clone = new GameObject[2];// clone生成用変数を初期化
+   
 
     void Start()
     {
         //Boss02座標の取得
         position = transform.position;
         playerObj = GameObject.Find("Player");//プレイヤーを探す
+        _player = playerObj.GetComponent<PlayerManager>();
         SpawnClones();
     }
 
     private void FixedUpdate()
     {
+
         if(transform.position.x != playerObj.transform.position.x&&positionflag)
         {
             StartCoroutine(PositionChange());
+        }
+
+        //プレイヤーの１マス前にいるとき
+        if( transform.position.x == playerObj.transform.position.x &&
+            transform.position.y == playerObj.transform.position.y -1 )
+        {
+
         }
     }
 
