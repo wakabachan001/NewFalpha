@@ -20,8 +20,13 @@ public class EnemyManager : MonoBehaviour
 
     PlayerStatusManager playerStatusManager;//PlayerStatusManagerスクリプト
 
+    DamageTXTmanager dtxtm;//ダメージテキストマネージャースクリプト格納用
+    float x, y;
+
     void Start()
     {
+        dtxtm = FindObjectOfType<DamageTXTmanager>();// dtxtmにスクリプトを保管
+
         Debug.Log("敵初期化");
 
         //DataInfoのPlayerStatusManagerを取得
@@ -45,6 +50,9 @@ public class EnemyManager : MonoBehaviour
             //プレイヤーの近距離攻撃ダメージを調べる
             takeDamage = playerStatusManager.AttackDamageCalc();
 
+            // takeDamageをint型に変換して値を渡す
+            dtxtm.TakeDamage((int)takeDamage, transform.position.x, transform.position.y + 0.5f);
+
             //HP計算
             status.CurrentHP = statusCalc.HPCalc(status.CurrentHP, takeDamage);
 
@@ -56,7 +64,10 @@ public class EnemyManager : MonoBehaviour
         if (other.gameObject.tag == "Syuriken")
         {
             //プレイヤーの遠距離攻撃ダメージを調べる
-            takeDamage = playerStatusManager.AttackDamageCalc();
+            takeDamage = playerStatusManager.ShotDamageCalc();
+
+            // takeDamageをint型に変換して値を渡す
+            dtxtm.TakeDamage((int)takeDamage, transform.position.x, transform.position.y + 0.5f) ;
 
             //HP計算
             status.CurrentHP = statusCalc.HPCalc(status.CurrentHP, takeDamage);

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1288840254261512013}
   - component: {fileID: 1288840254261512003}
+  - component: {fileID: -791260082449385665}
   - component: {fileID: -7834366186183561516}
-  - component: {fileID: 7907649101762703249}
   - component: {fileID: -5778813076899766677}
   - component: {fileID: -5808207655937766657}
   - component: {fileID: 1288840254261512001}
@@ -90,6 +90,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-791260082449385665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288840254261512012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b4f05f12589e84c8671c03791b7842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-7834366186183561516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,27 +114,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a83c28501563544a89c2e66575ee81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 500
+  maxHP: 3000
   money: 100
-  attackDamage1: 30
+  attackDamage1: 60
   attackDamage2: 10
   mainColor: {r: 0, g: 0, b: 0, a: 1}
   damageColor: {r: 0.6320754, g: 0, b: 0, a: 1}
---- !u!114 &7907649101762703249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288840254261512012}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edc0ec99ddd4e6d40b363b22621a7146, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clonepos: -1
-  coolTime: 2
-  AttackEffect: {fileID: 1340870622671695736, guid: 9b5f751b1f6855b40a5f2f5d18738779, type: 3}
 --- !u!114 &-5778813076899766677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c7c41e9fd244a498fe9954e5155ca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  playerObj: {fileID: 0}
+  clonepos: -1
+  coolTime: 0.8
+  TPcoolTime: 1
 --- !u!114 &-5808207655937766657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288840254261512012}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3797e3fba598ffc4c94108c1d49eba0e, type: 3}
   m_Name: 
@@ -151,7 +151,10 @@ MonoBehaviour:
   clonepos: -1
   coolTime: 1.5
   attackType: 0
-  AttackEffect: {fileID: 8667471911016283574, guid: ea89722f0133d314683cadaf1d386dca, type: 3}
+  time: 0
+  AttackEffect:
+  - {fileID: 8667471911016283574, guid: ea89722f0133d314683cadaf1d386dca, type: 3}
+  - {fileID: 5007766752859079650, guid: 332a4b256a59d9745bebf460d013eff3, type: 3}
 --- !u!61 &1288840254261512001
 BoxCollider2D:
   m_ObjectHideFlags: 0

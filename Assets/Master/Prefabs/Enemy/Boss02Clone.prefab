@@ -101,9 +101,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clonepos: 0
-  coolTime: 1.6
+  coolTime: 1
   attackType: 0
-  AttackEffect: {fileID: 5297010364463725093, guid: 053c9fdbd34ffbe48a02451919cdd70b, type: 3}
+  AttackEffect:
+  - {fileID: 5297010364463725093, guid: 053c9fdbd34ffbe48a02451919cdd70b, type: 3}
 --- !u!114 &6349433919499118235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,10 +117,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a83c28501563544a89c2e66575ee81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 300
+  maxHP: 1500
   money: 50
-  attackDamage1: 15
-  attackDamage2: 10
+  attackDamage1: 30
+  attackDamage2: 30
   mainColor: {r: 1, g: 1, b: 1, a: 1}
   damageColor: {r: 1, g: 0.6, b: 0.6, a: 1}
 --- !u!61 &3574018849346529302
