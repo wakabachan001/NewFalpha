@@ -78,37 +78,37 @@ public class ItemManager : MonoBehaviour
             string line = reader.ReadLine(); // 1行ずつ読み込む
             csvData.Add(line.Split(',')); // csvDataリストに追加する 
         }
-        for (int i = 0; i < 11; i++)
-            Debug.Log(csvData[1][i]);
+        //for (int i = 0; i < 11; i++)
+        //    Debug.Log(csvData[1][i]);
+
+        int c = 1;
 
         //2行目からデータを読み込み
-        for (int i = 1, j = 0; i < csvData.Count; i++, j++)
+        while (c < csvData.Count)
         {
-            ItemDataC LoadItem = new ItemDataC();//これだと場所取りが不十分ぽい
-            LoadItem.grade[j].Id            = csvData[i][(int)ItemElement.ID];
-            LoadItem.grade[j].ItemName      = csvData[i][(int)ItemElement.NAME];
-            LoadItem.grade[j].Description   = csvData[i][(int)ItemElement.DESCRIPTION];
-            LoadItem.grade[j].Grade         = int.Parse(csvData[i][(int)ItemElement.GRADE]);
-            LoadItem.grade[j].MaxHp         = float.Parse(csvData[i][(int)ItemElement.MAXHP]);
-            LoadItem.grade[j].Attack        = float.Parse(csvData[i][(int)ItemElement.ATTACK]);
-            LoadItem.grade[j].SwordAttack   = float.Parse(csvData[i][(int)ItemElement.SWORD]);
-            LoadItem.grade[j].ShotAttack    = float.Parse(csvData[i][(int)ItemElement.SHOT]);
-            LoadItem.grade[j].Block         = float.Parse(csvData[i][(int)ItemElement.BLOCK]);
-            LoadItem.grade[j].CriChance     = float.Parse(csvData[i][(int)ItemElement.CRICHANCE]);
-            LoadItem.grade[j].CriDamage     = float.Parse(csvData[i][(int)ItemElement.CRIDAMAGE]);
+            ItemDataC LoadItem = new ItemDataC();
 
-            Debug.Log(" : "+LoadItem.grade[0].Id);
-
-            if (j >= 2)
+            for (int j = 0; j < 3; j++)
             {
-                //Debug.Log(LoadItem.grade[0].Id);
-                //Debug.Log(LoadItem.grade[1].Id);
-                //Debug.Log(LoadItem.grade[2].Id);//0,1の要素が空になっている
+                LoadItem.grade[j].Id            = csvData[c][(int)ItemElement.ID];
+                LoadItem.grade[j].ItemName      = csvData[c][(int)ItemElement.NAME];
+                LoadItem.grade[j].Description   = csvData[c][(int)ItemElement.DESCRIPTION];
+                LoadItem.grade[j].Grade         = int.Parse(  csvData[c][(int)ItemElement.GRADE]);
+                LoadItem.grade[j].MaxHp         = float.Parse(csvData[c][(int)ItemElement.MAXHP]);
+                LoadItem.grade[j].Attack        = float.Parse(csvData[c][(int)ItemElement.ATTACK]);
+                LoadItem.grade[j].SwordAttack   = float.Parse(csvData[c][(int)ItemElement.SWORD]);
+                LoadItem.grade[j].ShotAttack    = float.Parse(csvData[c][(int)ItemElement.SHOT]);
+                LoadItem.grade[j].Block         = float.Parse(csvData[c][(int)ItemElement.BLOCK]);
+                LoadItem.grade[j].CriChance     = float.Parse(csvData[c][(int)ItemElement.CRICHANCE]);
+                LoadItem.grade[j].CriDamage     = float.Parse(csvData[c][(int)ItemElement.CRIDAMAGE]);
+
+                c++;
+            }
+                Debug.Log(LoadItem.grade[0].Id);
+                
                 //アイテムデータにデータを追加
                 ItemData.Add(LoadItem);
 
-                j = -1;
-            }
         }
         Debug.Log("アイテムデータを作成しました");
     }
@@ -118,15 +118,15 @@ public class ItemManager : MonoBehaviour
     {
         //グレードの値が正しくないなら
         if (gra < 0 || gra > 2)
-        {
-            return null;
+        {            
             Debug.Log("!グレードの値が正しくないです");
+            return null;
         }
         //要素の値が正しくないなら
         if(elem<0||elem>10)
         {
-            return null;
             Debug.Log("!要素の値が正しくないです");
+            return null;
         }
         
 
@@ -173,84 +173,6 @@ public class ItemManager : MonoBehaviour
 
     }
 
-    ////グレード0の名前を返す関数
-    //public string GetName(string id)
-    //{
-    //    //アイテムデータを全て探す
-    //    for (int i = 0; i < ItemData.Count; i++)
-    //    {
-    //        //IDが一致したなら
-    //        if (ItemData[i].grade[0].Id == id)
-    //        {
-    //            return ItemData[i].grade[0].ItemName;
-    //        }
-    //    }
-    //    //引数のIDがアイテムデータに存在しないなら
-    //    Debug.Log("!指定したアイテムの名前が見つかりません");
-    //    return null;
-    //}
-    ////名前を返す関数(アイテムID,クレード0~2)
-    //public string GetName(string id, int gra)
-    //{
-    //    //グレードの値が正しくないなら
-    //    if (gra < 0 || gra > 2){
-    //        return null;
-    //        Debug.Log("!グレードの値が正しくないです");
-    //    }     
-
-    //    //アイテムデータを全て探す
-    //    for (int i = 0; i < ItemData.Count; i++)
-    //    {
-    //        //IDが一致したなら
-    //        if (ItemData[i].grade[gra].Id == id)
-    //        {
-    //            return ItemData[i].grade[gra].ItemName;
-    //        }
-    //    }
-    //    //引数のIDがアイテムデータに存在しないなら
-    //    Debug.Log("!指定したアイテムの名前が見つかりません");
-    //    return null;
-    //}
-
-    ////説明文を返す関数
-    //public string GetDescription(string id)
-    //{
-    //    //アイテムデータを全て探す
-    //    for (int i = 0; i < ItemData.Count; i++)
-    //    {
-    //        //IDが一致したなら
-    //        if (ItemData[i].grade[0].Id == id)
-    //        {
-    //            return ItemData[i].grade[0].Description;
-    //        }
-    //    }
-    //    //引数のIDがアイテムデータに存在しないなら
-    //    Debug.Log("!指定したアイテムの説明文が見つかりません");
-    //    return null;
-    //}
-    ////説明文を返す関数
-    //public string GetDescription(string id, int gra)
-    //{
-    //    //グレードの値が正しくないなら
-    //    if (gra < 0 || gra > 2)
-    //    {
-    //        return null;
-    //        Debug.Log("!グレードの値が正しくないです");
-    //    }
-
-    //    //アイテムデータを全て探す
-    //    for (int i = 0; i < ItemData.Count; i++)
-    //    {
-    //        //IDが一致したなら
-    //        if (ItemData[i].grade[gra].Id == id)
-    //        {
-    //            return ItemData[i].grade[gra].Description;
-    //        }
-    //    }
-    //    //引数のIDがアイテムデータに存在しないなら
-    //    Debug.Log("!指定したアイテムの説明文が見つかりません");
-    //    return null;
-    //}
 
     //購入価格を返す関数 削除予定
     public int GetBuyingPrice(int gra)
@@ -290,7 +212,7 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    //ランダムアイテム指定関数
+    //ランダムアイテム指定関数　ほぼ未使用
     public string GetRandomItem()
     {
         //0～全アイテムの種類のランダムな数値を取得

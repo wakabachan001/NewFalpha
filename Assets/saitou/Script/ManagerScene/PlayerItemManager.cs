@@ -57,6 +57,10 @@ public class PlayerItemManager : MonoBehaviour
         addSword = 1;
         plusShot = 0;
 
+        //まず単純なステータスアップを足し合わせる
+
+
+        //グレードによって効果を変更したい
         //所持アイテムの効果を計算
         foreach (KeyValuePair<string, int> haveitem in havingItem)
         {
@@ -64,8 +68,24 @@ public class PlayerItemManager : MonoBehaviour
             switch (haveitem.Key)
             {
                 case "Attack":
-                    increaseAttack += 0.12f;
                     break;
+                case "ArmorPlate":
+                    break;
+                case "Health":
+                    break;
+                case "CRITRate":
+                    break;
+                case "CRITDmg":
+                    break;
+                case "Fencing1":
+                    break;
+                case "Fencing2":
+                    break;
+                case "Throwable1":
+                    break;
+                case "Throwable2":
+                    break;
+
                 case "Revenge":
                     if(playerStatusManager.HPper() < 0.20f)
                     {
@@ -77,37 +97,7 @@ public class PlayerItemManager : MonoBehaviour
                     playerStatusManager.onSelfHarm = true;
                     plusShot += playerStatusManager.MaxHP() * 0.1f;
                     break;
-                case "Health":
-                    //最大体力20%増加
-                    addMaxHP += 0.20f;
-                    break;
-                case "HealthTreat":
-                    //敵を倒すと最大体力の3%分回復
-                    playerStatusManager.onHealthTreat = true;
-                    break;
-                case "ArmorPlate":
-                    increaseBlock += -0.04f;
-                    break;
-                case "CRITRate":
-                    addCriticalChance += 10;
-                    break;
-                case "CRITDmg":
-                    addCriticalDamage += 0.30f;
-                    break;
-                case "Throwable2":
-                    addSword += -0.10f;
-                    addShot  += 0.20f;
-                    break;
-                case "Fencing2":
-                    addShot  += -0.10f;
-                    addSword += 0.20f;        
-                    break;
-                case "Fencing1":
-                    addSword += 0.10f;
-                    break;
-                case "Throwable1":
-                    addShot += 0.10f;
-                    break;
+               
                 case "Collector":
                     increaseAttack += (havingItem.Count * 0.02f);
                     break;
@@ -173,7 +163,10 @@ public class PlayerItemManager : MonoBehaviour
         if (havingItem.ContainsKey(id))
         {
             if (havingItem[id] < 3)
+            {
                 havingItem[id]++;
+                Debug.Log(id + " : をアップデートしました");
+            }
             else
                 Debug.Log(id + " : はアップデート出来ません");
         }
@@ -258,11 +251,25 @@ public class PlayerItemManager : MonoBehaviour
         Debug.Log("IDは" + itemManager.GetID(1));
         //アイテムID一覧の生成
         List<string> itemId = new List<string>();
-        for (int i = 0; i < itemManager.GetCount(); i++)
+
+        if (havingItem.Count < maxItem)//最大所持数未満なら
         {
-            itemId.Add(itemManager.GetID(i));
+            //全アイテムIDをitemIdに入れる
+            for (int i = 0; i < itemManager.GetCount(); i++)
+            {
+                itemId.Add(itemManager.GetID(i));
+            }
+        }
+        else//最大まで所持しているなら
+        {
+            //所持アイテム全てをitemIdに入れる
+            foreach (KeyValuePair<string, int> haveitem in havingItem)
+            {
+                itemId.Add(haveitem.Key);
+            }
         }
 
+        //デバッグ用
         for(int i = 0;i<itemId.Count;i++)
         {
             Debug.Log("ID : "+itemId[i]);
@@ -283,7 +290,7 @@ public class PlayerItemManager : MonoBehaviour
                     if (havingItem.Count >= maxItem)//最大所持数以上なら
                     {
                         Debug.Log("アイテムが最大です");
-                        return null;
+                        return null;//nullで返す
                     }
                     //所持アイテムを候補から外す
                     itemId.Remove(haveitem.Key);
@@ -313,6 +320,21 @@ public class PlayerItemManager : MonoBehaviour
             }
         }
         return ans;
+    }
+
+    //所持アイテムのグレードを取得する関数
+    public int GetHaveGrade(string id)
+    {
+        //引数idを所持しているか
+        if (havingItem.ContainsKey(id))
+        {
+            return havingItem[id];//所持しているidのグレードを返す
+        }
+        else
+        {
+            Debug.Log("アイテムを所持していません");
+            return -1;
+        }
     }
 
     //所持アイテムデバッグ表示関数

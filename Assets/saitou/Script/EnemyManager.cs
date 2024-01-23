@@ -22,7 +22,7 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("“G‰Šú‰»");
+        //Debug.Log("“G‰Šú‰»");
 
         //DataInfo‚ÌPlayerStatusManager‚ğæ“¾
         playerStatusManager = LoadManagerScene.GetPlayerStatusManager();
@@ -33,7 +33,7 @@ public class EnemyManager : MonoBehaviour
         //ƒXƒe[ƒ^ƒX‰Šú‰»
         status = new StatusData(maxHP, money, attackDamage1, attackDamage2);
 
-        Debug.Log("“G‰Šú‰»Š®—¹");
+        //Debug.Log("“G‰Šú‰»Š®—¹");
     }
 
     //‘¼colliderÚG

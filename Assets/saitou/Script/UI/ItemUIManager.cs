@@ -12,10 +12,13 @@ public class ItemUIManager : MonoBehaviour
     [SerializeField] private float iconFirstPosY;   //アイコンの初期位置Y（左上）
     [SerializeField] private float iconPos;         //アイコン位置調整用
     [SerializeField] private GameObject iconPrefab; //生成するPrefab    
-    
+    [SerializeField] private GameObject framePrefab;//生成する枠Prefab    
+
+
     [SerializeField]
     private Transform iconParent; //その親オブジェクト
     private GameObject[] iconObj = new GameObject[8]; //クローンしたオブジェクト
+    private GameObject[] frameObj = new GameObject[8]; //クローンした枠オブジェクト
 
     PlayerItemManager playerItemManager;
     ItemIcon itemIcon;
@@ -41,6 +44,13 @@ public class ItemUIManager : MonoBehaviour
 
             //子としてImageを持つPrefabをクローン
             iconObj[i] = Instantiate(iconPrefab, //クローンするオブジェクト
+                new Vector2(iconParent.position.x + iconFirstPosX + (iconPos * column),
+                            iconParent.position.y + iconFirstPosY + (iconPos * -row)),//leftInfo始点の位置
+                Quaternion.identity,
+                iconParent);//回転
+
+            //子としてImageを持つ枠Prefabをクローン
+            frameObj[i] = Instantiate(framePrefab, //クローンするオブジェクト
                 new Vector2(iconParent.position.x + iconFirstPosX + (iconPos * column),
                             iconParent.position.y + iconFirstPosY + (iconPos * -row)),//leftInfo始点の位置
                 Quaternion.identity,
@@ -76,6 +86,7 @@ public class ItemUIManager : MonoBehaviour
             {
                 //クローンの画像を変える
                 iconObj[i].GetComponent<Image>().sprite = iconImage;
+                frameObj[i].GetComponent<Image>().sprite = itemIcon.SearchFrame(haveitem.Value);
             }
             i++;
         }
