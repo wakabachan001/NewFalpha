@@ -10,10 +10,10 @@ public class Shitakara : MonoBehaviour
 
     EnemyAttack enemyAttack;//攻撃用スクリプト
 
-
     public float coolTime = 2.0f;//攻撃のクールタイム
     private float time = 0.0f;//時間計測用
     private bool moveOn = false;//行動可能フラグ
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //アクティブエリア内に入ったら

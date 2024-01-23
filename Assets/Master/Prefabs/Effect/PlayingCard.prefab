@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EffectTime: 0.2
-  speed: -0.1
+  speed: -0.3
   lange: -3
 --- !u!61 &5334997244069136724
 BoxCollider2D:

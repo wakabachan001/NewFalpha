@@ -4,118 +4,132 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] private float maxHP = 100.0f;       //Å‘å‘Ì—Í
-    [SerializeField] private int money = 100;            //—‚Æ‚·‚¨‹à
-    [SerializeField] private float attackDamage1 = 10.0f;//UŒ‚1‚Ìƒ_ƒ[ƒW
-    [SerializeField] private float attackDamage2 = 10.0f;//UŒ‚2‚Ìƒ_ƒ[ƒW
+    [SerializeField] private float maxHP = 100.0f;       //æœ€å¤§ä½“åŠ›
+    [SerializeField] private int money = 100;            //è½ã¨ã™ãŠé‡‘
+    [SerializeField] private float attackDamage1 = 10.0f;//æ”»æ’ƒ1ã®ãƒ€ãƒ¡ãƒ¼ã‚¸
+    [SerializeField] private float attackDamage2 = 10.0f;//æ”»æ’ƒ2ã®ãƒ€ãƒ¡ãƒ¼ã‚¸
 
-    public Color mainColor = new Color(1f, 1f, 1f, 1f);       //’Êí
-    public Color damageColor = new Color(1f, 0.6f, 0.6f, 1f); //”íƒ_ƒ[ƒW
+    public Color mainColor = new Color(1f, 1f, 1f, 1f);       //é€šå¸¸æ™‚
+    public Color damageColor = new Color(1f, 0.6f, 0.6f, 1f); //è¢«ãƒ€ãƒ¡ãƒ¼ã‚¸æ™‚
 
-    private float takeDamage;   //”íƒ_ƒ[ƒW
+    private float takeDamage;   //è¢«ãƒ€ãƒ¡ãƒ¼ã‚¸
 
-    public StatusData status;    //“GƒXƒe[ƒ^ƒXƒNƒ‰ƒX
-    private StatusCalc statusCalc = new StatusCalc();  //ƒ_ƒ[ƒWŒvZƒNƒ‰ƒX
+    public StatusData status;    //æ•µã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¯ãƒ©ã‚¹
+    private StatusCalc statusCalc = new StatusCalc();  //ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—ã‚¯ãƒ©ã‚¹
     Sounds sounds;
 
-    PlayerStatusManager playerStatusManager;//PlayerStatusManagerƒXƒNƒŠƒvƒg
+    PlayerStatusManager playerStatusManager;//PlayerStatusManagerã‚¹ã‚¯ãƒªãƒ—ãƒˆ
+
+    DamageTXTmanager dtxtm;//ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒ†ã‚­ã‚¹ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚¹ã‚¯ãƒªãƒ—ãƒˆæ ¼ç´ç”¨
+    float x, y;
 
     void Start()
     {
-        //Debug.Log("“G‰Šú‰»");
 
-        //DataInfo‚ÌPlayerStatusManager‚ğæ“¾
+        //Debug.Log("æ•µåˆæœŸåŒ–");
+
+        dtxtm = FindObjectOfType<DamageTXTmanager>();// dtxtmã«ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’ä¿ç®¡
+
+
+
+        //DataInfoã®PlayerStatusManagerã‚’å–å¾—
         playerStatusManager = LoadManagerScene.GetPlayerStatusManager();
 
         GameObject soun = GameObject.Find("SoundObject");
         sounds = soun.GetComponent<Sounds>();
 
-        //ƒXƒe[ƒ^ƒX‰Šú‰»
+        //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹åˆæœŸåŒ–
         status = new StatusData(maxHP, money, attackDamage1, attackDamage2);
 
-        //Debug.Log("“G‰Šú‰»Š®—¹");
+        //Debug.Log("æ•µåˆæœŸåŒ–å®Œäº†");
     }
 
-    //‘¼colliderÚG
+    //ä»–collideræ¥è§¦æ™‚
     void OnTriggerEnter2D(Collider2D other)
     {
-        //Œ•‚Æ‚ÌÚG
+        //å‰£ã¨ã®æ¥è§¦
         if(other.gameObject.tag == "Sword")
         {
-            //ƒvƒŒƒCƒ„[‚Ì‹ß‹——£UŒ‚ƒ_ƒ[ƒW‚ğ’²‚×‚é
+            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¿‘è·é›¢æ”»æ’ƒãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’èª¿ã¹ã‚‹
             takeDamage = playerStatusManager.AttackDamageCalc();
 
-            //HPŒvZ
+            // takeDamageã‚’intå‹ã«å¤‰æ›ã—ã¦å€¤ã‚’æ¸¡ã™
+            dtxtm.TakeDamage((int)takeDamage, transform.position.x, transform.position.y + 0.5f);
+
+            //HPè¨ˆç®—
             status.CurrentHP = statusCalc.HPCalc(status.CurrentHP, takeDamage);
 
             StartCoroutine( DamageEfect());
 
-            Debug.Log("Œ•‚Ìƒ_ƒ[ƒW : " + takeDamage);
+            Debug.Log("å‰£ã®ãƒ€ãƒ¡ãƒ¼ã‚¸ : " + takeDamage);
         }
-        //è— Œ•‚Æ‚ÌÚG
+        //æ‰‹è£å‰£ã¨ã®æ¥è§¦
         if (other.gameObject.tag == "Syuriken")
         {
-            //ƒvƒŒƒCƒ„[‚Ì‰“‹——£UŒ‚ƒ_ƒ[ƒW‚ğ’²‚×‚é
-            takeDamage = playerStatusManager.AttackDamageCalc();
+            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é è·é›¢æ”»æ’ƒãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’èª¿ã¹ã‚‹
+            takeDamage = playerStatusManager.ShotDamageCalc();
 
-            //HPŒvZ
+            // takeDamageã‚’intå‹ã«å¤‰æ›ã—ã¦å€¤ã‚’æ¸¡ã™
+            dtxtm.TakeDamage((int)takeDamage, transform.position.x, transform.position.y + 0.5f) ;
+
+            //HPè¨ˆç®—
             status.CurrentHP = statusCalc.HPCalc(status.CurrentHP, takeDamage);
 
             StartCoroutine(DamageEfect());
 
-            Debug.Log("è— Œ•‚Ìƒ_ƒ[ƒW : " + takeDamage);
+            Debug.Log("æ‰‹è£å‰£ã®ãƒ€ãƒ¡ãƒ¼ã‚¸ : " + takeDamage);
         }
         if (other.gameObject.tag == "DeleteArea")
         {
             Destroy(gameObject);
         }
-        //“|‚ê‚é‚©’²‚×‚é
+        //å€’ã‚Œã‚‹ã‹èª¿ã¹ã‚‹
         EnemyDead();
     }
 
-    //“|‚ê‚é‚©’²‚×‚éŠÖ”
+    //å€’ã‚Œã‚‹ã‹èª¿ã¹ã‚‹é–¢æ•°
     void EnemyDead()
     {
-        //“GHP‚ª0ˆÈ‰º‚È‚çA‚±‚ÌƒIƒuƒWƒFƒNƒg‚ğÁ‚·
+        //æ•µHPãŒ0ä»¥ä¸‹ãªã‚‰ã€ã“ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆã™
         if (status.CurrentHP <= 0.0f)
         {
-            //ƒvƒŒƒCƒ„[‚ÌŠ‹à‚ğ‘‚â‚·
+            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ‰€æŒé‡‘ã‚’å¢—ã‚„ã™
             playerStatusManager.GettingMoney(status.Money);
 
             if(playerStatusManager.onHealthTreat == true)
             {
                 playerStatusManager.HT();
             }
-            sounds.EnemyDeathSE();//SE “G‚ª“|‚ê‚½
+            sounds.EnemyDeathSE();//SE æ•µãŒå€’ã‚ŒãŸ
 
-            //ƒ^ƒO‚ªBoss‚È‚ç
+            //ã‚¿ã‚°ãŒBossãªã‚‰
             if (gameObject.tag == "Boss")
             {
-                //CreateMapƒXƒNƒŠƒvƒg‚ğ’T‚·
+                //CreateMapã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’æ¢ã™
                 CreateMap createMap;
                 GameObject obj = GameObject.Find("Main Camera");
                 createMap = obj.GetComponent<CreateMap>();
 
-                //ƒ{ƒX‚ª“|‚³‚ê‚½‚Æ‚«ŠÖ”
+                //ãƒœã‚¹ãŒå€’ã•ã‚ŒãŸã¨ãé–¢æ•°
                 createMap.BossDead();
             }
 
             Destroy(gameObject);
-            Debug.Log("“G‚ª“|‚ê‚½");
+            Debug.Log("æ•µãŒå€’ã‚ŒãŸ");
         }
     }
 
-    //”íƒ_ƒ[ƒWƒGƒtƒFƒNƒg
+    //è¢«ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
     public IEnumerator DamageEfect()
     {
-        //F•ÏX
+        //è‰²å¤‰æ›´
         gameObject.GetComponent<SpriteRenderer>().color = damageColor;
 
-        //SE@”íƒ_ƒ[ƒW
+        //SEã€€è¢«ãƒ€ãƒ¡ãƒ¼ã‚¸
 
         yield return new WaitForSeconds(0.1f);
 
-        //F‚ğ–ß‚·
+        //è‰²ã‚’æˆ»ã™
         gameObject.GetComponent<SpriteRenderer>().color = mainColor;
     }
 }

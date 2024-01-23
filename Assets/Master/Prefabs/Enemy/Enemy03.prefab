@@ -121,7 +121,8 @@ MonoBehaviour:
   clonepos: -1
   coolTime: 1
   attackType: 0
-  AttackEffect: {fileID: 8667471911016283574, guid: ea89722f0133d314683cadaf1d386dca, type: 3}
+  AttackEffect:
+  - {fileID: 8667471911016283574, guid: ea89722f0133d314683cadaf1d386dca, type: 3}
 --- !u!61 &2275002470933319381
 BoxCollider2D:
   m_ObjectHideFlags: 0
