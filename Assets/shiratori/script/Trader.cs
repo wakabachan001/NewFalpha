@@ -52,16 +52,16 @@ public class Trader : MonoBehaviour
         TradeUI.SetActive(true);
         playerManager.dontMove = true;
 
-        ItemId = itemmanager.GetRandomItem(6);
+        ItemId = PIM.GetRandomItem(6);
 
         for ( int i = 0; i < 6; i++)
         {
             if (ItemId[i] != null)
             {
                 TradeItem[i].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[i]);
-                textname[i].text = itemmanager.GetName(ItemId[i]);
-                textdisc[i].text = itemmanager.GetDescription(ItemId[i]);
-                textamount[i].text = itemmanager.GetBuyingPrice(ItemId[i]).ToString();
+                textname[i].text = itemmanager.GetItemData(ItemId[i], 0, (int)ItemElement.ID);
+                textdisc[i].text = itemmanager.GetItemData(ItemId[i], 0, (int)ItemElement.DESCRIPTION);
+                textamount[i].text = itemmanager.GetBuyingPrice(0).ToString();
             }
             //ÉAÉCÉeÉÄÇ™å©Ç¬Ç©ÇÁÇ»Ç©Ç¡ÇΩèÍçá
             else

@@ -74,7 +74,7 @@ public class CreateMap : MonoBehaviour
         mapCount = 1;
         stageCount = 1;
 
-        for (int i = 0; i <= 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             debugGoMap1[i] = false;
             debugGoBoss[i] = false;
