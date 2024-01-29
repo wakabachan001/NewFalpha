@@ -88,10 +88,20 @@ public class PlayerItemManager : MonoBehaviour
                     }
                     break;
 
-                case "SelfHarm"://íœ—\’è
-                    //‚Á‚Ä‚¢‚é‚É‰“‹——£UŒ‚‚ª©Œø‰Ê‚ğ‚à‚Â Ì‚Ä‚½‚Æ‚«‚Ì“®ì–¢À‘•
+                case "SelfHarm":          
                     playerStatusManager.onSelfHarm = true;
-                    //plusShot += playerStatusManager.MaxHP() * 0.1f;
+
+                    switch (haveitem.Value){
+                        case 0:
+                            plusEffect.ShotAttack += 1;
+                            break;
+                        case 1:
+                            plusEffect.ShotAttack += 1.2f; 
+                            break;
+                        case 2:
+                            plusEffect.ShotAttack += 1.4f;
+                            break;
+                    }
                     break;
                
                 case "Collector":

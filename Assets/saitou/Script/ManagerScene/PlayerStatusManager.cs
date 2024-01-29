@@ -121,11 +121,11 @@ public class PlayerStatusManager : MonoBehaviour
     {
         GetEffect();//所持アイテム効果取得
 
-        //SelfHarmを持っているかつ体力が１より多いなら 削除予定
+        //SelfHarmを持っているかつ体力が１より多いなら 
         if (onSelfHarm == true && status.CurrentHP >1f)
         {
             //最大体力の5%を受ける
-            TakeDamage(MaxHP() * 0.05f);
+            TakeDamage(MaxHP() * 0.03f);
         }
 
         //AttackDamage[1]を引数として、ダメージ計算関数を呼ぶ
