@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] private float maxHP = 100.0f;       //最大体力
-    [SerializeField] private int money = 100;            //落とすお金
-    [SerializeField] private float attackDamage1 = 10.0f;//攻撃1のダメージ
-    [SerializeField] private float attackDamage2 = 10.0f;//攻撃2のダメージ
+shiratori
+    [SerializeField] public float maxHP = 100.0f;       //�ő�̗�
+    [SerializeField] private int money = 100;            //���Ƃ�����
+    [SerializeField] private float attackDamage1 = 10.0f;//�U��1�̃_���[�W
+    [SerializeField] private float attackDamage2 = 10.0f;//�U��2�̃_���[�W
+    main
 
     public Color mainColor = new Color(1f, 1f, 1f, 1f);       //通常時
     public Color damageColor = new Color(1f, 0.6f, 0.6f, 1f); //被ダメージ時

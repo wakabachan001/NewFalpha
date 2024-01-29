@@ -13,18 +13,23 @@ public class EnemyAttack : MonoBehaviour
 
     public GameObject[] AttackEffect = new GameObject[2];//クローンするプレハブ
     private GameObject cloneObj;   //クローンしたオブジェクト
+    private GameObject objCanvas; //キャンバスのオブジェクト
 
     EnemyManager enemyManager;//スクリプト
     enemyAttackTypeChange enemyattacktypechange;//スクリプト
+    BossHPBarACTIVE active_boss_hpbar;//スクリプト
 
     private void Start()
     {
         //最初の攻撃タイミングを乱数で少し変える
         time = Random.RandomRange(0.0f, coolTime / 2);
 
+        objCanvas = GameObject.Find("Canvas");
+
         //スクリプト取得
         enemyManager = gameObject.GetComponent<EnemyManager>();
         enemyattacktypechange = gameObject.GetComponent<enemyAttackTypeChange>();
+        active_boss_hpbar = objCanvas.GetComponent<BossHPBarACTIVE>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,6 +38,12 @@ public class EnemyAttack : MonoBehaviour
         if (collision.gameObject.tag == "ActiveArea")
         {
             moveOn = true;//行動可能フラグをオン
+
+            if (GameObject.FindWithTag("Boss"))
+            {   //BossHPBarを表示させる
+                active_boss_hpbar.ActiveBossHPBar();
+                Debug.Log("BossHP");
+            }
             Debug.Log("行動可能");
         }
     }
