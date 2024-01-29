@@ -637,9 +637,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onChange: 0
   iconFirstPosX: 50
-  iconFirstPosY: 0
+  iconFirstPosY: -300
   iconPos: 90
   iconPrefab: {fileID: 4646658839360970503, guid: 3602defe69bc77345aaba7363fa3f614, type: 3}
+  framePrefab: {fileID: 4646658839360970503, guid: b0b33fc688b041740928ffcdcbb3ccb3, type: 3}
   iconParent: {fileID: 677291910}
 --- !u!114 &570279466
 MonoBehaviour:

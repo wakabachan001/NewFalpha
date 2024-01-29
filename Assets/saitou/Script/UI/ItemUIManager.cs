@@ -12,10 +12,13 @@ public class ItemUIManager : MonoBehaviour
     [SerializeField] private float iconFirstPosY;   //アイコンの初期位置Y（左上）
     [SerializeField] private float iconPos;         //アイコン位置調整用
     [SerializeField] private GameObject iconPrefab; //生成するPrefab    
-    
+    [SerializeField] private GameObject framePrefab;//生成する枠Prefab    
+
+
     [SerializeField]
     private Transform iconParent; //その親オブジェクト
-    private GameObject[] iconObj = new GameObject[20]; //クローンしたオブジェクト
+    private GameObject[] iconObj = new GameObject[8]; //クローンしたオブジェクト
+    private GameObject[] frameObj = new GameObject[8]; //クローンした枠オブジェクト
 
     PlayerItemManager playerItemManager;
     ItemIcon itemIcon;
@@ -26,7 +29,6 @@ public class ItemUIManager : MonoBehaviour
         int column = 0;
         int row = 0;
 
-        //コンパイルエラーはおそらくこれのせい
         //スクリプトの取得
         playerItemManager = LoadManagerScene.GetPlayerItemManager();
         itemIcon = LoadManagerScene.GetItemIcon();
@@ -42,6 +44,13 @@ public class ItemUIManager : MonoBehaviour
 
             //子としてImageを持つPrefabをクローン
             iconObj[i] = Instantiate(iconPrefab, //クローンするオブジェクト
+                new Vector2(iconParent.position.x + iconFirstPosX + (iconPos * column),
+                            iconParent.position.y + iconFirstPosY + (iconPos * -row)),//leftInfo始点の位置
+                Quaternion.identity,
+                iconParent);//回転
+
+            //子としてImageを持つ枠Prefabをクローン
+            frameObj[i] = Instantiate(framePrefab, //クローンするオブジェクト
                 new Vector2(iconParent.position.x + iconFirstPosX + (iconPos * column),
                             iconParent.position.y + iconFirstPosY + (iconPos * -row)),//leftInfo始点の位置
                 Quaternion.identity,
@@ -65,18 +74,21 @@ public class ItemUIManager : MonoBehaviour
         Debug.Log("アイテムアイコン更新");
         Sprite iconImage; //探した画像を入れる用の変数
 
+        int i = 0;
         //アイコンの画像を所持アイテムによって変える
-        for (int i = 0; i < playerItemManager.havingItem.Count; i++)
+        foreach (KeyValuePair<string, int> haveitem in playerItemManager.havingItem)
         {
             //所持アイテムから画像を探す
-            iconImage = itemIcon.SearchImage(playerItemManager.havingItem[i]);
+            iconImage = itemIcon.SearchImage(haveitem.Key);
 
             //エラーでなければ
             if (iconImage != null)
             {
                 //クローンの画像を変える
                 iconObj[i].GetComponent<Image>().sprite = iconImage;
+                frameObj[i].GetComponent<Image>().sprite = itemIcon.SearchFrame(haveitem.Value);
             }
+            i++;
         }
     }
 

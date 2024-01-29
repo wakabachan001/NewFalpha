@@ -7,6 +7,8 @@ public class ItemIcon : MonoBehaviour
 {
     //アイテムアイコン画像を入れる配列
     [SerializeField] private Sprite[] iconImage = new Sprite[20];
+    [SerializeField] private Sprite[] frameImage = new Sprite[3];
+
     [SerializeField] private Sprite emptyIconImage;
     
     //アイコン探索関数
@@ -17,53 +19,41 @@ public class ItemIcon : MonoBehaviour
             //IDにアイテムのIDを書いていく
             case "Attack":
                 return iconImage[0];
-                break;
-            case "Revenge":
-                return iconImage[1];
-                break;
-            case "SelfHarm":
-                return iconImage[2];
-                break;
-            case "Health":
-                return iconImage[3];
-                break;
-            case "HealthTreat":
-                return iconImage[4];
-                break;
             case "ArmorPlate":
-                return iconImage[5];
-                break;
+                return iconImage[1];
+            case "Health":
+                return iconImage[2];
             case "CRITRate":
-                return iconImage[6];
-                break;
+                return iconImage[3];
             case "CRITDmg":
+                return iconImage[4];
+            case "Fencing1":
+                return iconImage[5];
+            case "Fencing2":
+                return iconImage[6];
+            case "Throwable1":
                 return iconImage[7];
-                break;
             case "Throwable2":
                 return iconImage[8];
-                break;
-            case "Fencing2":
+            case "Revenge":
                 return iconImage[9];
-                break;
-            case "Fencing1":
-                return iconImage[10];
-                break;
-            case "Throwable1":
-                return iconImage[11];
-                break;
             case "Collector":
-                return iconImage[12];
-                break;
+                return iconImage[10];
             case "FirstAttack":
-                return iconImage[13];
-                break;
+                return iconImage[11];
+            case "SelfHarm":
+                return iconImage[12];
             case "MoneyTalent":
-                return iconImage[14];
-                break;
+                return iconImage[13];
             default:
                 Debug.Log("!アイテム画像が見つかりません");
                 return emptyIconImage;    
         }
+    }
+    //対応する枠を返す関数
+    public Sprite SearchFrame(int grade)
+    {
+        return frameImage[grade];
     }
     //空のアイコン取得関数
     public Sprite Empty()

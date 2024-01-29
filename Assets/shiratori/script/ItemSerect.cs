@@ -58,19 +58,23 @@ public class ItemSerect : MonoBehaviour
         ItemSelectUI.SetActive(true);
         playerManager.dontMove = true;
 
-        ItemId = itemmanager.GetRandomItem(3) ;
+        ItemId = PIM.GetRandomItem(3,true) ;//ランダムなアイテムIDを3つ取得
+
+        for(int i=0; i<3;i++)
+            Debug.Log(ItemId[i]);
 
         for (int i = 0; i < 3; i++)
         {
             if (ItemId[i] != null)
             {
                 Item[i].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[i]);
-                textname[i].text = itemmanager.GetName(ItemId[i]);
-                textdisc[i].text = itemmanager.GetDescription(ItemId[i]);
+                textname[i].text = itemmanager.GetItemData(ItemId[i],0,(int)ItemElement.ID);
+                textdisc[i].text = itemmanager.GetItemData(ItemId[i], 0, (int)ItemElement.DESCRIPTION);
             }
             //アイテムが見つからなかった場合
             else
             {
+                Debug.Log("!アイテムが見つかりません");
                 
                 Item[i].GetComponent<Image>().sprite = itemicon.Empty();
                 textname[i].text = "NoName";
