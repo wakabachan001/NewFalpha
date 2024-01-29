@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] private float maxHP = 100.0f;       //最大体力
+    [SerializeField] public float maxHP = 100.0f;       //最大体力
     [SerializeField] private int money = 100;            //落とすお金
     [SerializeField] private float attackDamage1 = 10.0f;//攻撃1のダメージ
     [SerializeField] private float attackDamage2 = 10.0f;//攻撃2のダメージ

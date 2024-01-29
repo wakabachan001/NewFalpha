@@ -54,6 +54,8 @@ public class CreateMap : MonoBehaviour
     private int end;
     Vector2 pos;
 
+    public bool isMakeBoss = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -229,7 +231,7 @@ public class CreateMap : MonoBehaviour
         BoardSetup();
 
         //オブジェクトを生成
-        Instantiate(boss[stageCount-1], new Vector2(2f, 7f), Quaternion.identity);
+        Instantiate(boss[stageCount-1], new Vector2(2f, 7f), Quaternion.identity); isMakeBoss = true;
         Instantiate(shop, new Vector2(1f, 3f), Quaternion.identity);   
 
         //カメラを移動
@@ -243,6 +245,7 @@ public class CreateMap : MonoBehaviour
     //ボスが倒されたとき関数
     public void BossDead()
     {
+        isMakeBoss = false;
         Debug.Log("ボス撃破時");
         if (stageCount <= 3)
         {
