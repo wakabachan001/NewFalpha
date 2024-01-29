@@ -26,6 +26,7 @@ public class ItemSerect : MonoBehaviour
     Sounds sounds;
 
     public GameObject[] Item = new GameObject[3];
+    public GameObject[] frame = new GameObject[3];
     public Text[] textname = new Text[3];
     public Text[] textdisc = new Text[3];
     public string[] ItemId = new string[3];
@@ -67,9 +68,11 @@ public class ItemSerect : MonoBehaviour
         {
             if (ItemId[i] != null)
             {
-                Item[i].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[i]);
-                textname[i].text = itemmanager.GetItemData(ItemId[i],0,(int)ItemElement.ID);
-                textdisc[i].text = itemmanager.GetItemData(ItemId[i], 0, (int)ItemElement.DESCRIPTION);
+                int gra = PIM.GetHaveGrade(ItemId[i]) + 1;
+                Item[i].GetComponent<Image>().sprite = itemicon.SearchImage(ItemId[i]); 
+                frame[i].GetComponent<Image>().sprite = itemicon.SearchFrame(gra);
+                textname[i].text = itemmanager.GetItemData(ItemId[i], gra, (int)ItemElement.ID);
+                textdisc[i].text = itemmanager.GetItemData(ItemId[i], gra, (int)ItemElement.DESCRIPTION);
             }
             //ÉAÉCÉeÉÄÇ™å©Ç¬Ç©ÇÁÇ»Ç©Ç¡ÇΩèÍçá
             else

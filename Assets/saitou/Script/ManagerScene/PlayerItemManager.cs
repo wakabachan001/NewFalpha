@@ -11,20 +11,9 @@ public class PlayerItemManager : MonoBehaviour
 
     public int maxItem = 8;//アイテムの最大所持数
 
-    //アイテム効果用
-    private float addMaxHP;         //最大体力＋
-
-    private float increaseAttack;   //攻撃（割合）＊
-
-    private float increaseBlock;    //防御（割合）＊
-    private float addCriticalDamage;  //会心ダメージ
-    private int addCriticalChance;    //会心率
-    private float takeDamage;         //自傷ダメージ
-    private float addMoney;           //獲得金額
-    private float addSword;           //近距離攻撃ダメージ*
-    private float addShot;            //遠距離攻撃ダメージ*
-    private float plusShot;
-
+    ItemDataS plusEffect;   //足し合わせる効果データ
+    ItemDataS resetEffect; //上の効果データの初期化用
+     
     [SerializeField] private float iconPosX;//アイコンの初期位置X（左上）
     [SerializeField] private float iconPosY;//アイコンの初期位置Y（左上）
 
@@ -42,116 +31,145 @@ public class PlayerItemManager : MonoBehaviour
         //同オブジェクトの別スクリプトを取得
         playerStatusManager = GetComponent<PlayerStatusManager>();
         itemManager = GetComponent<ItemManager>();
+
+        //リセット用の数値を初期化（出来れば宣言時にしたかった）
+        {
+            resetEffect.Id          = null;
+            resetEffect.ItemName    = null;
+            resetEffect.Description = null;
+            resetEffect.Grade       = 0;
+
+            resetEffect.MaxHp       = 1;
+            resetEffect.Attack      = 1;
+            resetEffect.SwordAttack = 1;
+            resetEffect.ShotAttack  = 1;
+            resetEffect.Block       = 1;
+            resetEffect.CriChance   = 0;
+            resetEffect.CriDamage   = 1;
+            resetEffect.AddMoney    = 1;
+        }
     }
 
-    private void FixedUpdate()
+    //必要時だけの呼び出しでいいのでは？
+    public void GetItemEffect(ref ItemDataS refdata)
     {
         //変数のリセット
-        addMaxHP = 1;
-        increaseAttack = 1;
-        increaseBlock = 1;
-        addCriticalDamage = 1;
-        addCriticalChance = 0;
-        addMoney = 1;
-        addShot = 1;
-        addSword = 1;
-        plusShot = 0;
+        plusEffect = resetEffect;
 
-        //まず単純なステータスアップを足し合わせる
 
 
         //グレードによって効果を変更したい
         //所持アイテムの効果を計算
         foreach (KeyValuePair<string, int> haveitem in havingItem)
         {
-            //アイテムの効果は今後ここに増やす それぞれ関数で分けてもいいかも
+            //特殊な条件などがある効果の場合の処理　その他はdefaultで
             switch (haveitem.Key)
             {
-                case "Attack":
-                    break;
-                case "ArmorPlate":
-                    break;
-                case "Health":
-                    break;
-                case "CRITRate":
-                    break;
-                case "CRITDmg":
-                    break;
-                case "Fencing1":
-                    break;
-                case "Fencing2":
-                    break;
-                case "Throwable1":
-                    break;
-                case "Throwable2":
-                    break;
-
                 case "Revenge":
-                    if(playerStatusManager.HPper() < 0.20f)
-                    {
-                        increaseAttack += 0.70f;
+                    switch(haveitem.Value){
+                        case 0:
+                            if (playerStatusManager.HPper() < 0.20f)
+                            {
+                                plusEffect.Attack += 0.40f;
+                            }
+                            break;
+                        case 1:
+                            if (playerStatusManager.HPper() < 0.20f)
+                            {
+                                plusEffect.Attack += 0.50f;
+                            }
+                            break;
+                        case 2:
+                            if (playerStatusManager.HPper() < 0.20f)
+                            {
+                                plusEffect.Attack += 0.70f;
+                            }
+                            break;
                     }
                     break;
-                case "SelfHarm":
+
+                case "SelfHarm"://削除予定
                     //持っている時に遠距離攻撃が自傷効果をもつ 捨てたときの動作未実装
                     playerStatusManager.onSelfHarm = true;
-                    plusShot += playerStatusManager.MaxHP() * 0.1f;
+                    //plusShot += playerStatusManager.MaxHP() * 0.1f;
                     break;
                
                 case "Collector":
-                    increaseAttack += (havingItem.Count * 0.02f);
+                    switch (haveitem.Value){
+                        case 0:
+                            plusEffect.Attack += (havingItem.Count * 0.02f);
+                            break;
+                        case 1:
+                            plusEffect.Attack += (havingItem.Count * 0.03f);
+                            break;
+                        case 2:
+                            plusEffect.Attack += (havingItem.Count * 0.04f);
+                            break;
+                    }
                     break;
+
                 case "FirstAttack":
-                    increaseAttack += 0.20f - (havingItem.Count * 0.01f);
-                    break;
-                case "MoneyTalent":
-                    addMaxHP += -0.50f;
-                    addMoney += 1.0f;
+                    switch (haveitem.Value){
+                        case 0:
+                            plusEffect.Attack += 0.16f - (havingItem.Count * 0.02f); 
+                            break;
+                        case 1:
+                            plusEffect.Attack += 0.40f - (havingItem.Count * 0.04f);
+                            break;
+                        case 2:
+                            plusEffect.Attack += 0.64f - (havingItem.Count * 0.06f);
+                            break;
+                    }
+                    
                     break;
                 default:
                     Debug.Log("!アイテム効果が見つかりません");
+
+                    //特殊効果等が無い場合、効果を足し合わせる
+                    itemManager.PlusEffect(ref plusEffect, haveitem.Key, haveitem.Value);
+
                     break;
             }
-            //プレイヤーステータスクラス内の計算クラスに代入
-            
-            playerStatusManager.statusCalc.IncreaseAttack = increaseAttack;
-            playerStatusManager.statusCalc.IncreaseBlock = increaseBlock;
-            playerStatusManager.statusCalc.AddCriticalChance = addCriticalChance;
-            playerStatusManager.statusCalc.AddCriticalDamage = addCriticalDamage;
-            playerStatusManager.addMaxHP = addMaxHP;
-            playerStatusManager.addMoney = addMoney;
-            playerStatusManager.addAttackDamage = addSword;
-            playerStatusManager.addShotDamage = addShot;
-            playerStatusManager.plusShotDamage = plusShot;
+            //playerStatusManager.plusShotDamage = plusShot;
 
             //playerStatusManager.RoadHP();
         }
+        //取得した効果を引数に代入
+        refdata = plusEffect;
     }
 
     //アイテム取得関数 すでに所持していたらfalseを返す
     public bool AddItem(string id)
     {
         if (id != null)
-        {
-            if(havingItem.Count >= maxItem)//最大所持数以上なら
+        {          
+            //IDを所持していたら
+            if (havingItem.ContainsKey(id))
+            {
+                //アップグレード上限なら
+                if(havingItem[id] > 2)
+                {
+                    //すでに所持していたなら何もしない
+                    Debug.Log(id + "をすでに所持しています");
+
+                    return false;
+                }  
+                //アップグレード関数に移動したい
+                UpgradeItem(id);
+                return true;
+            }
+            //未所持なら
+            if (havingItem.Count >= maxItem)//最大所持数以上なら
             {
                 Debug.Log("アイテムが最大です");
                 return false;
             }
-            //IDを所持していたら
-            if (havingItem.ContainsKey(id))
+            else
             {
-                //すでに所持していたなら何もしない
-                Debug.Log(id + "をすでに所持しています");
-                //アップグレード関数に移動したい
-                UpgradeItem(id);
-                return false;
-
+                havingItem.Add(id, 0);//所持アイテムにidを追加
+                Debug.Log(id + "を獲得しました");
+                return true;
             }
-            //未所持なら
-            havingItem.Add(id, 0);//所持アイテムにidを追加
-            Debug.Log(id + "を獲得しました");
-            return true;
         }
         return false;
     }
@@ -220,7 +238,7 @@ public class PlayerItemManager : MonoBehaviour
             else//所持済の場合
             {
                 //購入価格を取得
-                int price = itemManager.GetBuyingPrice(havingItem[id]);
+                int price = itemManager.GetBuyingPrice(havingItem[id] + 1);
 
                 //所持金が足りているなら                                                       
                 if (playerStatusManager.status.Money >= price)
@@ -338,14 +356,15 @@ public class PlayerItemManager : MonoBehaviour
     }
 
     //所持アイテムデバッグ表示関数
-    public void CheckHaveItem()
+    public string[] GetHaveItem( )
     {
-        if (havingItem.Count == 0)
-            Debug.Log("アイテムを所持していません");
+        string[] id = new string[8];
+        int i = 0;
 
-        foreach (KeyValuePair<string, int> haveitem in havingItem){  
-                Debug.Log("アイテムID : "+haveitem.Key+" グレード : "+haveitem.Value);
+        foreach (KeyValuePair<string, int> haveitem in havingItem){
+            id[i] = haveitem.Key;
+            i++;
         }
-
+        return id;
     }
 }

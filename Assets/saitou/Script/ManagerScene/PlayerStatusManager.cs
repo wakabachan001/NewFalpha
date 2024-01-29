@@ -13,45 +13,82 @@ public class PlayerStatusManager : MonoBehaviour
     [SerializeField] private float criDamage;   //クリティカルダメージ
     [SerializeField] private int initialMoney;  //初期所持金
     [SerializeField] private float[] barrier = new float[5];  //バリアの倍率 最初は要素0番
-    public float addMaxHP;         //追加最大体力
-    public float addAttackDamage;   //追加近距離攻撃ダメージ
-    public float addShotDamage;     //追加遠距離攻撃ダメージ
-    public float plusShotDamage;
-    public float addMoney;          //所持金追加
-    public bool onSelfHarm = false; //アイテム用フラグ
-    public bool onHealthTreat = false;
+    
+    ItemDataS itemEffect;   //アイテムの追加効果
 
-    //[SerializeField] private int killNum; //倒した敵の数
+    public bool onSelfHarm = false; //アイテム用フラグ
 
     public bool onResetHpBr = false;    //体力、バリアリセットしたか
     public PlayerStatusData status;     //プレイヤーのステータス格納用
-    public StatusCalc statusCalc = new StatusCalc();  //ステータス計算用
+
+
+    PlayerItemManager playerItemManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        //スクリプト取得
+        playerItemManager = GetComponent<PlayerItemManager>();
+
         //ステータスの初期化
         status = new PlayerStatusData(maxHP, initialMoney, attackDamage, shotDamage, barrier[0], criChance, criDamage);
-
-        addMaxHP = 1;
-        addAttackDamage = 1;
-        addShotDamage = 1;
-        addMoney = 1;
 
         Debug.Log("maxHP" + status.MaxHP);
     }
 
-    //お金獲得関数
-    public void GettingMoney(int money)
+    //所持アイテム効果取得関数
+    public void GetEffect()
     {
-        Debug.Log("お金取得");
-        status.Money += (int)(money * addMoney);
+        //PIMにitemEffectを参照渡しして、データを取得
+        playerItemManager.GetItemEffect(ref itemEffect);
     }
-    //お金を使ったとき関数
-    public void UseMoney(int money)
+
+    //ダメージ計算関数 引数が１つならクリティカルは起きない
+    public float DamageCalc(float damage, int criC = -100, float criD = 1f)
     {
-        status.Money -= money;
+        GetEffect();//所持アイテム効果取得
+
+        //1~100のランダム
+        int dice = Random.RandomRange(1, 101);
+
+        //ランダムの値が、クリティカル率以下なら
+        if (dice <= criC + itemEffect.CriChance)
+        {
+            //クリティカルダメージを加える
+            return damage * itemEffect.Attack * (criD + itemEffect.CriDamage);
+        }
+        else
+        {
+            //通常のダメージ
+            return damage * itemEffect.Attack;
+        }
     }
+    //体力計算関数
+    public float HPCalc(float hp, float damage, float barrier = 1.0f)
+    {
+        GetEffect();//所持アイテム効果取得
+
+        return hp - (damage * itemEffect.Block * barrier);
+    }
+    //体力割合回復関数
+    public float HealHPper(float maxhp, float hp, float per)
+    {
+        float heal = maxhp * per;
+
+        //回復して最大体力を超えるなら
+        if (hp + heal >= maxhp)
+        {
+            //現在の体力を最大体力と同じにする
+            return maxhp;
+        }
+        else
+        {
+            //現在の体力を回復する
+            return hp + heal;
+        }
+    }
+
+    
 
     //ダメージを受ける関数
     public bool TakeDamage(float damage)
@@ -59,7 +96,7 @@ public class PlayerStatusManager : MonoBehaviour
         Debug.Log("ダメージを食らった");
 
         //HP計算関数を呼んで、現在体力を更新
-        status.CurrentHP = statusCalc.HPCalc(status.CurrentHP, damage, status.Barrier);
+        status.CurrentHP = HPCalc(status.CurrentHP, damage, status.Barrier);
 
         //HPが０以下だったらfalseを返す
         //直接シーンを変更してもいい
@@ -72,25 +109,28 @@ public class PlayerStatusManager : MonoBehaviour
     //近距離攻撃のダメージ計算関数
     public float AttackDamageCalc()
     {
+        GetEffect();//所持アイテム効果取得
+
         //AttackDamage[0]を引数として、ダメージ計算関数を呼ぶ
-        return statusCalc.DamageCalc(status.GetAttackDamage(0), status.CriChance, status.CriDamage)
-                * addAttackDamage;
+        return DamageCalc(status.GetAttackDamage(0), status.CriChance, status.CriDamage)
+                * itemEffect.SwordAttack;
     }
 
     //遠距離攻撃のダメージ計算関数
     public float ShotDamageCalc()
     {
-        //SelfHarmを持っているかつ体力が１より多いなら
-        if(onSelfHarm == true && status.CurrentHP >1f)
+        GetEffect();//所持アイテム効果取得
+
+        //SelfHarmを持っているかつ体力が１より多いなら 削除予定
+        if (onSelfHarm == true && status.CurrentHP >1f)
         {
             //最大体力の5%を受ける
             TakeDamage(MaxHP() * 0.05f);
         }
 
         //AttackDamage[1]を引数として、ダメージ計算関数を呼ぶ
-        return (statusCalc.DamageCalc(status.GetAttackDamage(1), status.CriChance, status.CriDamage)
-                + plusShotDamage )
-                * addShotDamage;
+        return DamageCalc(status.GetAttackDamage(1), status.CriChance, status.CriDamage)
+                * itemEffect.ShotAttack;
     }
 
     //バリアの倍率更新関数
@@ -112,15 +152,12 @@ public class PlayerStatusManager : MonoBehaviour
     {
         return status.CurrentHP / status.MaxHP;
     }
-    //HealthTreat用関数
-    public void HT()
-    {
-        status.CurrentHP = statusCalc.HealHPper(status.MaxHP, status.CurrentHP, 0.03f);
-    }
     //最大体力関数
     public float MaxHP()
     {
-        status.MaxHP = maxHP * addMaxHP;
+        GetEffect();//所持アイテム効果取得
+
+        status.MaxHP = maxHP * itemEffect.MaxHp;
 
         //現在HPが最大HPを超えているなら調整
         if(status.CurrentHP > status.MaxHP)
@@ -130,7 +167,7 @@ public class PlayerStatusManager : MonoBehaviour
         return status.MaxHP;
     }
     //現在の体力を調整する関数
-    public void RoadHP()
+    public void AdjustHP()
     {
         //現在の体力が最大体力を超えていたら
         if(status.CurrentHP > status.MaxHP)
@@ -138,6 +175,20 @@ public class PlayerStatusManager : MonoBehaviour
             //現在の体力を最大体力に更新
             status.CurrentHP = status.MaxHP;
         }
+    }
+
+    //お金獲得関数
+    public void GettingMoney(int money)
+    {
+        GetEffect();//所持アイテム効果取得
+
+        Debug.Log("お金取得");
+        status.Money += (int)(money * itemEffect.AddMoney);
+    }
+    //お金を使ったとき関数
+    public void UseMoney(int money)
+    {
+        status.Money -= money;
     }
 }
 

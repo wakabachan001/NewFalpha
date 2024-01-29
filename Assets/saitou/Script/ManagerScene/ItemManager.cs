@@ -17,7 +17,7 @@ public enum ItemElement
     BLOCK,
     CRICHANCE,
     CRIDAMAGE,
-    PRICE
+    MONEY
 }
 
 //全アイテムの管理クラス
@@ -29,7 +29,6 @@ public class ItemManager : MonoBehaviour
     //private List<ItemDataC> ItemData = new List<ItemDataC>();
 
     private List<ItemDataC> ItemData = new List<ItemDataC>();
-
 
     private TextAsset csvFile; // CSVファイル
     private List<string[]> csvData = new List<string[]>(); // CSVファイルの中身を入れるリスト
@@ -70,7 +69,8 @@ public class ItemManager : MonoBehaviour
 
         playerItemManager = GetComponent<PlayerItemManager>();
 
-        csvFile = Resources.Load("ItemData_v2") as TextAsset; // ResourcesにあるCSVファイルを格納
+
+        csvFile = Resources.Load("ItemData_v3") as TextAsset; // ResourcesにあるCSVファイルを格納
         StringReader reader = new StringReader(csvFile.text); // TextAssetをStringReaderに変換
 
         while (reader.Peek() != -1)
@@ -78,34 +78,32 @@ public class ItemManager : MonoBehaviour
             string line = reader.ReadLine(); // 1行ずつ読み込む
             csvData.Add(line.Split(',')); // csvDataリストに追加する 
         }
-        //for (int i = 0; i < 11; i++)
-        //    Debug.Log(csvData[1][i]);
 
-        int c = 1;
+        int row = 1;//csvの行
 
         //2行目からデータを読み込み
-        while (c < csvData.Count)
+        while (row < csvData.Count)
         {
             ItemDataC LoadItem = new ItemDataC();
 
             for (int j = 0; j < 3; j++)
             {
-                LoadItem.grade[j].Id            = csvData[c][(int)ItemElement.ID];
-                LoadItem.grade[j].ItemName      = csvData[c][(int)ItemElement.NAME];
-                LoadItem.grade[j].Description   = csvData[c][(int)ItemElement.DESCRIPTION];
-                LoadItem.grade[j].Grade         = int.Parse(  csvData[c][(int)ItemElement.GRADE]);
-                LoadItem.grade[j].MaxHp         = float.Parse(csvData[c][(int)ItemElement.MAXHP]);
-                LoadItem.grade[j].Attack        = float.Parse(csvData[c][(int)ItemElement.ATTACK]);
-                LoadItem.grade[j].SwordAttack   = float.Parse(csvData[c][(int)ItemElement.SWORD]);
-                LoadItem.grade[j].ShotAttack    = float.Parse(csvData[c][(int)ItemElement.SHOT]);
-                LoadItem.grade[j].Block         = float.Parse(csvData[c][(int)ItemElement.BLOCK]);
-                LoadItem.grade[j].CriChance     = float.Parse(csvData[c][(int)ItemElement.CRICHANCE]);
-                LoadItem.grade[j].CriDamage     = float.Parse(csvData[c][(int)ItemElement.CRIDAMAGE]);
+                //アイテム情報を取得
+                LoadItem.grade[j].Id            = csvData[row][(int)ItemElement.ID];
+                LoadItem.grade[j].ItemName      = csvData[row][(int)ItemElement.NAME];
+                LoadItem.grade[j].Description   = csvData[row][(int)ItemElement.DESCRIPTION];
+                LoadItem.grade[j].Grade         = int.Parse(  csvData[row][(int)ItemElement.GRADE]);
+                LoadItem.grade[j].MaxHp         = float.Parse(csvData[row][(int)ItemElement.MAXHP]);
+                LoadItem.grade[j].Attack        = float.Parse(csvData[row][(int)ItemElement.ATTACK]);
+                LoadItem.grade[j].SwordAttack   = float.Parse(csvData[row][(int)ItemElement.SWORD]);
+                LoadItem.grade[j].ShotAttack    = float.Parse(csvData[row][(int)ItemElement.SHOT]);
+                LoadItem.grade[j].Block         = float.Parse(csvData[row][(int)ItemElement.BLOCK]);
+                LoadItem.grade[j].CriChance     = float.Parse(csvData[row][(int)ItemElement.CRICHANCE]);
+                LoadItem.grade[j].CriDamage     = float.Parse(csvData[row][(int)ItemElement.CRIDAMAGE]);
+                LoadItem.grade[j].AddMoney      = float.Parse(csvData[row][(int)ItemElement.MONEY]);
 
-                c++;
-            }
-                Debug.Log(LoadItem.grade[0].Id);
-                
+                row++;
+            }   
                 //アイテムデータにデータを追加
                 ItemData.Add(LoadItem);
 
@@ -164,6 +162,9 @@ public class ItemManager : MonoBehaviour
 
                     case (int)ItemElement.CRIDAMAGE:
                         return ItemData[i].grade[gra].CriDamage.ToString();
+
+                    case (int)ItemElement.MONEY:
+                        return ItemData[i].grade[gra].AddMoney.ToString();
                 }               
             }
         }
@@ -212,15 +213,40 @@ public class ItemManager : MonoBehaviour
         }
     }
 
-    //ランダムアイテム指定関数　ほぼ未使用
-    public string GetRandomItem()
+    //アイテム効果を足す関数（ItemDataSの参照渡し,ID, グレード）
+    public void PlusEffect(ref ItemDataS sum_effect, string id , int gra)
     {
-        //0～全アイテムの種類のランダムな数値を取得
-        int r = Random.RandomRange(0, ItemData.Count);
+        //一致するidを探す
+        foreach(ItemDataC data in ItemData)
+        {
+            if(data.grade[0].Id == id)
+            {
+                //アイテム効果部分を足し合わせる
+                sum_effect.MaxHp        += data.grade[gra].MaxHp;
+                sum_effect.Attack       += data.grade[gra].Attack;
+                sum_effect.SwordAttack  += data.grade[gra].SwordAttack;
+                sum_effect.ShotAttack   += data.grade[gra].ShotAttack;
+                sum_effect.Block        += data.grade[gra].Block;
+                sum_effect.CriChance    += data.grade[gra].CriChance;
+                sum_effect.CriDamage    += data.grade[gra].CriDamage;
+                sum_effect.AddMoney     += data.grade[gra].AddMoney;
 
-        //その数値から、IDを返す
-        return ItemData[r].grade[0].Id;
+                return;
+            }
+        }
+
+        Debug.Log("!アイテムidが見つかりません");
     }
+
+    //ランダムアイテム指定関数　ほぼ未使用
+    //public string GetRandomItem()
+    //{
+    //    //0～全アイテムの種類のランダムな数値を取得
+    //    int r = Random.RandomRange(0, ItemData.Count);
+
+    //    //その数値から、IDを返す
+    //    return ItemData[r].grade[0].Id;
+    //}
     //引数のidと被らないオーバーロード numは個数 havingItemの方に移行したい
     //public string[] GetRandomItem(int num = 1)
     //{

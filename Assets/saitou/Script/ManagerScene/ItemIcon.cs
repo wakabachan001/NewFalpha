@@ -53,7 +53,10 @@ public class ItemIcon : MonoBehaviour
     //‘Î‰‚·‚é˜g‚ğ•Ô‚·ŠÖ”
     public Sprite SearchFrame(int grade)
     {
-        return frameImage[grade];
+        if (grade < 3)
+            return frameImage[grade];
+        else
+            return null;
     }
     //‹ó‚ÌƒAƒCƒRƒ“æ“¾ŠÖ”
     public Sprite Empty()
