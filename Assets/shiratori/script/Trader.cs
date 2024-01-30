@@ -133,24 +133,7 @@ public class Trader : MonoBehaviour
 
         }
         GetHaveItemData();
-        for (int i = 0; i < 8; i++)
-        {
-            if (UpgradeItemData[i].id != null)
-            {
-                //画像の取得
-                UpgradeItem[i].GetComponent<Image>().sprite = itemicon.SearchImage(UpgradeItemData[i].id);
-                UpgradeFrame[i].GetComponent<Image>().sprite = itemicon.SearchFrame(UpgradeItemData[i].grade);
-            }
-            //アイテムが見つからなかった場合
-            else
-            {
-                UpgradeItem[i].GetComponent<Image>().sprite = itemicon.Empty();
-                UpgradeItemData[i].itemname.text = "NoName";
-                UpgradeItemData[i].disc.text = " ";
-                UpgradeItemData[i].price.text = "0";
-            }
-
-        }
+        
     }
 
     public void CloseUI()
@@ -241,6 +224,25 @@ public class Trader : MonoBehaviour
 
                 UpgradeItemData[i].price.text = itemmanager.GetBuyingPrice(UpgradeItemData[i].grade).ToString();
             }
+        }
+
+        for (int i = 0; i < 8; i++)
+        {
+            if (UpgradeItemData[i].id != null)
+            {
+                //画像の取得
+                UpgradeItem[i].GetComponent<Image>().sprite = itemicon.SearchImage(UpgradeItemData[i].id);
+                UpgradeFrame[i].GetComponent<Image>().sprite = itemicon.SearchFrame(UpgradeItemData[i].grade);
+            }
+            //アイテムが見つからなかった場合
+            else
+            {
+                UpgradeItem[i].GetComponent<Image>().sprite = itemicon.Empty();
+                UpgradeItemData[i].itemname.text = "NoName";
+                UpgradeItemData[i].disc.text = " ";
+                UpgradeItemData[i].price.text = "0";
+            }
+
         }
     }
 }
