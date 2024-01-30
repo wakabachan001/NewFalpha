@@ -61,6 +61,7 @@ public struct ItemDataS //アイテムデータ用構造体
     private float block;        //防御力
     private float criChance;    //クリティカル率
     private float criDamage;    //クリティカルダメージ
+    private float addMoney;     //追加取得金額
 
     public string Id
     {
@@ -118,6 +119,11 @@ public struct ItemDataS //アイテムデータ用構造体
     {
         get { return criDamage; }
         set { criDamage = value; }
+    }
+    public float AddMoney
+    {
+        get { return addMoney; }
+        set { addMoney = value; }
     }
 }
 

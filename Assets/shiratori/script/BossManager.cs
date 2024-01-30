@@ -17,7 +17,6 @@ public class BossManager : MonoBehaviour
     private float takeDamage;   //被ダメージ
 
     private StatusData status;    //敵ステータスクラス
-    private StatusCalc statusCalc = new StatusCalc();     //ダメージ計算クラス
     Sounds sounds;
 
     PlayerStatusManager playerStatusManager;//PlayerStatusManagerスクリプト
@@ -52,7 +51,7 @@ public class BossManager : MonoBehaviour
             takeDamage = playerStatusManager.AttackDamageCalc();
 
             //HP計算
-            status.CurrentHP = statusCalc.HPCalc(status.CurrentHP, takeDamage);
+            status.CurrentHP = playerStatusManager.HPCalc(status.CurrentHP, takeDamage);
 
             StartCoroutine(DamageEfect());
 
@@ -65,7 +64,7 @@ public class BossManager : MonoBehaviour
             takeDamage = playerStatusManager.AttackDamageCalc();
 
             //HP計算
-            status.CurrentHP = statusCalc.HPCalc(status.CurrentHP, takeDamage);
+            status.CurrentHP = playerStatusManager.HPCalc(status.CurrentHP, takeDamage);
 
             StartCoroutine(DamageEfect());
 

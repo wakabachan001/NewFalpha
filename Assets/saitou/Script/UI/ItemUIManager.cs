@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class ItemUIManager : MonoBehaviour
 {
-    public bool onChange = false; 
-
     //インスペクター上に表示されない（そもそもコンパイルエラー）
     [SerializeField] private float iconFirstPosX;   //アイコンの初期位置X（左上）
     [SerializeField] private float iconFirstPosY;   //アイコンの初期位置Y（左上）
@@ -92,12 +90,12 @@ public class ItemUIManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (onChange)
-        {
-            ChangeIcon();
-            onChange = false;
-        }
-    }
+    //private void Update()
+    //{
+    //    if (onChange)
+    //    {
+    //        ChangeIcon();
+    //        onChange = false;
+    //    }
+    //}
 }

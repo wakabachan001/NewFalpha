@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-shiratori
-    [SerializeField] public float maxHP = 100.0f;       //�ő�̗�
-    [SerializeField] private int money = 100;            //���Ƃ�����
-    [SerializeField] private float attackDamage1 = 10.0f;//�U��1�̃_���[�W
-    [SerializeField] private float attackDamage2 = 10.0f;//�U��2�̃_���[�W
-    main
+    [SerializeField] public float maxHP = 100.0f;        //最大HP 
+    [SerializeField] private int money = 100;            //落とすお金
+    [SerializeField] private float attackDamage1 = 10.0f;//攻撃1のダメージ
+    [SerializeField] private float attackDamage2 = 10.0f;//攻撃2のダメージ
 
     public Color mainColor = new Color(1f, 1f, 1f, 1f);       //通常時
     public Color damageColor = new Color(1f, 0.6f, 0.6f, 1f); //被ダメージ時
@@ -17,13 +15,11 @@ shiratori
     private float takeDamage;   //被ダメージ
 
     public StatusData status;    //敵ステータスクラス
-    private StatusCalc statusCalc = new StatusCalc();  //ダメージ計算クラス
     Sounds sounds;
 
     PlayerStatusManager playerStatusManager;//PlayerStatusManagerスクリプト
 
     DamageTXTmanager dtxtm;//ダメージテキストマネージャースクリプト格納用
-    float x, y;
 
     void Start()
     {
@@ -59,7 +55,7 @@ shiratori
             dtxtm.TakeDamage((int)takeDamage, transform.position.x, transform.position.y + 0.5f);
 
             //HP計算
-            status.CurrentHP = statusCalc.HPCalc(status.CurrentHP, takeDamage);
+            status.CurrentHP = playerStatusManager.HPCalc(status.CurrentHP, takeDamage);
 
             StartCoroutine( DamageEfect());
 
@@ -75,7 +71,7 @@ shiratori
             dtxtm.TakeDamage((int)takeDamage, transform.position.x, transform.position.y + 0.5f) ;
 
             //HP計算
-            status.CurrentHP = statusCalc.HPCalc(status.CurrentHP, takeDamage);
+            status.CurrentHP = playerStatusManager.HPCalc(status.CurrentHP, takeDamage);
 
             StartCoroutine(DamageEfect());
 
@@ -98,10 +94,6 @@ shiratori
             //プレイヤーの所持金を増やす
             playerStatusManager.GettingMoney(status.Money);
 
-            if(playerStatusManager.onHealthTreat == true)
-            {
-                playerStatusManager.HT();
-            }
             sounds.EnemyDeathSE();//SE 敵が倒れた
 
             //タグがBossなら
