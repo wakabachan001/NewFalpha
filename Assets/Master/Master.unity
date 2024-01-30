@@ -6298,7 +6298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2854853893285134800, guid: a80875c6c62bf5243ba4d92796f66f86, type: 3}
       propertyPath: barrierDec
-      value: 1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 2854853893881850910, guid: a80875c6c62bf5243ba4d92796f66f86, type: 3}
       propertyPath: m_Layer
