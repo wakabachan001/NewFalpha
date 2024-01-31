@@ -190,7 +190,7 @@ public class PlayerItemManager : MonoBehaviour
         //IDを所持していたら
         if (havingItem.ContainsKey(id))
         {
-            if (havingItem[id] < 3)
+            if (havingItem[id] < 2)
             {
                 havingItem[id]++;
                 Debug.Log(id + " : をアップデートしました");
@@ -280,52 +280,62 @@ public class PlayerItemManager : MonoBehaviour
         //アイテムID一覧の生成
         List<string> itemId = new List<string>();
 
-        if (havingItem.Count < maxItem)//最大所持数未満なら
+        switch (ongrade)
         {
-            //全アイテムIDをitemIdに入れる
-            for (int i = 0; i < itemManager.GetCount(); i++)
-            {
-                itemId.Add(itemManager.GetID(i));
-            }
-        }
-        else//最大まで所持しているなら
-        {
-            //所持アイテム全てをitemIdに入れる
-            foreach (KeyValuePair<string, int> haveitem in havingItem)
-            {
-                itemId.Add(haveitem.Key);
-            }
-        }
-
-        //デバッグ用
-        for(int i = 0;i<itemId.Count;i++)
-        {
-            Debug.Log("ID : "+itemId[i]);
-        }
-
-        //所持アイテムをすべて探す
-        foreach (KeyValuePair<string, int> haveitem in havingItem)
-        {
-            switch(ongrade)
-            {
-                case true:
+            //アイテム被りあり
+            case true:
+                //出現アイテムを決める
+                if (havingItem.Count < maxItem)//最大所持数未満なら
+                {
+                    //全アイテムIDをitemIdに入れる
+                    for (int i = 0; i < itemManager.GetCount(); i++)
+                    {
+                        itemId.Add(itemManager.GetID(i));
+                    }
+                }
+                else//最大まで所持しているなら
+                {
+                    //所持アイテム全てをitemIdに入れる
+                    foreach (KeyValuePair<string, int> haveitem in havingItem)
+                    {
+                        itemId.Add(haveitem.Key);
+                    }
+                }
+                //所持アイテムをすべて探す
+                foreach (KeyValuePair<string, int> haveitem in havingItem)
+                {
                     //グレードが2(これ以上アップグレードできない)なら候補から外す
                     if (haveitem.Value == 2)
                         itemId.Remove(haveitem.Key);
-                    break;
-
-                case false:
-                    if (havingItem.Count >= maxItem)//最大所持数以上なら
+                }
+                break;
+            //アイテム被りなし
+            case false:
+                if (havingItem.Count < maxItem)//最大所持数未満なら
+                {
+                    //全アイテムIDをitemIdに入れる
+                    for (int i = 0; i < itemManager.GetCount(); i++)
                     {
-                        Debug.Log("アイテムが最大です");
-                        return null;//nullで返す
+                        itemId.Add(itemManager.GetID(i));
                     }
-                    //所持アイテムを候補から外す
-                    itemId.Remove(haveitem.Key);
-
-                    break;
-            }
+                    //所持アイテムをすべて探す
+                    foreach (KeyValuePair<string, int> haveitem in havingItem)
+                    {
+                        //所持アイテムを候補から外す
+                        itemId.Remove(haveitem.Key);
+                    }                 
+                }
+                else
+                {
+                    Debug.Log("アイテムが最大です");
+                }
+                break;
         }
+        //デバッグ用
+        //for (int i = 0; i < itemId.Count; i++)
+        //{
+        //    Debug.Log("ID : " + itemId[i]);
+        //}
 
         //返り値を決める
         for (int i = 0; i < num; i++)
