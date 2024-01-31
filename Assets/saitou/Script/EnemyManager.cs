@@ -18,8 +18,8 @@ public class EnemyManager : MonoBehaviour
     Sounds sounds;
 
     PlayerStatusManager playerStatusManager;//PlayerStatusManagerスクリプト
-
     DamageTXTmanager dtxtm;//ダメージテキストマネージャースクリプト格納用
+    BossHPBarACTIVE activebosshp;//BossHPBarACTIVEスクリプト
 
     void Start()
     {
@@ -28,7 +28,7 @@ public class EnemyManager : MonoBehaviour
 
         dtxtm = FindObjectOfType<DamageTXTmanager>();// dtxtmにスクリプトを保管
 
-
+        activebosshp = FindObjectOfType<BossHPBarACTIVE>();
 
         //DataInfoのPlayerStatusManagerを取得
         playerStatusManager = LoadManagerScene.GetPlayerStatusManager();
@@ -103,6 +103,9 @@ public class EnemyManager : MonoBehaviour
                 CreateMap createMap;
                 GameObject obj = GameObject.Find("Main Camera");
                 createMap = obj.GetComponent<CreateMap>();
+
+                //  BossHPBarを消す
+                activebosshp.InActiveBossHPBar();
 
                 //ボスが倒されたとき関数
                 createMap.BossDead();
