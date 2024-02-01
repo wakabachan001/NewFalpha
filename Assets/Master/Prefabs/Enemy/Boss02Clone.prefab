@@ -103,6 +103,7 @@ MonoBehaviour:
   clonepos: 0
   coolTime: 1
   attackType: 0
+  time: 0
   AttackEffect:
   - {fileID: 5297010364463725093, guid: 053c9fdbd34ffbe48a02451919cdd70b, type: 3}
 --- !u!114 &6349433919499118235
@@ -120,7 +121,7 @@ MonoBehaviour:
   maxHP: 1500
   money: 50
   attackDamage1: 30
-  attackDamage2: 30
+  attackDamage2: 40
   mainColor: {r: 1, g: 1, b: 1, a: 1}
   damageColor: {r: 1, g: 0.6, b: 0.6, a: 1}
 --- !u!61 &3574018849346529302

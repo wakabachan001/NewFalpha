@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1288840254261512013}
   - component: {fileID: 1288840254261512003}
+  - component: {fileID: 4673098497352507695}
   - component: {fileID: -791260082449385665}
   - component: {fileID: -7834366186183561516}
-  - component: {fileID: -5778813076899766677}
-  - component: {fileID: -5808207655937766657}
   - component: {fileID: 1288840254261512001}
   - component: {fileID: 1288840254261512000}
   m_Layer: 0
@@ -90,6 +89,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4673098497352507695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288840254261512012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0a0eee9a64e37643bdb2ada1c81e58b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clonepos: -1
+  coolTime: 1
+  attackType: 0
+  time: 0
+  AttackEffect:
+  - {fileID: 8667471911016283574, guid: ea89722f0133d314683cadaf1d386dca, type: 3}
+  - {fileID: 5007766752859079650, guid: 332a4b256a59d9745bebf460d013eff3, type: 3}
+  playerObj: {fileID: 0}
+  TPcoolTime: 1.5
 --- !u!114 &-791260082449385665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,45 +136,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 3000
   money: 100
-  attackDamage1: 60
+  attackDamage1: 45
   attackDamage2: 10
   mainColor: {r: 0, g: 0, b: 0, a: 1}
   damageColor: {r: 0.6320754, g: 0, b: 0, a: 1}
---- !u!114 &-5778813076899766677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288840254261512012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38c7c41e9fd244a498fe9954e5155ca5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerObj: {fileID: 0}
-  coolTime: 0.8
-  TPcoolTime: 1
---- !u!114 &-5808207655937766657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288840254261512012}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3797e3fba598ffc4c94108c1d49eba0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clonepos: -1
-  coolTime: 1.5
-  attackType: 0
-  time: 0
-  AttackEffect:
-  - {fileID: 8667471911016283574, guid: ea89722f0133d314683cadaf1d386dca, type: 3}
-  - {fileID: 5007766752859079650, guid: 332a4b256a59d9745bebf460d013eff3, type: 3}
-  BossHPBar: {fileID: 4605257811867984970, guid: 9884bc31c927d3147ba3ffe3d2df88ac, type: 3}
 --- !u!61 &1288840254261512001
 BoxCollider2D:
   m_ObjectHideFlags: 0

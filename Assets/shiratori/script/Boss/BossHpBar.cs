@@ -12,14 +12,16 @@ public class BossHpBar : MonoBehaviour
 
     void Start()
     {
-        objboss = GameObject.FindWithTag("Boss");
-        //PlayerManager‚Ì“Ç‚İ‚İ
-        enemyManager = objboss.GetComponent<EnemyManager>();
+        
     }
 
     //‘Ì—ÍXVŠÖ”
     public void FixedUpdate()
     {
+        objboss = GameObject.FindWithTag("Boss");
+        //PlayerManager‚Ì“Ç‚İ‚İ
+        enemyManager = objboss.GetComponent<EnemyManager>();
+
         //Œ»İ‚Ì‘Ì—Í‚ÌŠ„‡‚©‚çŒ©‚½–Ú‚ğ•Ï‚¦‚é
         BosshpBarcurrent.fillAmount = enemyManager.status.CurrentHP / enemyManager.maxHP;
     }
