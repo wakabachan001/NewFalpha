@@ -260,11 +260,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 291973583837440245, guid: e44fe22812132a445a1e99fcf5e79ba0, type: 3}
       propertyPath: attackDamage
-      value: 40
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 291973583837440245, guid: e44fe22812132a445a1e99fcf5e79ba0, type: 3}
       propertyPath: initialMoney
-      value: 100
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 291973583837440251, guid: e44fe22812132a445a1e99fcf5e79ba0, type: 3}
       propertyPath: m_Name

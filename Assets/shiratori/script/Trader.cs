@@ -125,7 +125,7 @@ public class Trader : MonoBehaviour
             //アイテムが見つからなかった場合
             else
             {
-                TradeItem[i].GetComponent<Image>().sprite = itemicon.Empty();
+                TradeItem[i].GetComponent<Image>().sprite = itemicon.Empty();               
                 textname[i].text = "NoName";
                 textdisc[i].text = " ";
                 textamount[i].text = "0";
@@ -173,18 +173,26 @@ public class Trader : MonoBehaviour
                 }
 
             case (int)Tabs.UPGRADE:
-                //購入関数を呼び出し、購入できたなら
-                if (PIM.BuyingItem(UpgradeItemData[objectname].id) == true)
+                //所持アイテムのグレードを調べ、問題なければ
+                if (PIM.GetHaveGrade(UpgradeItemData[objectname].id) < 2)
                 {
-                    itemUI.ChangeIcon();//所持アイテムアイコン更新
-                    sounds.BuySE();//SE 購入
-                    return true;
+                    //購入関数を呼び出し、購入できたなら
+                    if (PIM.BuyingItem(UpgradeItemData[objectname].id) == true)
+                    {
+                        itemUI.ChangeIcon();//所持アイテムアイコン更新
+                        sounds.BuySE();//SE 購入
+                        return true;
+                    }
+                    else
+                    {
+                        sounds.ClickSE();//SE クリック
+                        return false;
+                    }
                 }
                 else
-                {
-                    sounds.ClickSE();//SE クリック
                     return false;
-                }
+
+
             default:
                 return false;
         }
@@ -228,7 +236,8 @@ public class Trader : MonoBehaviour
 
         for (int i = 0; i < 8; i++)
         {
-            if (UpgradeItemData[i].id != null)
+            //アイテムIDが存在して、アップグレードの値が正常なら
+            if (UpgradeItemData[i].id != null && UpgradeItemData[i].grade <= 2)
             {
                 //画像の取得
                 UpgradeItem[i].GetComponent<Image>().sprite = itemicon.SearchImage(UpgradeItemData[i].id);
@@ -238,6 +247,7 @@ public class Trader : MonoBehaviour
             else
             {
                 UpgradeItem[i].GetComponent<Image>().sprite = itemicon.Empty();
+                UpgradeFrame[i].GetComponent<Image>().sprite = itemicon.SearchFrame(0);
                 UpgradeItemData[i].itemname.text = "NoName";
                 UpgradeItemData[i].disc.text = " ";
                 UpgradeItemData[i].price.text = "0";

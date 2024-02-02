@@ -80,6 +80,7 @@ public class ItemSerect : MonoBehaviour
                 Debug.Log("!ƒAƒCƒeƒ€‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
                 
                 Item[i].GetComponent<Image>().sprite = itemicon.Empty();
+                frame[i].GetComponent<Image>().sprite = itemicon.SearchFrame(0);
                 textname[i].text = "NoName";
                 textdisc[i].text = " ";
             }
