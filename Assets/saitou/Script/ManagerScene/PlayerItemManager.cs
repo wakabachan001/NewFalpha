@@ -11,6 +11,8 @@ public class PlayerItemManager : MonoBehaviour
 
     public int maxItem = 8;//アイテムの最大所持数
 
+    public bool onskill = false;    //スキルを発動してるかどうか
+
     ItemDataS plusEffect;   //足し合わせる効果データ
     ItemDataS resetEffect; //上の効果データの初期化用
      
@@ -143,6 +145,11 @@ public class PlayerItemManager : MonoBehaviour
             //playerStatusManager.plusShotDamage = plusShot;
 
             //playerStatusManager.RoadHP();
+        }
+
+        if(onskill)
+        {
+            plusEffect.Attack += -0.45f;
         }
         //取得した効果を引数に代入
         refdata = plusEffect;

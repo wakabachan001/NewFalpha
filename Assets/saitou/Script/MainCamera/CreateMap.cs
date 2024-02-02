@@ -88,7 +88,7 @@ public class CreateMap : MonoBehaviour
         DebugChange();
 
         //onNextを受け取ったとき、ステージが3以下なら
-        if (onNext)
+        while (onNext)
         {
             //一番最初以外
             if(mapCount != 1 && stageCount != 1)
@@ -103,8 +103,8 @@ public class CreateMap : MonoBehaviour
                 //クリアシーンを呼びだす
                 sceneChange.StageClear();
 
-                mapCount = 1;
-                stageCount = 1;
+                onNext = false;
+                break;
             }
 
             //onNextがオンになったとき、クローン全削除
