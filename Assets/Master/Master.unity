@@ -5253,7 +5253,7 @@ MonoBehaviour:
   CloneObject: {fileID: 8493383174280404251, guid: 70642e04155c2ca4d9848f39a9089a74, type: 3}
   right: 1
   time: 5
-  cooldownTime: 30
+  cooldownTime: 90
 --- !u!114 &1188897612
 MonoBehaviour:
   m_ObjectHideFlags: 0

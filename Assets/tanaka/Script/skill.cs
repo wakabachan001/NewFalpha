@@ -21,13 +21,16 @@ public class skill : MonoBehaviour
     public float time = 5.0f;
     public float cooldownTime = 10.0f;
 
-
+    GameObject manager;
+    PlayerItemManager playeritem;
 
     private void Start()
     {
         button = GetComponent<Button>();
 
         button.onClick.AddListener(ChangeColor);
+
+        playeritem = LoadManagerScene.GetPlayerItemManager();
     }
 
     public void OnClick()
@@ -35,6 +38,7 @@ public class skill : MonoBehaviour
 
         if (!skillused)
         {
+            playeritem.onskill = true;
             StartCoroutine(Startskill());
 
             GameObject a;
@@ -49,8 +53,9 @@ public class skill : MonoBehaviour
             b.GetComponent<PlayerClone>().clonePos = new Vector3(-1, 0, 0);
 
             //5ïbå„Ç…è¡Ç∑
-            Destroy(a, time);
-            Destroy(b, time);
+            StartCoroutine(DestroyClone(a, b));
+            //Destroy(a, time);
+            //Destroy(b, time);
         }
     }
 
@@ -82,5 +87,15 @@ public class skill : MonoBehaviour
         yield return new WaitForSeconds(cooldownTime);
 
         skillused = false;
+    }
+
+    IEnumerator DestroyClone(GameObject a, GameObject b)
+    {
+        yield return new WaitForSeconds(time);
+
+        Destroy(a);
+        Destroy(b);
+
+        playeritem.onskill = false;
     }
 }
