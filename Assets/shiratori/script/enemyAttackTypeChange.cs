@@ -5,13 +5,13 @@ using UnityEngine;
 public class enemyAttackTypeChange : MonoBehaviour
 {
     EnemyAttack enemyattack;
-    EnemyAntiHoming enemyantihoming;
+    Boss03 boss03;
 
     // Start is called before the first frame update
     void Start()
     {
         enemyattack = gameObject.GetComponent<EnemyAttack>();
-        enemyantihoming = gameObject.GetComponent<EnemyAntiHoming>();
+        boss03 = gameObject.GetComponent<Boss03>();
     }
 
     // Boss01 の攻撃切り替え
@@ -34,11 +34,11 @@ public class enemyAttackTypeChange : MonoBehaviour
     public void Boss03AttackChange()
     {      
             // Boss03　がプレイヤーの１ます上に居るなら
-        if ( enemyattack.attackType != 0 && enemyantihoming.transform.position.y == enemyantihoming.playerObj.transform.position.y + 1 )
+        if ( enemyattack.attackType != 0 && boss03.transform.position.y == boss03.playerObj.transform.position.y + 1 )
             enemyattack.attackType = 0;
 
             // Boss03　がプレイヤーの２ます上に居るなら
-        if ( enemyattack.attackType != 1 && enemyantihoming.transform.position.y == enemyantihoming.playerObj.transform.position.y + 2 )
+        if ( enemyattack.attackType != 1 && boss03.transform.position.y == boss03.playerObj.transform.position.y + 2 )
             enemyattack.attackType = 1;
 
     }

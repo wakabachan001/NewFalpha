@@ -199,4 +199,3 @@ MonoBehaviour:
   AttackEffect:
   - {fileID: 8667471911016283574, guid: ea89722f0133d314683cadaf1d386dca, type: 3}
   - {fileID: 5007766752859079650, guid: 332a4b256a59d9745bebf460d013eff3, type: 3}
-  BossHPBar: {fileID: 4605257811867984970, guid: 9884bc31c927d3147ba3ffe3d2df88ac, type: 3}

@@ -103,8 +103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 2000
   money: 100
-  attackDamage1: 30
-  attackDamage2: 30
+  attackDamage1: 40
+  attackDamage2: 40
   mainColor: {r: 1, g: 1, b: 1, a: 1}
   damageColor: {r: 1, g: 0.6, b: 0.6, a: 1}
 --- !u!114 &-6008910119244256017
@@ -140,7 +140,6 @@ MonoBehaviour:
   time: 0
   AttackEffect:
   - {fileID: 5297010364463725093, guid: 053c9fdbd34ffbe48a02451919cdd70b, type: 3}
-  BossHPBar: {fileID: 4605257811867984970, guid: 9884bc31c927d3147ba3ffe3d2df88ac, type: 3}
 --- !u!61 &3574018849346529302
 BoxCollider2D:
   m_ObjectHideFlags: 0

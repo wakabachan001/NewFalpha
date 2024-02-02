@@ -27,7 +27,7 @@ public class EnemyAttack : MonoBehaviour
         objCanvas = GameObject.Find("Canvas");
 
         //スクリプト取得
-        enemyManager = gameObject.GetComponent<EnemyManager>();
+        //enemyManager = gameObject.GetComponent<EnemyManager>();
         enemyattacktypechange = gameObject.GetComponent<enemyAttackTypeChange>();
         active_boss_hpbar = objCanvas.GetComponent<BossHPBarACTIVE>();
     }
@@ -72,6 +72,8 @@ public class EnemyAttack : MonoBehaviour
     //攻撃処理関数
     public void Attack()
     {
+        enemyManager = gameObject.GetComponent<EnemyManager>();
+
         //指定の位置に攻撃エフェクトのクローン生成
         cloneObj = Instantiate(AttackEffect[attackType], transform.position + (transform.up * clonepos), Quaternion.identity);
 
@@ -80,12 +82,13 @@ public class EnemyAttack : MonoBehaviour
             //攻撃エフェクトのダメージ数値を変更する
             cloneObj.GetComponent<EffectData>().damage = enemyManager.status.GetAttackDamage(attackType);
         }
-        
     }
 
     //位置指定オーバーロード
     public void Attack(Vector3 pos)
     {
+        enemyManager = gameObject.GetComponent<EnemyManager>();
+
         //指定の位置に攻撃エフェクトのクローン生成
         cloneObj = Instantiate(AttackEffect[attackType], pos, Quaternion.identity);
 
