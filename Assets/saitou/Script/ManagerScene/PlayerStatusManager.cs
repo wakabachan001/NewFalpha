@@ -100,8 +100,11 @@ public class PlayerStatusManager : MonoBehaviour
 
         //HPが０以下だったらfalseを返す
         //直接シーンを変更してもいい
-        if (status.CurrentHP <= 0)
+        if (status.CurrentHP <= 0){
+            status.CurrentHP = 0;//hpがマイナス表記になるのを防ぐ
             return false;
+        }
+            
         else
             return true;
     }
