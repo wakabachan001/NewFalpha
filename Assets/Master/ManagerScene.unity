@@ -205,7 +205,7 @@ PrefabInstance:
     - target: {fileID: -7297964718180618723, guid: e44fe22812132a445a1e99fcf5e79ba0, type: 3}
       propertyPath: iconImage.Array.data[14]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: d2fc45f8215ca344481b00cbae2d23d3, type: 3}
     - target: {fileID: 291973583837440240, guid: e44fe22812132a445a1e99fcf5e79ba0, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -255,6 +255,10 @@ PrefabInstance:
       value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 291973583837440245, guid: e44fe22812132a445a1e99fcf5e79ba0, type: 3}
+      propertyPath: criChance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 291973583837440245, guid: e44fe22812132a445a1e99fcf5e79ba0, type: 3}
       propertyPath: shotDamage
       value: 30
       objectReference: {fileID: 0}
@@ -264,7 +268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 291973583837440245, guid: e44fe22812132a445a1e99fcf5e79ba0, type: 3}
       propertyPath: initialMoney
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 291973583837440251, guid: e44fe22812132a445a1e99fcf5e79ba0, type: 3}
       propertyPath: m_Name
