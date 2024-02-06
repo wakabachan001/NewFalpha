@@ -26,7 +26,7 @@ public class CreateMap : MonoBehaviour
     public float cameraPosY = 2;
     private float cameraPosZ = -10;
     public int mapEnemyMinY = 4;  //敵が生成される範囲
-    public int mapEnemyMaxY = 19;
+    public int mapEnemyMaxY = 17;
 
     public GameObject[] floorTiles = new GameObject[3];//床オブジェクト
 

@@ -70,21 +70,21 @@ public class PlayerStatusManager : MonoBehaviour
 
         return hp - (damage * itemEffect.Block * barrier);
     }
-    //‘Ì—ÍŠ„‡‰ñ•œŠÖ”
-    public float HealHPper(float maxhp, float hp, float per)
+    //‘Ì—ÍŠ„‡‰ñ•œŠÖ”(‰ñ•œ‚·‚éŠ„‡)
+    public void HealHP(float per)
     {
-        float heal = maxhp * per;
+        float heal = status.MaxHP * per;
 
         //‰ñ•œ‚µ‚ÄÅ‘å‘Ì—Í‚ğ’´‚¦‚é‚È‚ç
-        if (hp + heal >= maxhp)
+        if (status.CurrentHP + heal >= status.MaxHP)
         {
             //Œ»İ‚Ì‘Ì—Í‚ğÅ‘å‘Ì—Í‚Æ“¯‚¶‚É‚·‚é
-            return maxhp;
+            status.CurrentHP = status.MaxHP;
         }
         else
         {
             //Œ»İ‚Ì‘Ì—Í‚ğ‰ñ•œ‚·‚é
-            return hp + heal;
+            status.CurrentHP = status.CurrentHP + heal;
         }
     }
 

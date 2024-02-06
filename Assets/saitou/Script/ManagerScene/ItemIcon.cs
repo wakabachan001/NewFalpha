@@ -45,6 +45,8 @@ public class ItemIcon : MonoBehaviour
                 return iconImage[12];
             case "MoneyTalent":
                 return iconImage[13];
+            case "Potion":
+                return iconImage[14];
             default:
                 Debug.Log("!ƒAƒCƒeƒ€‰æ‘œ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
                 return emptyIconImage;    

@@ -132,19 +132,15 @@ public class PlayerItemManager : MonoBehaviour
                             plusEffect.Attack += 0.64f - (havingItem.Count * 0.06f);
                             break;
                     }
-                    
                     break;
-                default:
-                    Debug.Log("!アイテム効果が見つかりません");
 
+                default:
                     //特殊効果等が無い場合、効果を足し合わせる
                     itemManager.PlusEffect(ref plusEffect, haveitem.Key, haveitem.Value);
 
                     break;
             }
-            //playerStatusManager.plusShotDamage = plusShot;
 
-            //playerStatusManager.RoadHP();
         }
 
         if(onskill)
@@ -160,6 +156,12 @@ public class PlayerItemManager : MonoBehaviour
     {
         if (id != null)
         {          
+            //ポーションは取得したときだけ動く
+            if(id =="Potion")
+            {
+                playerStatusManager.HealHP(0.2f);//割合回復
+                return true;
+            }
             //IDを所持していたら
             if (havingItem.ContainsKey(id))
             {
@@ -231,19 +233,15 @@ public class PlayerItemManager : MonoBehaviour
                 //所持金が足りているなら                                                       
                 if (playerStatusManager.status.Money >= price)
                 {
-                    if (havingItem.Count >= maxItem)//最大所持数以上なら
+                    //アイテムを獲得 正常に獲得出来れば
+                    if (AddItem(id) == true)
                     {
-                        Debug.Log("アイテムが最大です");
-                        return false;
+                        //価格分、所持金を減らす
+                        playerStatusManager.UseMoney(price);
+
+                        Debug.Log(id + "を購入 : " + price);
+                        return true;
                     }
-                    //アイテムを獲得 
-                    AddItem(id);
-
-                    //価格分、所持金を減らす
-                    playerStatusManager.UseMoney(price);
-
-                    Debug.Log(id + "を購入 : " + price);
-                    return true;
 
                 }
                 else
@@ -308,6 +306,7 @@ public class PlayerItemManager : MonoBehaviour
                         itemId.Add(haveitem.Key);
                     }
                 }
+
                 //所持アイテムをすべて探す
                 foreach (KeyValuePair<string, int> haveitem in havingItem)
                 {
@@ -338,11 +337,6 @@ public class PlayerItemManager : MonoBehaviour
                 }
                 break;
         }
-        //デバッグ用
-        //for (int i = 0; i < itemId.Count; i++)
-        //{
-        //    Debug.Log("ID : " + itemId[i]);
-        //}
 
         //返り値を決める
         for (int i = 0; i < num; i++)
@@ -361,7 +355,7 @@ public class PlayerItemManager : MonoBehaviour
             {
                 //エラー
                 Debug.Log("!未所持のアイテムが見つかりません");
-                ans[i] = null;
+                ans[i] = "Potion";
             }
         }
         return ans;

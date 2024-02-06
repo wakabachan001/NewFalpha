@@ -40,9 +40,9 @@ public class Trader : MonoBehaviour
     //購入アイテムアイコン
     public GameObject[] TradeItem = new GameObject[6];
     public Text[] textamount = new Text[6];
-    public Text[] textname = new Text[6];
-    public Text[] textdisc = new Text[6];
-    public string[] ItemId = new string[6];
+    public Text[] textname   = new Text[6];
+    public Text[] textdisc   = new Text[6];
+    public string[] ItemId   = new string[6];
 
     //アップグレードアイコン
     public GameObject[] UpgradeItem = new GameObject[8];

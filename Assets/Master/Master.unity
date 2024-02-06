@@ -598,7 +598,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &144980023
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4678,7 +4678,7 @@ MonoBehaviour:
   cameraPosX: 2
   cameraPosY: 1.6
   mapEnemyMinY: 4
-  mapEnemyMaxY: 19
+  mapEnemyMaxY: 17
   floorTiles:
   - {fileID: 7683791984083978444, guid: 31a623ae73ba783449e0292211e7d09c, type: 3}
   - {fileID: 8926274115119625578, guid: 223d18ca9e0c8014d8471c7e9ed3e86a, type: 3}
